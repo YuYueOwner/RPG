@@ -17,6 +17,8 @@ public class BagPanel : UIScene
     private UILabel RoleName_Label;//人物名字
     private UILabel Money_Label;//元宝数
     private UISprite Role_Sprite;//人物图片
+    private UILabel UsableBag_Label;//可用背包数量
+    private UIButton CleanUp_Button;//整理
     private void Awake()
     {
         PhysicalPower_Label = Helper.GetChild(this.transform, "PhysicalPower_Label").GetComponent<UILabel>();
@@ -32,12 +34,15 @@ public class BagPanel : UIScene
         RoleName_Label = Helper.GetChild(this.transform, "RoleName_Label").GetComponent<UILabel>();
         Money_Label = Helper.GetChild(this.transform, "Money_Label").GetComponent<UILabel>();
         Role_Sprite = Helper.GetChild(this.transform, "Role_Sprite").GetComponent<UISprite>();
+        UsableBag_Label = Helper.GetChild(this.transform, "UsableBag_Label").GetComponent<UILabel>();
+        CleanUp_Button = Helper.GetChild(this.transform, "CleanUp_Button").GetComponent<UIButton>();
     }
     protected override void Start()
     {
         base.Start();
         Sure_Button.onClick.Add(new EventDelegate(Sure));
         Back_Button.onClick.Add(new EventDelegate(Back));
+        CleanUp_Button.onClick.Add(new EventDelegate(CleanUp));
     }
 
     private void Sure()
@@ -49,5 +54,11 @@ public class BagPanel : UIScene
     {
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_OpenBagPanel, true);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_BagPanel, false);
+    }
+
+    //整理
+    private void CleanUp()
+    {
+
     }
 }
