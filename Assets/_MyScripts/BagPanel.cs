@@ -29,6 +29,7 @@ public class BagPanel : UIScene
     private UILabel RoleName_Label;//人物名字
     private UILabel Money_Label;//元宝数
     private UISprite Role_Sprite;//人物图片
+    private UIGrid BagGrid;
     private UILabel UsableBag_Label;//可用背包数量
     private UIButton CleanUp_Button;//整理
 
@@ -59,6 +60,8 @@ public class BagPanel : UIScene
         RoleName_Label = Helper.GetChild(this.transform, "RoleName_Label").GetComponent<UILabel>();
         Money_Label = Helper.GetChild(this.transform, "Money_Label").GetComponent<UILabel>();
         Role_Sprite = Helper.GetChild(this.transform, "Role_Sprite").GetComponent<UISprite>();
+        BagGrid = Helper.GetChild<UIGrid>(this.transform, "BagGrid");
+
         UsableBag_Label = Helper.GetChild(this.transform, "UsableBag_Label").GetComponent<UILabel>();
         CleanUp_Button = Helper.GetChild(this.transform, "CleanUp_Button").GetComponent<UIButton>();
 
@@ -87,6 +90,16 @@ public class BagPanel : UIScene
         {
             Sure_Button.GetComponent<BoxCollider>().enabled = true;
         }
+
+        for (int i = 0; i < 80; i++)
+        {
+            GameObject go = Instantiate(Resources.Load("BagBg_Sprite"), Vector3.zero, Quaternion.identity) as GameObject;
+            go.transform.SetParent(BagGrid.transform);
+            go.transform.localScale = Vector3.one;
+        }
+        BagGrid.Reposition();
+        BagGrid.repositionNow = true;
+
     }
     private void AddProperty(GameObject go)
     {
