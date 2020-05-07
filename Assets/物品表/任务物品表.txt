@@ -1,0 +1,4 @@
+QItemID|QItemType|QItemName|QItemInfo
+int|string|string|string
+1|任务物品|张三的信|张三写给村口王二妮的信。
+
