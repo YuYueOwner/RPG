@@ -1,0 +1,4 @@
+初始化表格并保存数据ConfigManager.Instance.AddConfig();
+        
+获取某一个表数据ActivityMainConfig activitymainList = DataTableManager.Instance.GetConfig<ActivityMainConfig>("ActivityMain");
+   

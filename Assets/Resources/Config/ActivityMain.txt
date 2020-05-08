@@ -1,0 +1,10 @@
+id|type|icon|name|description_big|description|is_list|is_msg_box|msg_box_rank|date_type|start_week|start_day|end_day|interval|priority|display_date
+STR|STR|STR|STR|STR|STR|BOOL|BOOL|INT|INT|INT|INT|INT|INT|INT|INT
+activity_score_1|score_active|icon_event_01|event_points_event_name|event_gold_one_line_description|event_gold_event_description|1|1|1|2|2|1|7|1|2|14
+activity_score_2|score_active|icon_event_01|event_points_event_2_name|event_gold_one_line_description|event_gold_event_description|1|1|1|1||1|7|99999|2|14
+event_fallen_knight_1|fallen_knight|icon_event_zombies_attack|event_title_zombie_invasion|event_fallen_knight_description|event_fallen_knight_long_description|1|1|1|2|1|2|2|1|1|14
+event_fallen_knight_2|fallen_knight|icon_event_zombies_attack|event_title_zombie_invasion|event_fallen_knight_description|event_fallen_knight_long_description|1|1|1|2|1|4|2|1|1|14
+event_alliance_boss|alliance_boss|icon_event_hunting_square|alliance_portal_uppercase_name|alliance_portal_challenge_description|0|1|0|99|1|0|1|-1|99999|3|14
+event_zombie_hunter_1|zombie_hunter|icon_event_02|id_zombie_hunter_track_title|id_zombie_hunter_track_coordinates_fight|id_event_time_task_kill_monsters_to_captain|1|1|3|1|0|2|4|99999|4|1
+event_zombie_hunter_2|zombie_hunter|icon_event_02|id_zombie_hunter_track_title|id_zombie_hunter_track_coordinates_fight|id_event_time_task_kill_monsters_to_captain|1|1|1|2|1|5|3|1|4|1
+activity_server_quest|server_quest|icon_event_server_quest|id_state_campaign_uppercase|id_complete_state_campaign_together|id_complete_state_campaign_together|1|1|1|1|1|1|52|99999|4|2
