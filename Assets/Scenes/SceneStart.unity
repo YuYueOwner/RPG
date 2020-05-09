@@ -3446,7 +3446,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 492
   mHeight: 520
-  mDepth: 0
+  mDepth: 1
   mMat: {fileID: 0}
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
@@ -4903,7 +4903,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 318
   mHeight: 546
-  mDepth: 1
+  mDepth: 2
   mMat: {fileID: 0}
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
@@ -5074,7 +5074,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 3
-  mWidth: 118
+  mWidth: 116
   mHeight: 20
   mDepth: 2
   mMat: {fileID: 0}
