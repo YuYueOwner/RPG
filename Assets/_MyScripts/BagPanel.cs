@@ -96,6 +96,10 @@ public class BagPanel : UIScene
             GameObject go = Instantiate(Resources.Load("BagBg_Sprite"), Vector3.zero, Quaternion.identity) as GameObject;
             go.transform.SetParent(BagGrid.transform);
             go.transform.localScale = Vector3.one;
+            if (i >= 40)
+            {
+                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = null;
+            }
         }
         BagGrid.Reposition();
         BagGrid.repositionNow = true;
