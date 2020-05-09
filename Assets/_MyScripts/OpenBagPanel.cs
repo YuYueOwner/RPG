@@ -18,7 +18,6 @@ public class OpenBagPanel : UIScene
 
     public void OpenBag()
     {
-        if (Input.GetMouseButtonDown(1)) Debug.LogError(1111);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_OpenBagPanel, false);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_BagPanel, true);
 
