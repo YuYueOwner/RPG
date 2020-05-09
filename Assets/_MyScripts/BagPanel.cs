@@ -115,7 +115,7 @@ public class BagPanel : UIScene
 
     private void Sure()
     {
-
+        UIManager.Instance.SetVisible(UIPanelName.SceneStart_ChangePropertyPanel, true);
     }
 
     private void Back()

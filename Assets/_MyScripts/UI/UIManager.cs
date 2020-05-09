@@ -7,6 +7,8 @@ public class UIPanelName
     //Scene_Start
     public const string SceneStart_OpenBagPanel = "OpenBagPanel";
     public const string SceneStart_BagPanel = "BagPanel";
+    public const string SceneStart_ChangePropertyPanel = "ChangePropertyPanel";
+    public const string SceneStart_EquipmentBagPanel = "EquipmentBagPanel";
 }
 public class UIManager : MonoSingleton<UIManager>
 {

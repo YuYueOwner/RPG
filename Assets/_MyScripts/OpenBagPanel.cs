@@ -16,10 +16,11 @@ public class OpenBagPanel : UIScene
         OpenBag_Button.onClick.Add(new EventDelegate(OpenBag));
     }
 
-    private void OpenBag()
+    public void OpenBag()
     {
+        if (Input.GetMouseButtonDown(1)) Debug.LogError(1111);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_OpenBagPanel, false);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_BagPanel, true);
-    }
 
+    }
 }
