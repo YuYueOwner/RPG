@@ -3481,6 +3481,7 @@ GameObject:
   - component: {fileID: 1204028578}
   - component: {fileID: 1204028577}
   - component: {fileID: 1204028581}
+  - component: {fileID: 1204028582}
   m_Layer: 8
   m_Name: UI Root
   m_TagString: Untagged
@@ -3602,6 +3603,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52583118081530f47b27e8b707b358e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1204028582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204028576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f23a3f5ccbb72504c8856e10ea2e93e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1269408220
@@ -5074,14 +5087,14 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 3
-  mWidth: 116
+  mWidth: 110
   mHeight: 20
   mDepth: 2
   mMat: {fileID: 0}
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 5.9
+  aspectRatio: 5.5
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 29447caccb8843546936da0927ecd67a, type: 3}
   mFont: {fileID: 0}
