@@ -1,4 +1,4 @@
-ID|QItemType|QItemName|QItemInfo
+О╩©ID|QItemType|QItemName|QItemInfo
 int|string|string|string
-1|хннЯнОф╥|уехЩ╣дпе|уехЩп╢╦Ь╢Е©змУ╤Чдщ╣дпе║ё
+1|Д╩╩Е┼║Г┴╘Е⌠│|Е╪═Д╦┴Г └Д©║|Е╪═Д╦┴Е├≥Г╩≥Ф²▒Е▐ёГ▌▀Д╨▄Е╕╝Г └Д©║Ц─┌
 
