@@ -94,6 +94,7 @@ public class BagPanel : UIScene
         for (int i = 0; i < 80; i++)
         {
             GameObject go = Instantiate(Resources.Load("BagBg_Sprite"), Vector3.zero, Quaternion.identity) as GameObject;
+            go.name = i.ToString();
             go.transform.SetParent(BagGrid.transform);
             go.transform.localScale = Vector3.one;
             if (i >= 40)

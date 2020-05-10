@@ -3,11 +3,7 @@ using System.Collections;
 
 public class BagDrag : UIDragDropItem
 {
-    //装备标签
-    public string BackPackItemTag;
-    //格子标签
-    public string CellTag;
-
+    //鼠标悬停0.5s后显示物品详细信息，移开消失
     void OnHover(bool isOver)
     {
         if (isOver)
@@ -21,6 +17,18 @@ public class BagDrag : UIDragDropItem
         }
     }
 
+    void OnClick()
+    {
+        //鼠标右键点击逻辑，若点击装备则走装备判断逻辑
+        //（是否可以装备，是-装备或替换/否-弹出提示），若点击消耗品则走消耗品判断逻辑（使用该消耗品）。
+        if (UICamera.currentTouchID == -2)
+        {
+
+        }
+    }
+
+
+    //0.5s显示详细信息面板
     IEnumerator Show()
     {
         yield return new WaitForSeconds(0.5f);
@@ -48,7 +56,7 @@ public class BagDrag : UIDragDropItem
         this.GetComponent<UISprite>().depth = 4;
 
         //如果放下时撞到的物品是空格子
-        if (surface.tag == CellTag)
+        if (surface.tag == "Cell")
         {
             //物品交换 （通过改变父物体来转移位置）
             this.transform.parent = surface.transform;
@@ -56,10 +64,11 @@ public class BagDrag : UIDragDropItem
             this.transform.localPosition = Vector3.zero;
         }
         //如果当下时撞到的是装备
-        else if (surface.tag == BackPackItemTag)
+        else if (surface.tag == "Goods")
         {
+            Transform Prent = null;
             //开始交换  
-            Transform Prent = surface.transform.parent;         //把撞到的(surface)装备的父物体取出来
+            Prent = surface.transform.parent;         //把撞到的(surface)装备的父物体取出来
             surface.transform.parent = this.transform.parent;   //把撞到的物体移动过来(把自己的父物体给surface)
             this.transform.parent = Prent;                      //自己移动到想被交换的位置
             //交换完成 位移归零 （交换时是位移的改变 缩放没有变）
