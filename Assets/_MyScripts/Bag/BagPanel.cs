@@ -98,6 +98,7 @@ public class BagPanel : UIScene
             go.transform.localScale = Vector3.one;
             if (i >= 40)
             {
+                go.transform.GetChild(0).GetComponent<BoxCollider>().enabled = false;
                 go.transform.GetChild(0).GetComponent<UISprite>().spriteName = null;
             }
         }
