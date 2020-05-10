@@ -8,12 +8,34 @@ public class BagDrag : UIDragDropItem
     //格子标签
     public string CellTag;
 
+    void OnHover(bool isOver)
+    {
+        if (isOver)
+        {
+            StartCoroutine(Show());
+        }
+        else
+        {
+            StopAllCoroutines();
+            UIManager.Instance.SetVisible(UIPanelName.SceneStart_GoodsInfoPanel, false);
+        }
+    }
+
+    IEnumerator Show()
+    {
+        yield return new WaitForSeconds(0.5f);
+        UIManager.Instance.SetVisible(UIPanelName.SceneStart_GoodsInfoPanel, true);
+    }
+
+
     //通过重写的鼠标监听事件(开始拖动)
     public override void StartDragging()
     {
         base.StartDragging();
         this.GetComponent<UISprite>().depth = 10;
     }
+
+
 
     /// <summary>
     /// 重写父类里的拖拽方法

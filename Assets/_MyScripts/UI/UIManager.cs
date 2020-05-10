@@ -10,6 +10,8 @@ public class UIPanelName
     public const string SceneStart_ChangePropertyPanel = "ChangePropertyPanel";
     public const string SceneStart_EquipmentBagPanel = "EquipmentBagPanel";
     public const string SceneStart_DiscardGoodsPanel = "DiscardGoodsPanel";
+    public const string SceneStart_GoodsInfoPanel = "GoodsInfoPanel";
+
 
 }
 public class UIManager : MonoSingleton<UIManager>
