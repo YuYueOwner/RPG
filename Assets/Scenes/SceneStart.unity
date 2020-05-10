@@ -6934,7 +6934,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 3
-  mWidth: 128
+  mWidth: 110
   mHeight: 20
   mDepth: 2
   mMat: {fileID: 0}

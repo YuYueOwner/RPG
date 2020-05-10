@@ -47,6 +47,7 @@ public class BagDrag : UIDragDropItem
         {
             //回到原来的位置
             transform.localPosition = Vector3.zero;
+            UIManager.Instance.SetVisible(UIPanelName.SceneStart_DiscardGoodsPanel, true);
         }
     }
 }
