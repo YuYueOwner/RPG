@@ -97,7 +97,23 @@ public class BagPanel : UIScene
             go.name = i.ToString();
             go.transform.SetParent(BagGrid.transform);
             go.transform.localScale = Vector3.one;
-            if (i >= 40)
+            if (i <= 10)
+            {
+                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon1";
+            }
+            else if (i > 10 && i <= 20)
+            {
+                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon2";
+            }
+            else if (i > 20 && i <= 30)
+            {
+                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon3";
+            }
+            else if (i > 30 && i <= 40)
+            {
+                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon4";
+            }
+            else
             {
                 go.transform.GetChild(0).GetComponent<BoxCollider>().enabled = false;
                 go.transform.GetChild(0).GetComponent<UISprite>().spriteName = null;

@@ -46,8 +46,8 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 077f7d0502154ae43864cb1c1a2162e8, type: 2}
   mSprites:
   - name: ArmorFrame
-    x: 1654
-    y: 84
+    x: 1405
+    y: 319
     width: 108
     height: 109
     borderLeft: 0
@@ -59,8 +59,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: BackButtonBlack
-    x: 342
-    y: 36
+    x: 644
+    y: 21
     width: 57
     height: 68
     borderLeft: 0
@@ -72,8 +72,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: BackButtonWhite
-    x: 1763
-    y: 125
+    x: 1460
+    y: 52
     width: 57
     height: 68
     borderLeft: 0
@@ -85,7 +85,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: BackGround
-    x: 0
+    x: 1921
     y: 968
     width: 1920
     height: 1080
@@ -98,7 +98,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: CharCircle
-    x: 1342
+    x: 2221
     y: 447
     width: 492
     height: 520
@@ -111,10 +111,10 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: GreyButton
-    x: 0
-    y: 41
-    width: 267
-    height: 63
+    x: 363
+    y: 14
+    width: 280
+    height: 74
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -124,8 +124,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon1
-    x: 1921
-    y: 1796
+    x: 2221
+    y: 194
     width: 245
     height: 252
     borderLeft: 0
@@ -137,8 +137,8 @@ MonoBehaviour:
     paddingTop: 4
     paddingBottom: 0
   - name: icon2
-    x: 2080
-    y: 168
+    x: 1159
+    y: 176
     width: 245
     height: 252
     borderLeft: 0
@@ -150,8 +150,8 @@ MonoBehaviour:
     paddingTop: 4
     paddingBottom: 0
   - name: icon3
-    x: 1342
-    y: 194
+    x: 913
+    y: 176
     width: 245
     height: 252
     borderLeft: 0
@@ -163,8 +163,8 @@ MonoBehaviour:
     paddingTop: 4
     paddingBottom: 0
   - name: icon4
-    x: 1834
-    y: 168
+    x: 667
+    y: 176
     width: 245
     height: 252
     borderLeft: 0
@@ -176,7 +176,7 @@ MonoBehaviour:
     paddingTop: 4
     paddingBottom: 0
   - name: icon5
-    x: 1588
+    x: 2467
     y: 194
     width: 245
     height: 252
@@ -188,9 +188,35 @@ MonoBehaviour:
     paddingRight: 5
     paddingTop: 4
     paddingBottom: 0
+  - name: InfoButtonBg
+    x: 1252
+    y: 118
+    width: 207
+    height: 57
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: InfoFrame
+    x: 667
+    y: 429
+    width: 847
+    height: 538
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: MinusBlack
-    x: 610
-    y: 149
+    x: 337
+    y: 83
     width: 24
     height: 5
     borderLeft: 0
@@ -202,8 +228,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: MinusWhite
-    x: 585
-    y: 149
+    x: 312
+    y: 83
     width: 24
     height: 5
     borderLeft: 0
@@ -215,8 +241,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: MoneyIcon
-    x: 1342
-    y: 109
+    x: 0
+    y: 79
     width: 311
     height: 84
     borderLeft: 0
@@ -228,8 +254,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: NamePlate
-    x: 585
-    y: 49
+    x: 0
+    y: 7
     width: 362
     height: 71
     borderLeft: 0
@@ -242,9 +268,9 @@ MonoBehaviour:
     paddingBottom: 0
   - name: PackageBg
     x: 0
-    y: 179
-    width: 635
-    height: 788
+    y: 164
+    width: 666
+    height: 803
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -254,8 +280,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: PackageCellRow
-    x: 0
-    y: 105
+    x: 667
+    y: 102
     width: 584
     height: 73
     borderLeft: 0
@@ -267,8 +293,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: PackageCellSingle
-    x: 268
-    y: 31
+    x: 593
+    y: 90
     width: 73
     height: 73
     borderLeft: 0
@@ -279,8 +305,21 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: PackageUI
+    x: 0
+    y: 968
+    width: 1920
+    height: 1080
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: PlayerImage
-    x: 1835
+    x: 2714
     y: 421
     width: 318
     height: 546
@@ -293,8 +332,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: PlusBlack
-    x: 609
-    y: 155
+    x: 1405
+    y: 185
     width: 23
     height: 23
     borderLeft: 0
@@ -306,8 +345,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: PlusWhite
-    x: 585
-    y: 155
+    x: 1429
+    y: 185
     width: 23
     height: 23
     borderLeft: 0
@@ -319,10 +358,10 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: RedButton
-    x: 948
-    y: 57
-    width: 267
-    height: 63
+    x: 312
+    y: 89
+    width: 280
+    height: 74
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -332,7 +371,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: StateFrameBlack
-    x: 636
+    x: 1868
     y: 121
     width: 352
     height: 846
@@ -345,7 +384,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: StateFrameWhite
-    x: 989
+    x: 1515
     y: 121
     width: 352
     height: 846
@@ -358,8 +397,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: WeaponFrame
-    x: 1216
-    y: 11
+    x: 1405
+    y: 209
     width: 108
     height: 109
     borderLeft: 0
