@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class BagPanel : UIScene
@@ -33,23 +32,26 @@ public class BagPanel : UIScene
     private UILabel UsableBag_Label;//可用背包数量
     private UIButton CleanUp_Button;//整理
 
+    List<UILabel> playerAttributeLable = new List<UILabel>();
+
+
     private void Awake()
     {
         PhysicalPower_Label = Helper.GetChild(this.transform, "PhysicalPower_Label").GetComponent<UILabel>();
-        PhysicalPowerAdd_Button = Helper.GetChild<UIButton>(PhysicalPower_Label.transform.parent, "Add_Button");
-        PhysicalPowerMinus_Button = Helper.GetChild<UIButton>(PhysicalPower_Label.transform.parent, "Minus_Button");
+        PhysicalPowerAdd_Button = Helper.GetChild<UIButton>(PhysicalPower_Label.transform.parent, "PhysicalPower_Add_Button");
+        PhysicalPowerMinus_Button = Helper.GetChild<UIButton>(PhysicalPower_Label.transform.parent, "PhysicalPower_Minus_Button");
 
         Strength_Label = Helper.GetChild(this.transform, "Strength_Label").GetComponent<UILabel>();
-        StrengthAdd_Button = Helper.GetChild<UIButton>(Strength_Label.transform.parent, "Add_Button");
-        StrengthMinus_Button = Helper.GetChild<UIButton>(Strength_Label.transform.parent, "Minus_Button");
+        StrengthAdd_Button = Helper.GetChild<UIButton>(Strength_Label.transform.parent, "Strength_Add_Button");
+        StrengthMinus_Button = Helper.GetChild<UIButton>(Strength_Label.transform.parent, "Strength_Minus_Button");
 
         Skill_Label = Helper.GetChild(this.transform, "Skill_Label").GetComponent<UILabel>();
-        SkillAdd_Button = Helper.GetChild<UIButton>(Skill_Label.transform.parent, "Add_Button");
-        SkillMinus_Button = Helper.GetChild<UIButton>(Skill_Label.transform.parent, "Minus_Button");
+        SkillAdd_Button = Helper.GetChild<UIButton>(Skill_Label.transform.parent, "Skill_Add_Button");
+        SkillMinus_Button = Helper.GetChild<UIButton>(Skill_Label.transform.parent, "Skill_Minus_Button");
 
         Bone_Label = Helper.GetChild(this.transform, "Bone_Label").GetComponent<UILabel>();
-        BoneAdd_Button = Helper.GetChild<UIButton>(Bone_Label.transform.parent, "Add_Button");
-        BoneMinus_Button = Helper.GetChild<UIButton>(Bone_Label.transform.parent, "Minus_Button");
+        BoneAdd_Button = Helper.GetChild<UIButton>(Bone_Label.transform.parent, "Bone_Add_Button");
+        BoneMinus_Button = Helper.GetChild<UIButton>(Bone_Label.transform.parent, "Bone_Minus_Button");
 
         UsableProperty_Label = Helper.GetChild(this.transform, "UsableProperty_Label").GetComponent<UILabel>();
         Sure_Button = Helper.GetChild(this.transform, "Sure_Button").GetComponent<UIButton>();
@@ -65,14 +67,21 @@ public class BagPanel : UIScene
         UsableBag_Label = Helper.GetChild(this.transform, "UsableBag_Label").GetComponent<UILabel>();
         CleanUp_Button = Helper.GetChild(this.transform, "CleanUp_Button").GetComponent<UIButton>();
 
+        playerAttributeLable.Add(PhysicalPower_Label);
+        playerAttributeLable.Add(Strength_Label);
+        playerAttributeLable.Add(Skill_Label);
+        playerAttributeLable.Add(Bone_Label);
+        playerAttributeLable.Add(UsableProperty_Label);
+
     }
     protected override void Start()
     {
         base.Start();
-        Sure_Button.onClick.Add(new EventDelegate(Sure));
+        //Sure_Button.onClick.Add(new EventDelegate(Sure));
         Back_Button.onClick.Add(new EventDelegate(Back));
         CleanUp_Button.onClick.Add(new EventDelegate(CleanUp));
 
+        UIEventListener.Get(Sure_Button.gameObject).onClick = Sure;
         UIEventListener.Get(PhysicalPowerAdd_Button.gameObject).onClick = AddProperty;
         UIEventListener.Get(StrengthAdd_Button.gameObject).onClick = AddProperty;
         UIEventListener.Get(SkillAdd_Button.gameObject).onClick = AddProperty;
@@ -82,15 +91,7 @@ public class BagPanel : UIScene
         UIEventListener.Get(SkillMinus_Button.gameObject).onClick = MinusProperty;
         UIEventListener.Get(BoneMinus_Button.gameObject).onClick = MinusProperty;
 
-        if (int.Parse(UsableProperty_Label.text) <= 0)
-        {
-            Sure_Button.GetComponent<BoxCollider>().enabled = false;
-        }
-        else
-        {
-            Sure_Button.GetComponent<BoxCollider>().enabled = true;
-        }
-
+        ExistBoxIsForbidden();
         for (int i = 0; i < 80; i++)
         {
             GameObject go = Instantiate(Resources.Load("BagBg_Sprite"), Vector3.zero, Quaternion.identity) as GameObject;
@@ -121,27 +122,124 @@ public class BagPanel : UIScene
         }
         BagGrid.Reposition();
         BagGrid.repositionNow = true;
+        SetPlayerAttributeInfo();
+    }
+
+    private void SetPlayerAttributeInfo()
+    {
+        for (int i = 0; i < playerAttributeLable.Count; i++)
+        {
+            string key = PlayerInfoManager.Instance.GetPlayerPrefsKey(i + 1);
+            int count = PlayerPrefsManager.Instance.GetIntPlayerPrefs(key);
+            if (count > 0)
+            {
+                playerAttributeLable[i].text = count.ToString();
+            }
+            else
+            {
+                playerAttributeLable[i].text = PlayerInfoManager.Instance.GetPlayerAttribute(i + 1).ToString();
+            }
+        }
 
     }
+
+    private void ExistBoxIsForbidden()
+    {
+        bool isShwo = int.Parse(UsableProperty_Label.text) > 0;
+        Sure_Button.GetComponent<BoxCollider>().enabled = isShwo;
+        for (int i = 0; i < playerAttributeLable.Count; i++)
+        {
+            //playerAttributeLable[i].transform.parent.GetComponent<BoxCollider>().enabled = isShwo;
+        }
+    }
+
+
     private void AddProperty(GameObject go)
     {
-        UILabel propertyLabel = go.transform.parent.GetChild(0).GetComponent<UILabel>();
-        propertyLabel.text = (int.Parse(propertyLabel.text) + 1).ToString();
+        string key = "";
+        int sum = int.Parse(UsableProperty_Label.text);
+        if (sum > 0)
+        {
+            UILabel propertyLabel = go.transform.parent.GetChild(0).GetComponent<UILabel>();
+            propertyLabel.text = (int.Parse(propertyLabel.text) + 1).ToString();
+            if (go.name == "PhysicalPower_Add_Button")
+            {
+                //体质
+                key = PlayerInfoManager.Instance.GetPlayerPrefsKey(1);
+            }
+            else if (go.name == "Strength_Add_Button")
+            {
+                //力道
+                key = PlayerInfoManager.Instance.GetPlayerPrefsKey(2);
+            }
+            else if (go.name == "Skill_Add_Button")
+            {
+                //身法
+                key = PlayerInfoManager.Instance.GetPlayerPrefsKey(3);
+            }
+            else if (go.name == "Bone_Add_Button")
+            {
+                //根骨
+                key = PlayerInfoManager.Instance.GetPlayerPrefsKey(4);
+            }
+            PlayerPrefsManager.Instance.SetAttributePlayerPrefs(key, 1);
+            PlayerPrefsManager.Instance.SetAttributePlayerPrefs(PlayerInfoManager.Instance.GetPlayerPrefsKey(5), -1);
+            SetUsableProperty_Label(int.Parse(UsableProperty_Label.text) - 1);
+        }
     }
 
     private void MinusProperty(GameObject go)
     {
         UILabel propertyLabel = go.transform.parent.GetChild(0).GetComponent<UILabel>();
         propertyLabel.text = (int.Parse(propertyLabel.text) - 1).ToString();
+
+        string key = "";
+        if (go.name == "PhysicalPower_Minus_Button")
+        {
+            //体质
+            key = PlayerInfoManager.Instance.GetPlayerPrefsKey(1);
+        }
+        else if (go.name == "Strength_Minus_Button")
+        {
+            //力道
+            key = PlayerInfoManager.Instance.GetPlayerPrefsKey(2);
+        }
+        else if (go.name == "Skill_Minus_Button")
+        {
+            //身法
+            key = PlayerInfoManager.Instance.GetPlayerPrefsKey(3);
+        }
+        else if (go.name == "Bone_Minus_Button")
+        {
+            //根骨
+            key = PlayerInfoManager.Instance.GetPlayerPrefsKey(4);
+        }
+        PlayerPrefsManager.Instance.SetAttributePlayerPrefs(key, -1);
+        PlayerPrefsManager.Instance.SetAttributePlayerPrefs(PlayerInfoManager.Instance.GetPlayerPrefsKey(5), 1);
+        SetUsableProperty_Label(int.Parse(UsableProperty_Label.text) + 1);
+        ExistBoxIsForbidden();
     }
 
-    private void Sure()
+
+    private void SetUsableProperty_Label(int count)
+    {
+        int sum = 0;
+        if (int.TryParse(count.ToString(), out sum))
+        {
+            UsableProperty_Label.text = sum.ToString();
+            //string key = PlayerInfoManager.Instance.GetPlayerPrefsKey(5);
+            //PlayerPrefsManager.Instance.SetAddPlayerPrefs(key, sum);
+        }
+    }
+
+    private void Sure(GameObject go)
     {
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_ChangePropertyPanel, true);
     }
 
     private void Back()
     {
+        PlayerPrefsManager.Instance.SetPlayerPrefs(false);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_OpenBagPanel, true);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_BagPanel, false);
     }
@@ -152,4 +250,3 @@ public class BagPanel : UIScene
 
     }
 }
-

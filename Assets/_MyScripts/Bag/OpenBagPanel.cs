@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class OpenBagPanel : UIScene
+﻿public class OpenBagPanel : UIScene
 {
     private UIButton OpenBag_Button;
 
     private void Awake()
     {
+        PlayerInfoManager.Instance.SetPlayerAttributeInfo();
         OpenBag_Button = Helper.GetChild(this.transform, "OpenBag_Button").GetComponent<UIButton>();
     }
     protected override void Start()

@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class PlayerState
+﻿public class PlayerState
 {
     public int PlayerCon;//体质
     public int PlayerStr;//力道
@@ -20,8 +16,4 @@ public class PlayerState
     public int PlayerFullPhotoID;//人物立绘ID,1-10
     public int PlayerEquipWeaponID;//已装备武器ID，初始装备乌木剑，WeaponID=1
     public int PlayerEquipArmorID;//已装备护甲ID，初始装备粗布甲，ArmorID=1
-
 }
-
-
-

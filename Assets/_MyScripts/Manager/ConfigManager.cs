@@ -75,9 +75,14 @@ public class ConfigManager
                 // 测试表
                 configBase = new ActivityMainConfig();
             }
+            else if (name == "Prop")
+            {
+                // 测试表
+                configBase = new PropConfig();
+            }
             else
             {
-                Debug.LogError("没有找到这张表");
+                Debug.LogError("没有找到这张表" + name);
                 return;
             }
             configBase.InitConfig(configArr);

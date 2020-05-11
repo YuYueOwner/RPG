@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ChangePropertyPanel : UIScene
+﻿public class ChangePropertyPanel : UIScene
 {
     private UIButton Sure_Button;
     private UIButton Cancel_Button;
@@ -21,11 +17,13 @@ public class ChangePropertyPanel : UIScene
 
     private void Sure()
     {
+        PlayerPrefsManager.Instance.SetPlayerPrefs(true);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_ChangePropertyPanel, false);
     }
 
     private void Cancel()
     {
+        PlayerPrefsManager.Instance.SetPlayerPrefs(false);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_ChangePropertyPanel, false);
     }
 }
