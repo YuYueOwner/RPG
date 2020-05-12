@@ -9,6 +9,7 @@
     public int PlayerHpCurrent;//当前生命值
     public int PlayerHealth;//健康值，范围1-100
     public int ExpPlayer;//人物经验值
+    public int ExpMaxPlayer;//人最大经验值
     public string PlayerName;//人物姓名
     public int PlayerMoney;//人物银两数
     public int PlayerLv;//人物等级

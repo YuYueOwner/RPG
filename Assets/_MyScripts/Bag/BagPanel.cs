@@ -74,6 +74,8 @@ public class BagPanel : UIScene
         playerAttributeLable.Add(Skill_Label);
         playerAttributeLable.Add(Bone_Label);
         playerAttributeLable.Add(UsableProperty_Label);
+        playerAttributeLable.Add(Hp_Label);
+        playerAttributeLable.Add(Experience_Label);
 
         playerAttributeBox.Add(Helper.GetChild<BoxCollider>(PhysicalPower_Label.transform.parent, "PhysicalPower_Add_Button"));
         playerAttributeBox.Add(Helper.GetChild<BoxCollider>(PhysicalPower_Label.transform.parent, "Strength_Add_Button"));
@@ -152,6 +154,25 @@ public class BagPanel : UIScene
         BagGrid.Reposition();
         BagGrid.repositionNow = true;
         SetPlayerAttributeInfo();
+        int count = PlayerPrefsManager.Instance.GetIntPlayerPrefs(PlayerInfoManager.Instance.GetPlayerPrefsKey(5));
+        if (count > 0)
+        {
+            playerAttributeLable[5].text = count.ToString() + "/" + PlayerInfoManager.Instance.GetPlayerAttribute(6).ToString();
+        }
+        else
+        {
+            playerAttributeLable[5].text = PlayerInfoManager.Instance.GetPlayerAttribute(5).ToString() + "/" + PlayerInfoManager.Instance.GetPlayerAttribute(6).ToString();
+        }
+
+        int exp = PlayerPrefsManager.Instance.GetIntPlayerPrefs(PlayerInfoManager.Instance.GetPlayerPrefsKey(7));
+        if (count > 0)
+        {
+            playerAttributeLable[6].text = count.ToString() + "/" + PlayerInfoManager.Instance.GetPlayerAttribute(8).ToString();
+        }
+        else
+        {
+            playerAttributeLable[6].text = PlayerInfoManager.Instance.GetPlayerAttribute(7).ToString() + "/" + PlayerInfoManager.Instance.GetPlayerAttribute(8).ToString();
+        }
     }
 
     private void SetPlayerAttributeInfo()

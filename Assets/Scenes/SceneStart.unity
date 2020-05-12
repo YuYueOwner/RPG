@@ -548,6 +548,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8157896553396128956, guid: abdd27b672c483d48b5d6c09d213a376,
+        type: 3}
+      propertyPath: mWidth
+      value: 92
+      objectReference: {fileID: 0}
+    - target: {fileID: 8157896553396128956, guid: abdd27b672c483d48b5d6c09d213a376,
+        type: 3}
+      propertyPath: aspectRatio
+      value: 4.6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abdd27b672c483d48b5d6c09d213a376, type: 3}
 --- !u!4 &2013450793 stripped
@@ -567,6 +577,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EquipmentBagPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 814658432330219370, guid: 6397dc8ea86ef5d439abec9d88bf8224,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 814658432330219369, guid: 6397dc8ea86ef5d439abec9d88bf8224,
         type: 3}
@@ -637,6 +652,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChangePropertyPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 1225729545784600786, guid: ce441755eb73abd44bc71f3a1b959052,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1225729545784600789, guid: ce441755eb73abd44bc71f3a1b959052,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -706,6 +726,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DiscardGoodsPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 3157603885289348233, guid: 03361b56e45acb9499b9be844cc6d8ed,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3157603885289348230, guid: 03361b56e45acb9499b9be844cc6d8ed,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -774,6 +799,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GoodsInfoPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397184316055576733, guid: 05cbe47dd00dbfe4aa0a96d5d647dbe7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8397184316055576730, guid: 05cbe47dd00dbfe4aa0a96d5d647dbe7,
         type: 3}

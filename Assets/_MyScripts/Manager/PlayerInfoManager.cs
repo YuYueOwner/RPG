@@ -20,6 +20,10 @@ public class PlayerInfoManager
         playerAttributeInfo[3] = "Skill";
         playerAttributeInfo[4] = "Bone";
         playerAttributeInfo[5] = "PlayerAvaliable";
+        playerAttributeInfo[6] = "PlayerHpCurrent";
+        playerAttributeInfo[7] = "PlayerHpMax";
+        playerAttributeInfo[8] = "PlayerExperience";
+        playerAttributeInfo[9] = "PlayerExperienceMax";
 
 
         playerState.PlayerCon = 5;
@@ -30,7 +34,8 @@ public class PlayerInfoManager
         playerState.PlayerHpMax = 100;
         playerState.PlayerHpCurrent = 100;
         playerState.PlayerHealth = 100;
-        playerState.ExpPlayer = 0;
+        playerState.ExpPlayer = 1000;
+        playerState.ExpMaxPlayer = 10000;
         playerState.PlayerName = "张三";
         playerState.PlayerMoney = 0;
         playerState.PlayerLv = 1;
@@ -105,6 +110,22 @@ public class PlayerInfoManager
         else if (i == 4)
         {
             count = playerState.PlayerLuk;
+        }
+        else if (i == 5)
+        {
+            count = playerState.PlayerHpCurrent;
+        }
+        else if (i == 6)
+        {
+            count = playerState.PlayerHpMax;
+        }
+        else if (i == 7)
+        {
+            count = playerState.ExpPlayer;
+        }
+        else if (i == 8)
+        {
+            count = playerState.ExpMaxPlayer;
         }
         else
         {
