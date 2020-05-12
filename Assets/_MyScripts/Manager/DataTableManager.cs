@@ -4,7 +4,12 @@ public class DataTableManager
 {
     public static readonly DataTableManager Instance = new DataTableManager();
 
-    public Dictionary<string, ConfigBase> dicConfig = new Dictionary<string, ConfigBase>();
+    private Dictionary<string, ConfigBase> dicConfig = new Dictionary<string, ConfigBase>();
+
+    public void AddConfig(string name, ConfigBase cfg)
+    {
+        dicConfig[name] = cfg;
+    }
 
     public T GetConfig<T>(string name) where T : ConfigBase
     {

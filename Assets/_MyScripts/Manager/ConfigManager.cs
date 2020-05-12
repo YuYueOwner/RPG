@@ -85,8 +85,8 @@ public class ConfigManager
                 Debug.LogError("没有找到这张表" + name);
                 return;
             }
+            DataTableManager.Instance.AddConfig(name, configBase);
             configBase.InitConfig(configArr);
-            DataTableManager.Instance.dicConfig[name] = configBase;
         }
     }
 

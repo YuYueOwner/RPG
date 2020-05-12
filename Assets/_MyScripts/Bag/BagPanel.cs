@@ -33,7 +33,7 @@ public class BagPanel : UIScene
     private UIButton CleanUp_Button;//整理
 
     List<UILabel> playerAttributeLable = new List<UILabel>();
-
+    List<PackageItem> itemList = new List<PackageItem>();
 
     private void Awake()
     {
@@ -77,6 +77,7 @@ public class BagPanel : UIScene
     protected override void Start()
     {
         base.Start();
+
         //Sure_Button.onClick.Add(new EventDelegate(Sure));
         Back_Button.onClick.Add(new EventDelegate(Back));
         CleanUp_Button.onClick.Add(new EventDelegate(CleanUp));
@@ -92,7 +93,9 @@ public class BagPanel : UIScene
         UIEventListener.Get(BoneMinus_Button.gameObject).onClick = MinusProperty;
 
         ExistBoxIsForbidden();
-        for (int i = 0; i < 80; i++)
+
+        itemList = PlayerInfoManager.Instance.playerItemData;
+        for (int i = 0; i < itemList.Count; i++)
         {
             GameObject go = Instantiate(Resources.Load("BagBg_Sprite"), Vector3.zero, Quaternion.identity) as GameObject;
             go.name = i.ToString();
@@ -227,8 +230,6 @@ public class BagPanel : UIScene
         if (int.TryParse(count.ToString(), out sum))
         {
             UsableProperty_Label.text = sum.ToString();
-            //string key = PlayerInfoManager.Instance.GetPlayerPrefsKey(5);
-            //PlayerPrefsManager.Instance.SetAddPlayerPrefs(key, sum);
         }
     }
 

@@ -1,10 +1,11 @@
-﻿public class OpenBagPanel : UIScene
+﻿using UnityEngine.SceneManagement;
+
+public class OpenBagPanel : UIScene
 {
     private UIButton OpenBag_Button;
 
     private void Awake()
     {
-        PlayerInfoManager.Instance.SetPlayerAttributeInfo();
         OpenBag_Button = Helper.GetChild(this.transform, "OpenBag_Button").GetComponent<UIButton>();
     }
     protected override void Start()
@@ -16,7 +17,7 @@
     public void OpenBag()
     {
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_OpenBagPanel, false);
-        UIManager.Instance.SetVisible(UIPanelName.SceneStart_BagPanel, true);
-
+        //UIManager.Instance.SetVisible(UIPanelName.SceneStart_BagPanel, true);
+        SceneManager.LoadScene("SceneStart");
     }
 }
