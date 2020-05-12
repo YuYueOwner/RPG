@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
+
 namespace HotFix_Project.Config
 {
     public class PropConfig : ConfigBase
@@ -121,8 +123,13 @@ namespace HotFix_Project.Config
                             return 3;
                         }
                     }
+                    else
+                    {
+                        Debug.LogError("表格是:" + propObjList[i].ConfigType);
+                    }
                 }
             }
+            Debug.LogError("没有这个物品id:" + id);
             return 0;
         }
 

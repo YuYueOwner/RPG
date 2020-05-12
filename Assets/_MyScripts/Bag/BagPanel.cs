@@ -108,7 +108,6 @@ public class BagPanel : UIScene
         for (int i = 0; i < 80; i++)
         {
             GameObject go = Instantiate(Resources.Load("BagBg_Sprite"), Vector3.zero, Quaternion.identity) as GameObject;
-            go.name = i.ToString();
             go.transform.SetParent(BagGrid.transform);
             go.transform.localScale = Vector3.one;
             //if (i <= 10)
@@ -142,6 +141,7 @@ public class BagPanel : UIScene
             {
                 go.transform.GetChild(0).GetComponent<BoxCollider>().enabled = true;
                 go.transform.GetChild(0).GetComponent<UISprite>().spriteName = cfgData.GetListConfigElementByID(data.PackageItemID).ItemIcon;
+                go.name = data.PackageItemID.ToString();
             }
             else
             {

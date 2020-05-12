@@ -28,6 +28,7 @@ public class BagDrag : UIDragDropItem
             int id = int.Parse(transform.parent.name);
             PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
             int type = cfgData.ExistIsCanConsumeByID(id);
+            Debug.LogError("点击的type" + type);
             //返回1可以装备 返回2可以消耗  返回3不可以装备
             if (type == 0)
             {
