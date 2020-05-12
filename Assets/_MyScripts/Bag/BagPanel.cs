@@ -132,7 +132,12 @@ public class BagPanel : UIScene
             //    go.transform.GetChild(0).GetComponent<BoxCollider>().enabled = false;
             //    go.transform.GetChild(0).GetComponent<UISprite>().spriteName = null;
             //}
-            var data = itemList[i];
+            PackageItem data = null;
+
+            if (itemList.Count > i)
+            {
+                data = itemList[i];
+            }
             if (data != null)
             {
                 go.transform.GetChild(0).GetComponent<BoxCollider>().enabled = true;

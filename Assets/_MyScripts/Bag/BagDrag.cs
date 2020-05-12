@@ -43,7 +43,7 @@ public class BagDrag : UIDragDropItem
             }
             else if (type == 3)
             {
-
+                UIManager.Instance.SetVisible(UIPanelName.SceneStart_EquipmentBagPanel, true);
             }
         }
     }

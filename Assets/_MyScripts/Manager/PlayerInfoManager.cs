@@ -57,6 +57,7 @@ public class PlayerInfoManager
         }
     }
 
+    //删除背包里的物品
     public void RemovePlayerItemData(int id)
     {
         for (int i = 0; i < playerItemData.Count; i++)
@@ -66,6 +67,19 @@ public class PlayerInfoManager
                 playerItemData.Remove(playerItemData[i]);
             }
         }
+    }
+
+    //添加物品到背包里
+    public void AddPlayerItemData(int id)
+    {
+        PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
+        PackageItem item = new PackageItem();
+
+        PropConfig.PropObject data = cfgData.GetListConfigElementByID(id);
+        item.PackageItemID = data.ItemID;
+        item.PackageItemName = data.ItemName;
+        item.PackageItemNum = 1;
+        playerItemData.Add(item);
     }
 
     public string GetPlayerPrefsKey(int key)
