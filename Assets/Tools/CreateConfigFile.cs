@@ -76,38 +76,41 @@ public class CreateConfigFile : MonoBehaviour
     //}
 
     //道具表
-    public class Prop
-    {
-        public int ItemID;
-        public string ConfigType;
-        public string ItemType;
-        public string ItemName;
-        public int WeaponAttack;
-        public int WeaponDex;
-        public int WeaponStrength;
-        public int WeaponCon;
-        public int WeaponLuk;
-        public int WeaponRoll;
-        public int WeaponHitRate;
-        public int WeaponArmorPenetration;
-        public int WeaponCritical;
-        public int ArmorDefence;
-        public int ArmorDex;
-        public int ArmorStrength;
-        public int ArmorCon;
-        public int ArmorLuk;
-        public int ArmorRoll;
-        public int ArmorDodgeRate;
-        public int ConsumableHpIncrease;
-        public int ConsumableHealthIncrease;
-        public int Stackable;
-        public int StackingLimit;
-        public string ItemInfomation;
-        public int UseLevel;
-        public int EquipDex;
-        public int EquipStrength;
-        public int EquipLuk;
-    }
+    //public class Prop
+    //{
+    //    public int ItemID;
+    //    public string ConfigType;
+    //    public string ItemType;
+    //    public string ItemName;
+    //    public int WeaponAttack;
+    //    public int WeaponDex;
+    //    public int WeaponStrength;
+    //    public int WeaponCon;
+    //    public int WeaponLuk;
+    //    public int WeaponRoll;
+    //    public int WeaponHitRate;
+    //    public int WeaponArmorPenetration;
+    //    public int WeaponCritical;
+    //    public int ArmorDefence;
+    //    public int ArmorDex;
+    //    public int ArmorStrength;
+    //    public int ArmorCon;
+    //    public int ArmorLuk;
+    //    public int ArmorRoll;
+    //    public int ArmorDodgeRate;
+    //    public int ConsumableHpIncrease;
+    //    public int ConsumableHealthIncrease;
+    //    public int Stackable;
+    //    public int StackingLimit;
+    //    public string ItemInfomation;
+    //    public int UseLevel;
+    //    public int EquipDex;
+    //    public int EquipStrength;
+    //    public int EquipLuk;
+    //    public string ItemIcon;
+    //}
+
+
     [MenuItem("Tools/生成配置表解析文件")]
     static void TestData()
     {
@@ -117,7 +120,7 @@ public class CreateConfigFile : MonoBehaviour
         //CreateOne(new Consumables());
         //CreateOne(new Armor());
         //CreateOne(new ActivityMain());
-        CreateOne(new Prop());
+        //CreateOne(new Prop());
 
         AssetDatabase.Refresh();
     }

@@ -35,6 +35,7 @@ namespace HotFix_Project.Config
             public Int32 EquipDex;
             public Int32 EquipStrength;
             public Int32 EquipLuk;
+            public string ItemIcon;
         }
 
         public override void InitConfig(string[] configArr)
@@ -75,6 +76,7 @@ namespace HotFix_Project.Config
                 propObj.EquipDex = int.Parse(data[26]);
                 propObj.EquipStrength = int.Parse(data[27]);
                 propObj.EquipLuk = int.Parse(data[28]);
+                propObj.ItemIcon = data[29];
 
                 propObjList.Add(propObj);
             }
@@ -95,9 +97,9 @@ namespace HotFix_Project.Config
         }
 
         //判断是否可以装备或者消耗 返回1可以装备  返回2可以消耗  返回3不可以装备
-        public PropConfig.PropObject ExistIsCanConsumeByID(int id)
+        public int ExistIsCanConsumeByID(int id)
         {
-            PropObject propObj = null;
+            var playerData = PlayerInfoManager.Instance.playerState;
             for (int i = 0; i < propObjList.Count; i++)
             {
                 if (propObjList[i].ItemID == id)
@@ -105,18 +107,41 @@ namespace HotFix_Project.Config
                     if (propObjList[i].ConfigType == "Consumables")
                     {
                         //可以消耗
-
+                        return 2;
                     }
-                    else if (propObjList[i].ConfigType == "Consumables" || propObjList[i].ConfigType == "Consumables" || propObjList[i].ConfigType == "Consumables")
+                    else if (propObjList[i].ConfigType == "Weapon" || propObjList[i].ConfigType == "Armor")
                     {
-
+                        //装备表
+                        if (propObjList[i].UseLevel <= playerData.PlayerLv && propObjList[i].EquipStrength <= playerData.PlayerStr && propObjList[i].EquipDex <= playerData.PlayerDex && propObjList[i].EquipLuk <= playerData.PlayerLuk)
+                        {
+                            return 1;
+                        }
+                        else
+                        {
+                            return 3;
+                        }
                     }
                 }
             }
-            return propObj;
+            return 0;
         }
 
-
+        //判断当前物品是否可叠加 true可以叠加
+        public bool ExistIsCanOverlayByID(int id)
+        {
+            for (int i = 0; i < propObjList.Count; i++)
+            {
+                if (propObjList[i].ItemID == id)
+                {
+                    if (propObjList[i].ConfigType == "Weapon" || propObjList[i].ConfigType == "Armor" || propObjList[i].ConfigType == "TaskItems")
+                    {
+                        //不可以叠加的表
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
 
         public List<PropObject> propObjList = new List<PropObject>();
     }

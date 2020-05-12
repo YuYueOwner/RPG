@@ -1,5 +1,6 @@
-﻿using UnityEngine;
+﻿using HotFix_Project.Config;
 using System.Collections;
+using UnityEngine;
 
 public class BagDrag : UIDragDropItem
 {
@@ -23,7 +24,27 @@ public class BagDrag : UIDragDropItem
         //（是否可以装备，是-装备或替换/否-弹出提示），若点击消耗品则走消耗品判断逻辑（使用该消耗品）。
         if (UICamera.currentTouchID == -2)
         {
+            Debug.Log(transform.parent.name);
+            int id = int.Parse(transform.parent.name);
+            PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
+            int type = cfgData.ExistIsCanConsumeByID(id);
+            //返回1可以装备 返回2可以消耗  返回3不可以装备
+            if (type == 0)
+            {
+                Debug.LogError("没有可执行的操作");
+            }
+            else if (type == 1)
+            {
 
+            }
+            else if (type == 2)
+            {
+
+            }
+            else if (type == 3)
+            {
+
+            }
         }
     }
 

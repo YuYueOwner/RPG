@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using HotFix_Project.Config;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BagPanel : UIScene
@@ -33,6 +34,7 @@ public class BagPanel : UIScene
     private UIButton CleanUp_Button;//整理
 
     List<UILabel> playerAttributeLable = new List<UILabel>();
+    List<BoxCollider> playerAttributeBox = new List<BoxCollider>();
     List<PackageItem> itemList = new List<PackageItem>();
 
     private void Awake()
@@ -73,6 +75,11 @@ public class BagPanel : UIScene
         playerAttributeLable.Add(Bone_Label);
         playerAttributeLable.Add(UsableProperty_Label);
 
+        playerAttributeBox.Add(Helper.GetChild<BoxCollider>(PhysicalPower_Label.transform.parent, "PhysicalPower_Add_Button"));
+        playerAttributeBox.Add(Helper.GetChild<BoxCollider>(PhysicalPower_Label.transform.parent, "Strength_Add_Button"));
+        playerAttributeBox.Add(Helper.GetChild<BoxCollider>(PhysicalPower_Label.transform.parent, "Skill_Add_Button"));
+        playerAttributeBox.Add(Helper.GetChild<BoxCollider>(PhysicalPower_Label.transform.parent, "Bone_Add_Button"));
+
     }
     protected override void Start()
     {
@@ -94,28 +101,42 @@ public class BagPanel : UIScene
 
         ExistBoxIsForbidden();
 
+        PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
         itemList = PlayerInfoManager.Instance.playerItemData;
-        for (int i = 0; i < itemList.Count; i++)
+        UsableBag_Label.text = (80 - PlayerInfoManager.Instance.playerItemData.Count).ToString();
+
+        for (int i = 0; i < 80; i++)
         {
             GameObject go = Instantiate(Resources.Load("BagBg_Sprite"), Vector3.zero, Quaternion.identity) as GameObject;
             go.name = i.ToString();
             go.transform.SetParent(BagGrid.transform);
             go.transform.localScale = Vector3.one;
-            if (i <= 10)
+            //if (i <= 10)
+            //{
+            //    go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon1";
+            //}
+            //else if (i > 10 && i <= 20)
+            //{
+            //    go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon2";
+            //}
+            //else if (i > 20 && i <= 30)
+            //{
+            //    go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon3";
+            //}
+            //else if (i > 30 && i <= 40)
+            //{
+            //    go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon4";
+            //}
+            //else
+            //{
+            //    go.transform.GetChild(0).GetComponent<BoxCollider>().enabled = false;
+            //    go.transform.GetChild(0).GetComponent<UISprite>().spriteName = null;
+            //}
+            var data = itemList[i];
+            if (data != null)
             {
-                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon1";
-            }
-            else if (i > 10 && i <= 20)
-            {
-                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon2";
-            }
-            else if (i > 20 && i <= 30)
-            {
-                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon3";
-            }
-            else if (i > 30 && i <= 40)
-            {
-                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon4";
+                go.transform.GetChild(0).GetComponent<BoxCollider>().enabled = true;
+                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = cfgData.GetListConfigElementByID(data.PackageItemID).ItemIcon;
             }
             else
             {
@@ -248,6 +269,37 @@ public class BagPanel : UIScene
     //整理
     private void CleanUp()
     {
+        itemList.Sort();
 
+        for (int i = 0; i < 80; i++)
+        {
+            GameObject go = Instantiate(Resources.Load("BagBg_Sprite"), Vector3.zero, Quaternion.identity) as GameObject;
+            go.name = i.ToString();
+            go.transform.SetParent(BagGrid.transform);
+            go.transform.localScale = Vector3.one;
+            if (i <= 10)
+            {
+                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon1";
+            }
+            else if (i > 10 && i <= 20)
+            {
+                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon2";
+            }
+            else if (i > 20 && i <= 30)
+            {
+                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon3";
+            }
+            else if (i > 30 && i <= 40)
+            {
+                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon4";
+            }
+            else
+            {
+                go.transform.GetChild(0).GetComponent<BoxCollider>().enabled = false;
+                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = null;
+            }
+        }
+        BagGrid.Reposition();
+        BagGrid.repositionNow = true;
     }
 }

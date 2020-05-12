@@ -44,8 +44,9 @@ public class PlayerInfoManager
     {
         PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
         //初始化20个数据
-        for (int i = 0; i < 80; i++)
+        for (int i = 0; i < 30; i++)
         {
+            //Debug.LogError("============" + i);
             PackageItem item = new PackageItem();
             int range = Random.Range(i, cfgData.propObjList.Count);
             PropConfig.PropObject data = cfgData.propObjList[range];

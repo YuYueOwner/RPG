@@ -1,6 +1,4 @@
-﻿using UnityEngine.SceneManagement;
-
-public class OpenBagPanel : UIScene
+﻿public class OpenBagPanel : UIScene
 {
     private UIButton OpenBag_Button;
 
@@ -17,7 +15,7 @@ public class OpenBagPanel : UIScene
     public void OpenBag()
     {
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_OpenBagPanel, false);
-        //UIManager.Instance.SetVisible(UIPanelName.SceneStart_BagPanel, true);
-        SceneManager.LoadScene("SceneStart");
+        UIManager.Instance.SetVisible(UIPanelName.SceneStart_BagPanel, true);
+        //SceneManager.LoadScene("SceneStart");
     }
 }
