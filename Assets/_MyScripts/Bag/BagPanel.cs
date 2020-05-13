@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BagPanel : UIScene
 {
+    public static BagPanel _instance;
     private UILabel PhysicalPower_Label;//体质
     private UIButton PhysicalPowerAdd_Button;//增加属性值按钮
     private UIButton PhysicalPowerMinus_Button;//减属性值按钮
@@ -41,6 +42,7 @@ public class BagPanel : UIScene
 
     private void Awake()
     {
+        _instance = this;
         PhysicalPower_Label = Helper.GetChild(this.transform, "PhysicalPower_Label").GetComponent<UILabel>();
         PhysicalPowerAdd_Button = Helper.GetChild<UIButton>(PhysicalPower_Label.transform.parent, "PhysicalPower_Add_Button");
         PhysicalPowerMinus_Button = Helper.GetChild<UIButton>(PhysicalPower_Label.transform.parent, "PhysicalPower_Minus_Button");
@@ -253,7 +255,7 @@ public class BagPanel : UIScene
     }
 
     //整理
-    private void CleanUp()
+    public void CleanUp()
     {
         for (int i = 0; i < BagGrid.transform.childCount; i++)
         {

@@ -62,7 +62,7 @@ public class BagDrag : UIDragDropItem
             else if (type == 2)
             {
                 //消耗物品把对应的数据加上 GOTO  物品数据就是上面的cfgData
-
+                BagPanel._instance.CleanUp();
 
                 PlayerInfoManager.Instance.RemovePlayerItemData(id);
             }

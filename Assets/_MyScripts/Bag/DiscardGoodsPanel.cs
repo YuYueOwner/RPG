@@ -19,7 +19,7 @@
     {
         PlayerInfoManager.Instance.RemovePlayerItemData(PlayerInfoManager.Instance.SelectItemId);
         //删除完物品后刷新一下背包 GOTO
-
+        BagPanel._instance.CleanUp();
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_DiscardGoodsPanel, false);
     }
 
