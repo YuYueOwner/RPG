@@ -148,7 +148,21 @@ public class PlayerInfoManager
     {
         PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
         PropConfig.PropObject data = cfgData.GetListConfigElementByID(id);
-        ItemName.text = data.ItemName;
+        switch (data.ConfigType)
+        {
+            case "Weapon":
+                ItemName.text = data.ItemName + "\r\n" + "攻击力         " + data.WeaponAttack + "\r\n" +
+                                                                                  "身法加成      " + data.WeaponDex + "\r\n" +
+                                                                                   "力道加成      " + data.WeaponStrength + "\r\n" +
+                                                                                   "体质加成      " + data.WeaponStrength + "\r\n";
+
+                break;
+
+            default:
+                ItemName.text = data.ItemName;
+                break;
+        }
+        Debug.LogError(data.ItemID);
         ItemDesc.text = data.ItemInfomation;
     }
 
@@ -223,6 +237,7 @@ public class PlayerInfoManager
         //}
         return level;
     }
+
 
     public string GetPlayerPrefsKey(int key)
     {
