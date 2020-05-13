@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class EquipmentGoodsPanel : UIScene
+﻿public class EquipmentGoodsPanel : UIScene
 {
     private UIButton Sure_Button;
     private UIButton Cancel_Button;
@@ -21,7 +17,7 @@ public class EquipmentGoodsPanel : UIScene
 
     private void Sure()
     {
-        BagDrag._instance.GoodsInfo();
+        PlayerInfoManager.Instance.SetEquipmentChange();
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_EquipmentGoodsPanel, false);
     }
 

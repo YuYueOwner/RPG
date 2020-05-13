@@ -111,7 +111,7 @@ public class BagPanel : UIScene
         UIEventListener.Get(BoneMinus_Button.gameObject).onClick = MinusProperty;
 
         ExistBoxIsForbidden();
-        PlayerInfoManager.Instance.SetEquipmentInfo();
+        PlayerInfoManager.Instance.GetEquipmentInfo();
         CleanUp();
         SetPlayerAttributeInfo();
 

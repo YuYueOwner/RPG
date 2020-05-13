@@ -27,13 +27,6 @@ public class BagDrag : UIDragDropItem
     {
         //鼠标右键点击逻辑，若点击装备则走装备判断逻辑
         //（是否可以装备，是-装备或替换/否-弹出提示），若点击消耗品则走消耗品判断逻辑（使用该消耗品）。
-        if (UICamera.currentTouchID == -2)
-        {
-            UIManager.Instance.SetVisible(UIPanelName.SceneStart_EquipmentGoodsPanel, true);
-        }
-    }
-    public void GoodsInfo()
-    {
         int id = int.Parse(transform.parent.name);
         PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
         int type = cfgData.ExistIsCanConsumeByID(id);
@@ -45,35 +38,14 @@ public class BagDrag : UIDragDropItem
         }
         else if (type == 1)
         {
-            string key = PlayerInfoManager.Instance.GetPlayerPrefsKey(10);
-            int value = -1;
-            value = PlayerPrefsManager.Instance.GetIntPlayerPrefs(key);
-            //储存装备先存10在存11.先判断10是否有装备，有的话找11是否有装备。有的话替换10.
-            if (value > 0)
-            {
-                string key1 = PlayerInfoManager.Instance.GetPlayerPrefsKey(11);
-                value = PlayerPrefsManager.Instance.GetIntPlayerPrefs(key1);
-                if (value > 0)
-                {
-                    PlayerPrefsManager.Instance.SetPlayerPrefs(key, id);
-                }
-                else
-                {
-                    PlayerPrefsManager.Instance.SetPlayerPrefs(key1, id);
-                }
-            }
-            else
-            {
-                PlayerPrefsManager.Instance.SetPlayerPrefs(key, id);
-            }
-            PlayerInfoManager.Instance.SetEquipmentInfo();
+            UIManager.Instance.SetVisible(UIPanelName.SceneStart_EquipmentGoodsPanel, true);
+            Debug.LogError("id" + id);
+            PlayerInfoManager.Instance.SelectItemId = id;
         }
         else if (type == 2)
         {
-            //消耗物品把对应的数据加上 GOTO  物品数据就是上面的cfgData
-            BagPanel._instance.CleanUp();
-
             PlayerInfoManager.Instance.RemovePlayerItemData(id);
+            //消耗物品把对应的数据加上 GOTO  物品数据就是上面的cfgData
         }
         else if (type == 3)
         {

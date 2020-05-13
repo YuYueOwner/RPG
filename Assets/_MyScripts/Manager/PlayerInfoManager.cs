@@ -48,7 +48,7 @@ public class PlayerInfoManager
         playerState.ExpMaxPlayer = 10000;
         playerState.PlayerName = "张三";
         playerState.PlayerMoney = 0;
-        playerState.PlayerLv = 1;
+        playerState.PlayerLv = 100;
         playerState.PlayerHeadPhotoID = 1;
         playerState.PlayerFullPhotoID = 1;
         playerState.PlayerEquipWeaponID = 1;
@@ -109,6 +109,7 @@ public class PlayerInfoManager
                 }
             }
         }
+        BagPanel._instance.CleanUp();
     }
 
     //添加物品到背包里
@@ -147,8 +148,8 @@ public class PlayerInfoManager
         ItemDesc.text = data.ItemInfomation;
     }
 
-    //设置玩家装备信息
-    public void SetEquipmentInfo()
+    //获取玩家装备信息
+    public void GetEquipmentInfo()
     {
         PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
         for (int i = 0; i < 2; i++)
@@ -164,6 +165,39 @@ public class PlayerInfoManager
                 equipmentList[i].spriteName = "";
             }
         }
+    }
+
+    //设置玩家装备改变
+    public void SetEquipmentChange()
+    {
+        Debug.LogError("SelectItemId" + SelectItemId);
+        string key = PlayerInfoManager.Instance.GetPlayerPrefsKey(10);
+        int value = -1;
+        value = PlayerPrefsManager.Instance.GetIntPlayerPrefs(key);
+        //储存装备先存10在存11.先判断10是否有装备，有的话找11是否有装备。有的话替换10.
+        if (value > 0)
+        {
+            string key1 = PlayerInfoManager.Instance.GetPlayerPrefsKey(11);
+            value = PlayerPrefsManager.Instance.GetIntPlayerPrefs(key1);
+            if (value > 0)
+            {
+                PlayerPrefsManager.Instance.SetPlayerPrefs(key, SelectItemId);
+                //把替换上去的装备从背包删除
+                RemovePlayerItemData(value);
+            }
+            else
+            {
+                PlayerPrefsManager.Instance.SetPlayerPrefs(key1, SelectItemId);
+            }
+        }
+        else
+        {
+            PlayerPrefsManager.Instance.SetPlayerPrefs(key, SelectItemId);
+        }
+        GetEquipmentInfo();
+        //更换装备需要把替换下来的装备给放到背包里
+        AddPlayerItemData(SelectItemId);
+        BagPanel._instance.CleanUp();
     }
 
     public int GetPlayerLevel(int exp)
