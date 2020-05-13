@@ -61,25 +61,52 @@ public class PlayerInfoManager
         //初始化20个数据
         for (int i = 0; i < 30; i++)
         {
+            bool isCanOverlay = false;//是否可以叠加， false 不可以
             //Debug.LogError("============" + i);
             PackageItem item = new PackageItem();
-            int range = Random.Range(i, cfgData.propObjList.Count);
-            PropConfig.PropObject data = cfgData.propObjList[range];
-            item.PackageItemID = data.ItemID;
-            item.PackageItemName = data.ItemName;
-            item.PackageItemNum = i;
-            playerItemData.Add(item);
+            int id = Random.Range(i, cfgData.propObjList.Count);
+
+            if (cfgData.ExistIsCanOverlayByID(id))
+            {
+                for (int j = 0; j < playerItemData.Count; j++)
+                {
+                    if (playerItemData[j].PackageItemID == id)
+                    {
+                        playerItemData[j].PackageItemNum += 1;
+                        isCanOverlay = true;
+                        break;
+                    }
+                }
+            }
+            if (!isCanOverlay)
+            {
+                PropConfig.PropObject data = cfgData.propObjList[id];
+                item.PackageItemID = data.ItemID;
+                item.PackageItemName = data.ItemName;
+                item.PackageItemNum = 1;
+                playerItemData.Add(item);
+            }
         }
     }
 
     //删除背包里的物品
     public void RemovePlayerItemData(int id)
     {
+        PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
+
         for (int i = 0; i < playerItemData.Count; i++)
         {
             if (playerItemData[i].PackageItemID == id)
             {
-                playerItemData.Remove(playerItemData[i]);
+                if (cfgData.ExistIsCanOverlayByID(id))
+                {
+                    //可以叠加
+                    playerItemData[i].PackageItemNum -= 1;
+                }
+                else
+                {
+                    playerItemData.Remove(playerItemData[i]);
+                }
             }
         }
     }
@@ -90,11 +117,25 @@ public class PlayerInfoManager
         PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
         PackageItem item = new PackageItem();
 
-        PropConfig.PropObject data = cfgData.GetListConfigElementByID(id);
-        item.PackageItemID = data.ItemID;
-        item.PackageItemName = data.ItemName;
-        item.PackageItemNum = 1;
-        playerItemData.Add(item);
+        if (cfgData.ExistIsCanOverlayByID(id))
+        {
+            //可以叠加
+            for (int i = 0; i < playerItemData.Count; i++)
+            {
+                if (playerItemData[i].PackageItemID == id)
+                {
+                    playerItemData[i].PackageItemNum += 1;
+                }
+            }
+        }
+        else
+        {
+            PropConfig.PropObject data = cfgData.GetListConfigElementByID(id);
+            item.PackageItemID = data.ItemID;
+            item.PackageItemName = data.ItemName;
+            item.PackageItemNum = 1;
+            playerItemData.Add(item);
+        }
     }
 
     //显示鼠标现在停留的物品信息

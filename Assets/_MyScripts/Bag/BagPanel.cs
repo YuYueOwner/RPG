@@ -254,6 +254,11 @@ public class BagPanel : UIScene
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_BagPanel, false);
     }
 
+    static int Compare(PackageItem r1, PackageItem r2)
+    {
+        return r1.PackageItemID.CompareTo(r2.PackageItemID);
+    }
+
     //整理
     public void CleanUp()
     {
@@ -262,14 +267,7 @@ public class BagPanel : UIScene
             GameObject.Destroy(BagGrid.transform.GetChild(i).gameObject);
         }
         var itemList = PlayerInfoManager.Instance.playerItemData;
-        //itemList.Sort((a, b) =>
-        //{
-        //    if (a.PackageItemID < b.PackageItemID)
-        //        return a.PackageItemID;
-        //    else
-        //        return b.PackageItemID;
-        //}
-        //);
+        itemList.Sort(Compare);
 
         PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
         UsableBag_Label.text = PlayerInfoManager.Instance.playerItemData.Count + "/80";
@@ -280,7 +278,7 @@ public class BagPanel : UIScene
             go = Instantiate(Resources.Load("BagBg_Sprite"), Vector3.zero, Quaternion.identity) as GameObject;
             go.transform.SetParent(BagGrid.transform);
             go.transform.localScale = Vector3.one;
-
+            UISprite sp = go.transform.GetChild(0).GetComponent<UISprite>();
             PackageItem data = null;
 
             if (itemList.Count > i)
@@ -291,7 +289,15 @@ public class BagPanel : UIScene
             if (data != null)
             {
                 go.transform.GetChild(0).GetComponent<BoxCollider>().enabled = true;
-                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = cfgData.GetListConfigElementByID(data.PackageItemID).ItemIcon;
+                sp.spriteName = cfgData.GetListConfigElementByID(data.PackageItemID).ItemIcon;
+                if (data.PackageItemNum > 1)
+                {
+                    sp.transform.GetChild(0).GetComponent<UILabel>().text = data.PackageItemNum.ToString();
+                }
+                else
+                {
+                    sp.transform.GetChild(0).GetComponent<UILabel>().text = "";
+                }
                 go.name = data.PackageItemID.ToString();
             }
             else
