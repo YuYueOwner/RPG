@@ -298,6 +298,7 @@ public class BagPanel : UIScene
                 {
                     sp.transform.GetChild(0).GetComponent<UILabel>().text = "";
                 }
+                sp.transform.name = data.PackageItemID.ToString();
                 go.name = data.PackageItemID.ToString();
             }
             else

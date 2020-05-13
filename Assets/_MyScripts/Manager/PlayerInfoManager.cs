@@ -162,7 +162,7 @@ public class PlayerInfoManager
                 ItemName.text = data.ItemName;
                 break;
         }
-        Debug.LogError(data.ItemID);
+        //Debug.LogError(data.ItemID);
         ItemDesc.text = data.ItemInfomation;
     }
 
