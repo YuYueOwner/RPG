@@ -102,6 +102,10 @@ public class PlayerInfoManager
                 {
                     //可以叠加
                     playerItemData[i].PackageItemNum -= 1;
+                    if (playerItemData[i].PackageItemNum <= 0)
+                    {
+                        playerItemData.Remove(playerItemData[i]);
+                    }
                 }
                 else
                 {
