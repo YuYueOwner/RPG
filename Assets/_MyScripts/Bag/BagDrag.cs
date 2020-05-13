@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class BagDrag : UIDragDropItem
 {
-    public static BagDrag _instance;
-
-    private void Awake()
-    {
-        _instance = this;
-    }
     //鼠标悬停0.5s后显示物品详细信息，移开消失
     void OnHover(bool isOver)
     {
