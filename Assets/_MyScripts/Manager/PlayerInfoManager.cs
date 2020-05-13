@@ -158,7 +158,10 @@ public class PlayerInfoManager
             if (id > 0)
             {
                 PropConfig.PropObject data = cfgData.GetListConfigElementByID(id);
-                equipmentList[i].spriteName = data.ItemIcon;
+                if (data != null)
+                {
+                    equipmentList[i].spriteName = data.ItemIcon;
+                }
             }
             else
             {
