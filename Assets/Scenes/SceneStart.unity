@@ -551,12 +551,12 @@ PrefabInstance:
     - target: {fileID: 8157896553396128956, guid: abdd27b672c483d48b5d6c09d213a376,
         type: 3}
       propertyPath: mWidth
-      value: 92
+      value: 118
       objectReference: {fileID: 0}
     - target: {fileID: 8157896553396128956, guid: abdd27b672c483d48b5d6c09d213a376,
         type: 3}
       propertyPath: aspectRatio
-      value: 4.6
+      value: 5.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abdd27b672c483d48b5d6c09d213a376, type: 3}
@@ -859,6 +859,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397184316367300345, guid: 05cbe47dd00dbfe4aa0a96d5d647dbe7,
+        type: 3}
+      propertyPath: mText
+      value: "\u7269\u54C1\u63CF\u8FF0"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05cbe47dd00dbfe4aa0a96d5d647dbe7, type: 3}

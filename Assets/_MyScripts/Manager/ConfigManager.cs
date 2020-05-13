@@ -80,11 +80,11 @@ public class ConfigManager
                 // 全部道具表
                 configBase = new PropConfig();
             }
-            else if (name == "PlayerLevelExp")
-            {
-                // 等级经验表
-                configBase = new PlayerLevelExpConfig();
-            }
+            //else if (name == "PlayerLevelExp")
+            //{
+            //    // 等级经验表
+            //     configBase = new PlayerLevelExpConfig();
+            //}
             else
             {
                 Debug.LogError("没有找到这张表" + name);
