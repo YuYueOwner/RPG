@@ -36,10 +36,10 @@ public class PlayerInfoManager
         playerAttributeInfo[10] = "Equip";//身上的装备id
         playerAttributeInfo[11] = "Equip1";//身上的装备id1
 
-        playerState.PlayerCon = 5;
-        playerState.PlayerStr = 5;
-        playerState.PlayerDex = 5;
-        playerState.PlayerLuk = 5;
+        playerState.PlayerCon = 100;
+        playerState.PlayerStr = 100;
+        playerState.PlayerDex = 100;
+        playerState.PlayerLuk = 100;
         playerState.PlayerAvaliablePoint = 4;
         playerState.PlayerHpMax = 100;
         playerState.PlayerHpCurrent = 100;
@@ -181,16 +181,19 @@ public class PlayerInfoManager
         string key = PlayerInfoManager.Instance.GetPlayerPrefsKey(10);
         int value = -1;
         value = PlayerPrefsManager.Instance.GetIntPlayerPrefs(key);
+        Debug.LogError("装备id:" + value);
         //储存装备先存10在存11.先判断10是否有装备，有的话找11是否有装备。有的话替换10.
         if (value > 0)
         {
             string key1 = PlayerInfoManager.Instance.GetPlayerPrefsKey(11);
-            value = PlayerPrefsManager.Instance.GetIntPlayerPrefs(key1);
-            if (value > 0)
+            int value1 = PlayerPrefsManager.Instance.GetIntPlayerPrefs(key1);
+            if (value1 > 0)
             {
                 PlayerPrefsManager.Instance.SetPlayerPrefs(key, SelectItemId);
+                //更换装备需要把替换下来的装备给放到背包里
+                AddPlayerItemData(value);
                 //把替换上去的装备从背包删除
-                RemovePlayerItemData(value);
+                RemovePlayerItemData(SelectItemId);
             }
             else
             {
@@ -202,8 +205,7 @@ public class PlayerInfoManager
             PlayerPrefsManager.Instance.SetPlayerPrefs(key, SelectItemId);
         }
         GetEquipmentInfo();
-        //更换装备需要把替换下来的装备给放到背包里
-        AddPlayerItemData(SelectItemId);
+
         BagPanel._instance.CleanUp();
     }
 

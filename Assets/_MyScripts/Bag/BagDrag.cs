@@ -36,7 +36,7 @@ public class BagDrag : UIDragDropItem
             else if (type == 1)
             {
                 UIManager.Instance.SetVisible(UIPanelName.SceneStart_EquipmentGoodsPanel, true);
-                Debug.LogError("id" + id);
+                //Debug.LogError("id" + id);
                 PlayerInfoManager.Instance.SelectItemId = id;
             }
             else if (type == 2)
