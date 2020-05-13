@@ -152,12 +152,25 @@ public class PlayerInfoManager
         {
             case "Weapon":
                 ItemName.text = data.ItemName + "\r\n" + "攻击力         " + data.WeaponAttack + "\r\n" +
-                                                                                  "身法加成      " + data.WeaponDex + "\r\n" +
-                                                                                   "力道加成      " + data.WeaponStrength + "\r\n" +
-                                                                                   "体质加成      " + data.WeaponStrength + "\r\n";
+                                                                                  "身法      " + data.WeaponDex + "\r\n" +
+                                                                                   "力道      " + data.WeaponStrength + "\r\n" +
+                                                                                   "体质     " + data.WeaponCon + "\r\n" +
+                                                                                   "根骨     " + data.WeaponLuk + "\r\n" +
+                                                                                   "命中率    " + data.WeaponHitRate;
+                break;
+            case "Armor":
+                ItemName.text = data.ItemName + "\r\n" + "防御值        " + data.ArmorDefence + "\r\n" +
+                                                                                  "身法      " + data.ArmorDex + "\r\n" +
+                                                                                   "力道      " + data.ArmorStrength + "\r\n" +
+                                                                                   "体质     " + data.ArmorCon + "\r\n" +
+                                                                                   "根骨     " + data.ArmorLuk + "\r\n" +
+                                                                                   "速度   " + data.ArmorRoll;
+                break;
+            case "Consumables":
+                ItemName.text = data.ItemName + "\r\n" + "生命值回复数值        " + data.ConsumableHpIncrease + "\r\n" +
+                                                                                  "健康度回复数值      " + data.ConsumableHealthIncrease;
 
                 break;
-
             default:
                 ItemName.text = data.ItemName;
                 break;

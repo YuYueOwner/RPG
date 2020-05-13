@@ -128,7 +128,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2717060322842038894}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: -0, z: 0}
+  m_LocalPosition: {x: -1, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1759389144}
@@ -166,14 +166,14 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 64
-  mHeight: 66
+  mWidth: 68
+  mHeight: 68
   mDepth: 4
   mMat: {fileID: 0}
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 0.969697
+  aspectRatio: 1
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -201,7 +201,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 64, y: 66, z: 0}
+  m_Size: {x: 68, y: 68, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1170478778
 MonoBehaviour:
@@ -219,8 +219,6 @@ MonoBehaviour:
   cloneOnDrag: 0
   pressAndHoldDelay: 1
   interactable: 1
-  BackPackItemTag: Goods
-  CellTag: Cell
 --- !u!114 &8207835567257537799
 MonoBehaviour:
   m_ObjectHideFlags: 0
