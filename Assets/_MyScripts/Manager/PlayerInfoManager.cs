@@ -12,6 +12,15 @@ public class PlayerInfoManager
     public PlayerState playerState = new PlayerState();
     //玩家背包数据
     public List<PackageItem> playerItemData = new List<PackageItem>();
+    //丢弃的物品或者鼠标长留的物品id
+    public int SelectItemId;
+    //鼠标长留物品0.5秒后显示的物品名称
+    public UILabel ItemName;
+    //鼠标长留物品0.5秒后显示的物品介绍
+    public UILabel ItemDesc;
+    //装备
+    public List<UISprite> equipmentList = new List<UISprite>();
+
 
     public void SetPlayerAttributeInfo()
     {
@@ -24,7 +33,8 @@ public class PlayerInfoManager
         playerAttributeInfo[7] = "PlayerHpMax";
         playerAttributeInfo[8] = "PlayerExperience";
         playerAttributeInfo[9] = "PlayerExperienceMax";
-
+        playerAttributeInfo[10] = "Equip";//身上的装备id
+        playerAttributeInfo[11] = "Equip1";//身上的装备id1
 
         playerState.PlayerCon = 5;
         playerState.PlayerStr = 5;
@@ -85,6 +95,49 @@ public class PlayerInfoManager
         item.PackageItemName = data.ItemName;
         item.PackageItemNum = 1;
         playerItemData.Add(item);
+    }
+
+    //显示鼠标现在停留的物品信息
+    public void ShowItemInfo(int id)
+    {
+        PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
+        PropConfig.PropObject data = cfgData.GetListConfigElementByID(id);
+        ItemName.text = data.ItemName;
+        ItemDesc.text = data.ItemInfomation;
+    }
+
+    //设置玩家装备信息
+    public void SetEquipmentInfo()
+    {
+        PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
+        for (int i = 0; i < 2; i++)
+        {
+            int id = PlayerPrefsManager.Instance.GetIntPlayerPrefs(PlayerInfoManager.Instance.GetPlayerPrefsKey(10 + i));
+            if (id > 0)
+            {
+                PropConfig.PropObject data = cfgData.GetListConfigElementByID(id);
+                equipmentList[i].spriteName = data.ItemIcon;
+            }
+            else
+            {
+                equipmentList[i].spriteName = "";
+            }
+        }
+    }
+
+    public int GetPlayerLevel(int exp)
+    {
+        int level = 0;
+        PlayerLevelExpConfig cfgData = DataTableManager.Instance.GetConfig<PlayerLevelExpConfig>("PlayerLevelExp");
+        for (int i = cfgData.playerlevelexpList.Count - 1; i >= 0; i--)
+        {
+            if (exp >= cfgData.playerlevelexpList[i].MaxExp)
+            {
+                level = cfgData.playerlevelexpList[i].Level;
+                break;
+            }
+        }
+        return level;
     }
 
     public string GetPlayerPrefsKey(int key)

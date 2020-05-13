@@ -33,9 +33,11 @@ public class BagPanel : UIScene
     private UILabel UsableBag_Label;//可用背包数量
     private UIButton CleanUp_Button;//整理
 
+    private UISprite Equipment0_Sprite;//装备
+    private UISprite Equipment1_Sprite;//装备1.
+
     List<UILabel> playerAttributeLable = new List<UILabel>();
     List<BoxCollider> playerAttributeBox = new List<BoxCollider>();
-    List<PackageItem> itemList = new List<PackageItem>();
 
     private void Awake()
     {
@@ -69,6 +71,12 @@ public class BagPanel : UIScene
         UsableBag_Label = Helper.GetChild(this.transform, "UsableBag_Label").GetComponent<UILabel>();
         CleanUp_Button = Helper.GetChild(this.transform, "CleanUp_Button").GetComponent<UIButton>();
 
+
+        Equipment0_Sprite = transform.Find("Bg_Sprite/Center/Equipment0_Sprite ").GetComponent<UISprite>();
+        Equipment1_Sprite = transform.Find("Bg_Sprite/Center/Equipment1_Sprite ").GetComponent<UISprite>();
+        PlayerInfoManager.Instance.equipmentList.Add(Equipment0_Sprite);
+        PlayerInfoManager.Instance.equipmentList.Add(Equipment1_Sprite);
+
         playerAttributeLable.Add(PhysicalPower_Label);
         playerAttributeLable.Add(Strength_Label);
         playerAttributeLable.Add(Skill_Label);
@@ -87,7 +95,6 @@ public class BagPanel : UIScene
     {
         base.Start();
 
-        //Sure_Button.onClick.Add(new EventDelegate(Sure));
         Back_Button.onClick.Add(new EventDelegate(Back));
         CleanUp_Button.onClick.Add(new EventDelegate(CleanUp));
 
@@ -102,58 +109,10 @@ public class BagPanel : UIScene
         UIEventListener.Get(BoneMinus_Button.gameObject).onClick = MinusProperty;
 
         ExistBoxIsForbidden();
-
-        PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
-        itemList = PlayerInfoManager.Instance.playerItemData;
-        UsableBag_Label.text = (80 - PlayerInfoManager.Instance.playerItemData.Count).ToString();
-
-        for (int i = 0; i < 80; i++)
-        {
-            GameObject go = Instantiate(Resources.Load("BagBg_Sprite"), Vector3.zero, Quaternion.identity) as GameObject;
-            go.transform.SetParent(BagGrid.transform);
-            go.transform.localScale = Vector3.one;
-            //if (i <= 10)
-            //{
-            //    go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon1";
-            //}
-            //else if (i > 10 && i <= 20)
-            //{
-            //    go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon2";
-            //}
-            //else if (i > 20 && i <= 30)
-            //{
-            //    go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon3";
-            //}
-            //else if (i > 30 && i <= 40)
-            //{
-            //    go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon4";
-            //}
-            //else
-            //{
-            //    go.transform.GetChild(0).GetComponent<BoxCollider>().enabled = false;
-            //    go.transform.GetChild(0).GetComponent<UISprite>().spriteName = null;
-            //}
-            PackageItem data = null;
-
-            if (itemList.Count > i)
-            {
-                data = itemList[i];
-            }
-            if (data != null)
-            {
-                go.transform.GetChild(0).GetComponent<BoxCollider>().enabled = true;
-                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = cfgData.GetListConfigElementByID(data.PackageItemID).ItemIcon;
-                go.name = data.PackageItemID.ToString();
-            }
-            else
-            {
-                go.transform.GetChild(0).GetComponent<BoxCollider>().enabled = false;
-                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = null;
-            }
-        }
-        BagGrid.Reposition();
-        BagGrid.repositionNow = true;
+        PlayerInfoManager.Instance.SetEquipmentInfo();
+        CleanUp();
         SetPlayerAttributeInfo();
+
         int count = PlayerPrefsManager.Instance.GetIntPlayerPrefs(PlayerInfoManager.Instance.GetPlayerPrefsKey(5));
         if (count > 0)
         {
@@ -190,8 +149,9 @@ public class BagPanel : UIScene
                 playerAttributeLable[i].text = PlayerInfoManager.Instance.GetPlayerAttribute(i + 1).ToString();
             }
         }
-
     }
+
+
 
     private void ExistBoxIsForbidden()
     {
@@ -295,29 +255,42 @@ public class BagPanel : UIScene
     //整理
     private void CleanUp()
     {
-        itemList.Sort();
+        for (int i = 0; i < BagGrid.transform.childCount; i++)
+        {
+            GameObject.Destroy(BagGrid.transform.GetChild(i).gameObject);
+        }
+        var itemList = PlayerInfoManager.Instance.playerItemData;
+        //itemList.Sort((a, b) =>
+        //{
+        //    if (a.PackageItemID < b.PackageItemID)
+        //        return a.PackageItemID;
+        //    else
+        //        return b.PackageItemID;
+        //}
+        //);
+
+        PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
+        UsableBag_Label.text = PlayerInfoManager.Instance.playerItemData.Count + "/80";
 
         for (int i = 0; i < 80; i++)
         {
-            GameObject go = Instantiate(Resources.Load("BagBg_Sprite"), Vector3.zero, Quaternion.identity) as GameObject;
-            go.name = i.ToString();
+            GameObject go = null;
+            go = Instantiate(Resources.Load("BagBg_Sprite"), Vector3.zero, Quaternion.identity) as GameObject;
             go.transform.SetParent(BagGrid.transform);
             go.transform.localScale = Vector3.one;
-            if (i <= 10)
+
+            PackageItem data = null;
+
+            if (itemList.Count > i)
             {
-                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon1";
+                data = itemList[i];
             }
-            else if (i > 10 && i <= 20)
+
+            if (data != null)
             {
-                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon2";
-            }
-            else if (i > 20 && i <= 30)
-            {
-                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon3";
-            }
-            else if (i > 30 && i <= 40)
-            {
-                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "icon4";
+                go.transform.GetChild(0).GetComponent<BoxCollider>().enabled = true;
+                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = cfgData.GetListConfigElementByID(data.PackageItemID).ItemIcon;
+                go.name = data.PackageItemID.ToString();
             }
             else
             {

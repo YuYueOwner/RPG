@@ -24,14 +24,6 @@ namespace HotFix_Project.Config
 
         public override void InitConfig(string[] configArr)
         {
-            //string sb = configArr[0];//属性
-            //string sb1 = configArr[1];//字段类型
-            //string[] arr = sb.Split('|');
-            //foreach (var item in arr)
-            //{
-            //    Debug.Log("属性名称:" + item);
-            //}
-
             //从2开始是因为01是属性和字段类型
             for (int i = 2; i < configArr.Length; i++)
             {

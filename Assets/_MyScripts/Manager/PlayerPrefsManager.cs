@@ -66,8 +66,7 @@ public class PlayerPrefsManager
     public int GetIntPlayerPrefs(string key)
     {
         key = GetKey(key);
-        int sum = PlayerPrefs.GetInt(key);
-        return sum;
+        return PlayerPrefs.GetInt(key);
     }
 
 

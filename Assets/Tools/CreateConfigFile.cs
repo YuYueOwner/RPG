@@ -111,6 +111,13 @@ public class CreateConfigFile : MonoBehaviour
     //}
 
 
+    //等级经验表
+    public class PlayerLevelExp
+    {
+        public int Level;
+        public int MaxExp;
+    }
+
     [MenuItem("Tools/生成配置表解析文件")]
     static void TestData()
     {
@@ -121,6 +128,7 @@ public class CreateConfigFile : MonoBehaviour
         //CreateOne(new Armor());
         //CreateOne(new ActivityMain());
         //CreateOne(new Prop());
+        CreateOne(new PlayerLevelExp());
 
         AssetDatabase.Refresh();
     }

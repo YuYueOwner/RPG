@@ -36,11 +36,35 @@ public class BagDrag : UIDragDropItem
             }
             else if (type == 1)
             {
-
+                string key = PlayerInfoManager.Instance.GetPlayerPrefsKey(10);
+                int value = -1;
+                value = PlayerPrefsManager.Instance.GetIntPlayerPrefs(key);
+                //储存装备先存10在存11.先判断10是否有装备，有的话找11是否有装备。有的话替换10.
+                if (value > 0)
+                {
+                    string key1 = PlayerInfoManager.Instance.GetPlayerPrefsKey(11);
+                    value = PlayerPrefsManager.Instance.GetIntPlayerPrefs(key1);
+                    if (value > 0)
+                    {
+                        PlayerPrefsManager.Instance.SetPlayerPrefs(key, id);
+                    }
+                    else
+                    {
+                        PlayerPrefsManager.Instance.SetPlayerPrefs(key1, id);
+                    }
+                }
+                else
+                {
+                    PlayerPrefsManager.Instance.SetPlayerPrefs(key, id);
+                }
+                PlayerInfoManager.Instance.SetEquipmentInfo();
             }
             else if (type == 2)
             {
+                //消耗物品把对应的数据加上 GOTO  物品数据就是上面的cfgData
 
+
+                PlayerInfoManager.Instance.RemovePlayerItemData(id);
             }
             else if (type == 3)
             {
@@ -54,6 +78,7 @@ public class BagDrag : UIDragDropItem
     IEnumerator Show()
     {
         yield return new WaitForSeconds(0.5f);
+        PlayerInfoManager.Instance.ShowItemInfo(int.Parse(transform.parent.name));
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_GoodsInfoPanel, true);
     }
 
@@ -100,6 +125,7 @@ public class BagDrag : UIDragDropItem
         {
             //回到原来的位置
             transform.localPosition = Vector3.zero;
+            PlayerInfoManager.Instance.SelectItemId = int.Parse(transform.parent.name);
             UIManager.Instance.SetVisible(UIPanelName.SceneStart_DiscardGoodsPanel, true);
         }
     }

@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class DiscardGoodsPanel : UIScene
+﻿public class DiscardGoodsPanel : UIScene
 {
     private UIButton Sure_Button;
     private UIButton Cancel_Button;
@@ -21,6 +17,9 @@ public class DiscardGoodsPanel : UIScene
 
     private void Sure()
     {
+        PlayerInfoManager.Instance.RemovePlayerItemData(PlayerInfoManager.Instance.SelectItemId);
+        //删除完物品后刷新一下背包 GOTO
+
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_DiscardGoodsPanel, false);
     }
 

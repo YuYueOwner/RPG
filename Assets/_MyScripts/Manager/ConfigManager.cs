@@ -77,8 +77,13 @@ public class ConfigManager
             }
             else if (name == "Prop")
             {
-                // 测试表
+                // 全部道具表
                 configBase = new PropConfig();
+            }
+            else if (name == "PlayerLevelExp")
+            {
+                // 等级经验表
+                configBase = new PlayerLevelExpConfig();
             }
             else
             {
@@ -89,10 +94,4 @@ public class ConfigManager
             configBase.InitConfig(configArr);
         }
     }
-
-
-
-
-
-
 }
