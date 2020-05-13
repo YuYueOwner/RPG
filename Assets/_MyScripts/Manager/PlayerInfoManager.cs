@@ -128,15 +128,15 @@ public class PlayerInfoManager
     public int GetPlayerLevel(int exp)
     {
         int level = 0;
-        PlayerLevelExpConfig cfgData = DataTableManager.Instance.GetConfig<PlayerLevelExpConfig>("PlayerLevelExp");
-        for (int i = cfgData.playerlevelexpList.Count - 1; i >= 0; i--)
-        {
-            if (exp >= cfgData.playerlevelexpList[i].MaxExp)
-            {
-                level = cfgData.playerlevelexpList[i].Level;
-                break;
-            }
-        }
+        //PlayerLevelExpConfig cfgData = DataTableManager.Instance.GetConfig<PlayerLevelExpConfig>("PlayerLevelExp");
+        //for (int i = cfgData.playerlevelexpList.Count - 1; i >= 0; i--)
+        //{
+        //    if (exp >= cfgData.playerlevelexpList[i].MaxExp)
+        //    {
+        //        level = cfgData.playerlevelexpList[i].Level;
+        //        break;
+        //    }
+        //}
         return level;
     }
 

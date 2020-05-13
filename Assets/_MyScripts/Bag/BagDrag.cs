@@ -78,6 +78,8 @@ public class BagDrag : UIDragDropItem
     IEnumerator Show()
     {
         yield return new WaitForSeconds(0.5f);
+        int parentName;
+        if (int.TryParse(transform.parent.name, out parentName) == false) yield return null;
         PlayerInfoManager.Instance.ShowItemInfo(int.Parse(transform.parent.name));
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_GoodsInfoPanel, true);
     }
