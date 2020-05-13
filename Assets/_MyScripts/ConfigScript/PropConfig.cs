@@ -85,6 +85,7 @@ namespace HotFix_Project.Config
             PlayerInfoManager.Instance.SetItemInfo();
         }
 
+        //根据物品id获取这个物品整条数据
         public PropConfig.PropObject GetListConfigElementByID(int id)
         {
             PropObject propObj = null;
