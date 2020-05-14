@@ -86,7 +86,7 @@ public class BagPanel : UIScene
         playerAttributeLable.Add(Bone_Label);
         playerAttributeLable.Add(UsableProperty_Label);
         playerAttributeLable.Add(Hp_Label);
-        playerAttributeLable.Add(Experience_Label);
+        playerAttributeLable.Add(Health_Label);
 
         playerAttributeBox.Add(Helper.GetChild<BoxCollider>(PhysicalPower_Label.transform.parent, "PhysicalPower_Add_Button"));
         playerAttributeBox.Add(Helper.GetChild<BoxCollider>(PhysicalPower_Label.transform.parent, "Strength_Add_Button"));
