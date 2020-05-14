@@ -80,7 +80,7 @@ public class PlayerInfoManager
             }
             if (!isCanOverlay)
             {
-                PropConfig.PropObject data = cfgData.propObjList[id];
+                PropConfig.PropObject data = cfgData.GetListConfigElementByID(id);
                 item.PackageItemID = data.ItemID;
                 item.PackageItemName = data.ItemName;
                 item.PackageItemNum = 1;
