@@ -281,9 +281,10 @@ public class BagPanel : UIScene
                 data = itemList[i];
             }
 
-            if (data != null)
+            if (data != null)//如果有数据
             {
                 go.transform.GetChild(0).GetComponent<BoxCollider>().enabled = true;
+                go.transform.GetComponent<BoxCollider>().enabled = false;
                 sp.spriteName = cfgData.GetListConfigElementByID(data.PackageItemID).ItemIcon;
                 if (data.PackageItemNum > 1)
                 {

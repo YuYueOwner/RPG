@@ -51,6 +51,11 @@ public class BagDrag : UIDragDropItem
         }
     }
 
+    protected override void Update()
+    {
+        base.Update();
+    }
+
     //0.5s显示详细信息面板
     IEnumerator Show()
     {
@@ -67,9 +72,10 @@ public class BagDrag : UIDragDropItem
     {
         base.StartDragging();
         this.GetComponent<UISprite>().depth = 10;
+        recordParentCollider = this.transform.parent.GetComponent<BoxCollider>();
     }
 
-
+    private BoxCollider recordParentCollider;
 
     /// <summary>
     /// 重写父类里的拖拽方法
@@ -80,23 +86,24 @@ public class BagDrag : UIDragDropItem
     {
         base.OnDragDropRelease(surface);
         this.GetComponent<UISprite>().depth = 4;
-
         //如果放下时撞到的物品是空格子
         if (surface.tag == "Cell")
         {
+            recordParentCollider.enabled = true;
             //物品交换 （通过改变父物体来转移位置）
             this.transform.parent = surface.transform;
             //位置归零
             this.transform.localPosition = Vector3.zero;
+            this.transform.parent.GetComponent<BoxCollider>().enabled = false;
         }
         //如果当下时撞到的是装备
         else if (surface.tag == "Goods")
         {
-            Transform Prent = null;
+            Transform Parent = null;
             //开始交换  
-            Prent = surface.transform.parent;         //把撞到的(surface)装备的父物体取出来
-            surface.transform.parent = this.transform.parent;   //把撞到的物体移动过来(把自己的父物体给surface)
-            this.transform.parent = Prent;                      //自己移动到想被交换的位置
+            Parent = this.transform.parent;         //把撞到的(surface)装备的父物体取出来
+            this.transform.parent = surface.transform.parent;   //把撞到的物体移动过来(把自己的父物体给surface)
+            surface.transform.parent = Parent;                      //自己移动到想被交换的位置
             //交换完成 位移归零 （交换时是位移的改变 缩放没有变）
             surface.transform.localPosition = transform.localPosition = Vector3.zero;
         }
@@ -104,7 +111,7 @@ public class BagDrag : UIDragDropItem
         {
             //回到原来的位置
             transform.localPosition = Vector3.zero;
-            PlayerInfoManager.Instance.SelectItemId = int.Parse(transform.parent.name);
+            PlayerInfoManager.Instance.SelectItemId = int.Parse(transform.name);
             UIManager.Instance.SetVisible(UIPanelName.SceneStart_DiscardGoodsPanel, true);
         }
     }
