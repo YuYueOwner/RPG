@@ -114,41 +114,36 @@ public class BagPanel : UIScene
         PlayerInfoManager.Instance.GetEquipmentInfo();
         CleanUp();
         SetPlayerAttributeInfo();
-
-        int count = PlayerPrefsManager.Instance.GetIntPlayerPrefs(PlayerInfoManager.Instance.GetPlayerPrefsKey(5));
-        if (count > 0)
-        {
-            playerAttributeLable[5].text = count.ToString() + "/" + PlayerInfoManager.Instance.GetPlayerAttribute(6).ToString();
-        }
-        else
-        {
-            playerAttributeLable[5].text = PlayerInfoManager.Instance.GetPlayerAttribute(5).ToString() + "/" + PlayerInfoManager.Instance.GetPlayerAttribute(6).ToString();
-        }
-
-        int exp = PlayerPrefsManager.Instance.GetIntPlayerPrefs(PlayerInfoManager.Instance.GetPlayerPrefsKey(7));
-        if (count > 0)
-        {
-            playerAttributeLable[6].text = count.ToString() + "/" + PlayerInfoManager.Instance.GetPlayerAttribute(8).ToString();
-        }
-        else
-        {
-            playerAttributeLable[6].text = PlayerInfoManager.Instance.GetPlayerAttribute(7).ToString() + "/" + PlayerInfoManager.Instance.GetPlayerAttribute(8).ToString();
-        }
     }
 
+    //从本地取左侧属性值
     private void SetPlayerAttributeInfo()
     {
         for (int i = 0; i < playerAttributeLable.Count; i++)
         {
             string key = PlayerInfoManager.Instance.GetPlayerPrefsKey(i + 1);
             int count = PlayerPrefsManager.Instance.GetIntPlayerPrefs(key);
-            if (count > 0)
+            if (i == 5 || i == 6)
             {
-                playerAttributeLable[i].text = count.ToString();
+                if (count > 0)
+                {
+                    playerAttributeLable[i].text = count.ToString() + "/" + PlayerInfoManager.Instance.GetPlayerAttribute(i + 1).ToString();
+                }
+                else
+                {
+                    playerAttributeLable[i].text = PlayerInfoManager.Instance.GetPlayerAttribute(i + 1).ToString() + "/" + PlayerInfoManager.Instance.GetPlayerAttribute(i + 1).ToString();
+                }
             }
             else
             {
-                playerAttributeLable[i].text = PlayerInfoManager.Instance.GetPlayerAttribute(i + 1).ToString();
+                if (count > 0)
+                {
+                    playerAttributeLable[i].text = count.ToString();
+                }
+                else
+                {
+                    playerAttributeLable[i].text = PlayerInfoManager.Instance.GetPlayerAttribute(i + 1).ToString();
+                }
             }
         }
     }
