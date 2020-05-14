@@ -18,6 +18,7 @@
     private void Sure()
     {
         PlayerPrefsManager.Instance.SetPlayerPrefs(true);
+        BagPanel._instance.JudgePropertyButton(false);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_ChangePropertyPanel, false);
     }
 
