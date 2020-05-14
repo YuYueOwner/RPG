@@ -41,8 +41,16 @@ public class BagDrag : UIDragDropItem
             }
             else if (type == 2)
             {
-                PlayerInfoManager.Instance.RemovePlayerItemData(id);
-                //消耗物品把对应的数据加上 GOTO  物品数据就是上面的cfgData
+                if (PlayerInfoManager.Instance.ExistIsCanUseItem())
+                {
+                    PlayerInfoManager.Instance.UseItemAddHpAndExp(id);
+                    PlayerInfoManager.Instance.RemovePlayerItemData(id);
+                    //消耗物品把对应的数据加上 GOTO  物品数据就是上面的cfgData
+                }
+                else
+                {
+                    UIManager.Instance.SetVisible(UIPanelName.SceneStart_EquipmentBagPanel, true);
+                }
             }
             else if (type == 3)
             {

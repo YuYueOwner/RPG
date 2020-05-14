@@ -43,9 +43,10 @@ public class PlayerInfoManager
         playerState.PlayerAvaliablePoint = 4;
         playerState.PlayerHpMax = 100;
         playerState.PlayerHpCurrent = 100;
-        playerState.PlayerHealth = 100;
-        playerState.ExpPlayer = 0;
-        playerState.ExpMaxPlayer = 10000;
+        playerState.PlayerHealth = 80;
+        playerState.PlayerHealthMax = 100;
+        playerState.ExpPlayer = 80;
+        playerState.ExpMaxPlayer = 100;
         playerState.PlayerName = "张三";
         playerState.PlayerMoney = 0;
         playerState.PlayerLv = 100;
@@ -257,6 +258,42 @@ public class PlayerInfoManager
         return playerAttributeInfo[key];
     }
 
+    //判断是否能够使用消耗品 当前血量小于最大血量或者当前经验小于最大经验
+    public bool ExistIsCanUseItem()
+    {
+        return GetPlayerAttribute(6) < GetPlayerAttribute(7) || GetPlayerAttribute(8) < GetPlayerAttribute(9);
+    }
+
+    //判断是否能够使用消耗品 当前血量小于最大血量或者当前经验小于最大经验
+    public void UseItemAddHpAndExp(int id)
+    {
+        PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
+        PropConfig.PropObject data = cfgData.GetListConfigElementByID(id);
+        if (data.ConsumableHpIncrease + GetPlayerAttribute(6) < GetPlayerAttribute(7))
+        {
+            playerState.PlayerHpCurrent = data.ConsumableHpIncrease + GetPlayerAttribute(6);
+        }
+        else
+        {
+            playerState.PlayerHpCurrent = GetPlayerAttribute(7);
+        }
+
+        if (data.ConsumableHealthIncrease + GetPlayerAttribute(8) < GetPlayerAttribute(9))
+        {
+            playerState.PlayerHealth = data.ConsumableHpIncrease + GetPlayerAttribute(8);
+        }
+        else
+        {
+            playerState.PlayerHealth = GetPlayerAttribute(9);
+        }
+        string keyHp = GetPlayerPrefsKey(6);
+        string keyExp = GetPlayerPrefsKey(8);
+        PlayerPrefsManager.Instance.SetPlayerPrefs(keyHp, playerState.PlayerHpCurrent);
+        PlayerPrefsManager.Instance.SetPlayerPrefs(keyExp, playerState.PlayerHealth);
+        BagPanel._instance.SetPlayerAttributeInfo();
+        //GetPlayerAttribute(6) < GetPlayerAttribute(7) || GetPlayerAttribute(8) < GetPlayerAttribute(9);
+    }
+
     public int GetPlayerAttribute(int i)
     {
         int count = 0;
@@ -290,11 +327,11 @@ public class PlayerInfoManager
         }
         else if (i == 8)
         {
-            count = playerState.ExpPlayer;
+            count = playerState.PlayerHealth;
         }
         else if (i == 9)
         {
-            count = playerState.ExpMaxPlayer;
+            count = playerState.PlayerHealthMax;
         }
         else
         {
