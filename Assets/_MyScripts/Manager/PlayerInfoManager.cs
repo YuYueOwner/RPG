@@ -36,15 +36,15 @@ public class PlayerInfoManager
         playerAttributeInfo[10] = "Equip";//身上的装备id
         playerAttributeInfo[11] = "Equip1";//身上的装备id1
 
-        playerState.PlayerCon = 100;
-        playerState.PlayerStr = 100;
-        playerState.PlayerDex = 100;
-        playerState.PlayerLuk = 100;
+        playerState.PlayerCon = 5;
+        playerState.PlayerStr = 5;
+        playerState.PlayerDex = 5;
+        playerState.PlayerLuk = 5;
         playerState.PlayerAvaliablePoint = 4;
         playerState.PlayerHpMax = 100;
         playerState.PlayerHpCurrent = 100;
         playerState.PlayerHealth = 100;
-        playerState.ExpPlayer = 1000;
+        playerState.ExpPlayer = 0;
         playerState.ExpMaxPlayer = 10000;
         playerState.PlayerName = "张三";
         playerState.PlayerMoney = 0;
@@ -278,17 +278,21 @@ public class PlayerInfoManager
         }
         else if (i == 5)
         {
-            count = playerState.PlayerHpCurrent;
+            count = playerState.PlayerAvaliablePoint;
         }
         else if (i == 6)
         {
-            count = playerState.PlayerHpMax;
+            count = playerState.PlayerHpCurrent;
         }
         else if (i == 7)
         {
-            count = playerState.ExpPlayer;
+            count = playerState.PlayerHpMax;
         }
         else if (i == 8)
+        {
+            count = playerState.ExpPlayer;
+        }
+        else if (i == 9)
         {
             count = playerState.ExpMaxPlayer;
         }

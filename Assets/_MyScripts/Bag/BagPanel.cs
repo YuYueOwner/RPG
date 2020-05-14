@@ -123,27 +123,38 @@ public class BagPanel : UIScene
         {
             string key = PlayerInfoManager.Instance.GetPlayerPrefsKey(i + 1);
             int count = PlayerPrefsManager.Instance.GetIntPlayerPrefs(key);
-            if (i == 5 || i == 6)
+            switch (i)
             {
-                if (count > 0)
-                {
-                    playerAttributeLable[i].text = count.ToString() + "/" + PlayerInfoManager.Instance.GetPlayerAttribute(i + 1).ToString();
-                }
-                else
-                {
-                    playerAttributeLable[i].text = PlayerInfoManager.Instance.GetPlayerAttribute(i + 1).ToString() + "/" + PlayerInfoManager.Instance.GetPlayerAttribute(i + 1).ToString();
-                }
-            }
-            else
-            {
-                if (count > 0)
-                {
-                    playerAttributeLable[i].text = count.ToString();
-                }
-                else
-                {
-                    playerAttributeLable[i].text = PlayerInfoManager.Instance.GetPlayerAttribute(i + 1).ToString();
-                }
+                case 5:
+                    if (count > 0)
+                    {
+                        playerAttributeLable[i].text = count.ToString() + "/" + PlayerInfoManager.Instance.GetPlayerAttribute(6).ToString();
+                    }
+                    else
+                    {
+                        playerAttributeLable[i].text = PlayerInfoManager.Instance.GetPlayerAttribute(6).ToString() + "/" + PlayerInfoManager.Instance.GetPlayerAttribute(7).ToString();
+                    }
+                    break;
+                case 6:
+                    if (count > 0)
+                    {
+                        playerAttributeLable[i].text = count.ToString() + "/" + PlayerInfoManager.Instance.GetPlayerAttribute(7).ToString();
+                    }
+                    else
+                    {
+                        playerAttributeLable[i].text = PlayerInfoManager.Instance.GetPlayerAttribute(8).ToString() + "/" + PlayerInfoManager.Instance.GetPlayerAttribute(9).ToString();
+                    }
+                    break;
+                default:
+                    if (count > 0)
+                    {
+                        playerAttributeLable[i].text = count.ToString();
+                    }
+                    else
+                    {
+                        playerAttributeLable[i].text = PlayerInfoManager.Instance.GetPlayerAttribute(i + 1).ToString();
+                    }
+                    break;
             }
         }
     }
