@@ -24,7 +24,7 @@ public class BagDrag : UIDragDropItem
         {
             //鼠标右键点击逻辑，若点击装备则走装备判断逻辑
             //（是否可以装备，是-装备或替换/否-弹出提示），若点击消耗品则走消耗品判断逻辑（使用该消耗品）。
-            int id = int.Parse(transform.parent.name);
+            int id = int.Parse(transform.name);
             PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
             int type = cfgData.ExistIsCanConsumeByID(id);
             Debug.LogError("点击的type" + type);

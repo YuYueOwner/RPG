@@ -33,8 +33,8 @@ public class PlayerInfoManager
         playerAttributeInfo[7] = "PlayerHpMax";
         playerAttributeInfo[8] = "PlayerExperience";
         playerAttributeInfo[9] = "PlayerExperienceMax";
-        playerAttributeInfo[10] = "Equip";//身上的装备id
-        playerAttributeInfo[11] = "Equip1";//身上的装备id1
+        playerAttributeInfo[10] = "Equip";//身上的装备id 武器
+        playerAttributeInfo[11] = "Equip1";//身上的装备id1 防具
 
         playerState.PlayerCon = 5;
         playerState.PlayerStr = 5;
@@ -205,6 +205,16 @@ public class PlayerInfoManager
     //设置玩家装备改变
     public void SetEquipmentChange()
     {
+        PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
+        PropConfig.PropObject data = cfgData.GetListConfigElementByID(SelectItemId);
+        //if ()
+        //{
+
+        //}
+        //else
+        //{
+
+        //}
         Debug.LogError("SelectItemId" + SelectItemId);
         string key = PlayerInfoManager.Instance.GetPlayerPrefsKey(10);
         int value = -1;
@@ -280,16 +290,16 @@ public class PlayerInfoManager
 
         if (data.ConsumableHealthIncrease + GetPlayerAttribute(8) < GetPlayerAttribute(9))
         {
-            playerState.PlayerHealth = data.ConsumableHpIncrease + GetPlayerAttribute(8);
+            playerState.PlayerHealth = data.ConsumableHealthIncrease + GetPlayerAttribute(8);
         }
         else
         {
             playerState.PlayerHealth = GetPlayerAttribute(9);
         }
         string keyHp = GetPlayerPrefsKey(6);
-        string keyExp = GetPlayerPrefsKey(8);
+        string keyHealth = GetPlayerPrefsKey(8);
         PlayerPrefsManager.Instance.SetPlayerPrefs(keyHp, playerState.PlayerHpCurrent);
-        PlayerPrefsManager.Instance.SetPlayerPrefs(keyExp, playerState.PlayerHealth);
+        PlayerPrefsManager.Instance.SetPlayerPrefs(keyHealth, playerState.PlayerHealth);
         BagPanel._instance.SetPlayerAttributeInfo();
         //GetPlayerAttribute(6) < GetPlayerAttribute(7) || GetPlayerAttribute(8) < GetPlayerAttribute(9);
     }
