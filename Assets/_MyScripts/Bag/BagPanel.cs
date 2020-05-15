@@ -237,6 +237,8 @@ public class BagPanel : UIScene
 
     private void AddProperty(GameObject go)
     {
+        AudioManager.Instance.PlaySound(1);
+
         string key = "";
         int sum = int.Parse(UsableProperty_Label.text);
         if (sum > 0)
@@ -273,6 +275,8 @@ public class BagPanel : UIScene
 
     private void MinusProperty(GameObject go)
     {
+        AudioManager.Instance.PlaySound(1);
+
         UILabel propertyLabel = go.transform.parent.GetChild(0).GetComponent<UILabel>();
         propertyLabel.text = (int.Parse(propertyLabel.text) - 1).ToString();
 
@@ -317,11 +321,14 @@ public class BagPanel : UIScene
 
     private void Sure(GameObject go)
     {
+        AudioManager.Instance.PlaySound(1);
+
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_ChangePropertyPanel, true);
     }
 
     private void Back()
     {
+        AudioManager.Instance.PlaySound(1);
         PlayerPrefsManager.Instance.SetPlayerPrefs(false);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_OpenBagPanel, true);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_BagPanel, false);

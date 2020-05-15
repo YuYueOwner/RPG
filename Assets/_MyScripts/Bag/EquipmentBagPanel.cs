@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class EquipmentBagPanel : UIScene
+﻿public class EquipmentBagPanel : UIScene
 {
     private UIButton Sure_Button;
 
@@ -19,6 +15,8 @@ public class EquipmentBagPanel : UIScene
 
     private void Sure()
     {
+        AudioManager.Instance.PlaySound(1);
+
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_EquipmentBagPanel, false);
     }
 }

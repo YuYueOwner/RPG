@@ -20,6 +20,8 @@ public class BagDrag : UIDragDropItem
 
     void OnClick()
     {
+        AudioManager.Instance.PlaySound(1);
+
         if (UICamera.currentTouchID == -2)
         {
             //鼠标右键点击逻辑，若点击装备则走装备判断逻辑
