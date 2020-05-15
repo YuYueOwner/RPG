@@ -36,10 +36,10 @@ public class PlayerInfoManager
         playerAttributeInfo[10] = "Equip";//身上的装备id 武器
         playerAttributeInfo[11] = "Equip1";//身上的装备id1 防具
 
-        playerState.PlayerCon = 5;
-        playerState.PlayerStr = 5;
-        playerState.PlayerDex = 5;
-        playerState.PlayerLuk = 5;
+        playerState.PlayerCon = 50;
+        playerState.PlayerStr = 50;
+        playerState.PlayerDex = 50;
+        playerState.PlayerLuk = 50;
         playerState.PlayerAvaliablePoint = 4;
         playerState.PlayerHpMax = 100;
         playerState.PlayerHpCurrent = 100;
@@ -208,25 +208,16 @@ public class PlayerInfoManager
     {
         PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
         PropConfig.PropObject data = cfgData.GetListConfigElementByID(SelectItemId);
-        //if ()
-        //{
-
-        //}
-        //else
-        //{
-
-        //}
         Debug.LogError("SelectItemId" + SelectItemId);
-        string key = PlayerInfoManager.Instance.GetPlayerPrefsKey(10);
-        int value = -1;
-        value = PlayerPrefsManager.Instance.GetIntPlayerPrefs(key);
-        Debug.LogError("装备id:" + value);
-        //储存装备先存10在存11.先判断10是否有装备，有的话找11是否有装备。有的话替换10.
-        if (value > 0)
+
+        if (data.ConfigType == "Weapon")
         {
-            string key1 = PlayerInfoManager.Instance.GetPlayerPrefsKey(11);
-            int value1 = PlayerPrefsManager.Instance.GetIntPlayerPrefs(key1);
-            if (value1 > 0)
+            string key = PlayerInfoManager.Instance.GetPlayerPrefsKey(10);
+            int value = -1;
+            value = PlayerPrefsManager.Instance.GetIntPlayerPrefs(key);
+            //Debug.LogError("装备id:" + value);
+            //10 存武器装备
+            if (value > 0)
             {
                 PlayerPrefsManager.Instance.SetPlayerPrefs(key, SelectItemId);
                 //更换装备需要把替换下来的装备给放到背包里
@@ -236,13 +227,34 @@ public class PlayerInfoManager
             }
             else
             {
-                PlayerPrefsManager.Instance.SetPlayerPrefs(key1, SelectItemId);
+                PlayerPrefsManager.Instance.SetPlayerPrefs(key, SelectItemId);
+            }
+        }
+        else if (data.ConfigType == "Armor")
+        {
+            string key = PlayerInfoManager.Instance.GetPlayerPrefsKey(11);
+            int value = -1;
+            value = PlayerPrefsManager.Instance.GetIntPlayerPrefs(key);
+            //Debug.LogError("装备id:" + value);
+            //11存防具装备
+            if (value > 0)
+            {
+                PlayerPrefsManager.Instance.SetPlayerPrefs(key, SelectItemId);
+                //更换装备需要把替换下来的装备给放到背包里
+                AddPlayerItemData(value);
+                //把替换上去的装备从背包删除
+                RemovePlayerItemData(SelectItemId);
+            }
+            else
+            {
+                PlayerPrefsManager.Instance.SetPlayerPrefs(key, SelectItemId);
             }
         }
         else
         {
-            PlayerPrefsManager.Instance.SetPlayerPrefs(key, SelectItemId);
+            Debug.LogError("这个装备在表里找不到数据");
         }
+
         GetEquipmentInfo();
 
         BagPanel._instance.CleanUp();
