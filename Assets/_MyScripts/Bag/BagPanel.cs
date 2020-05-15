@@ -163,10 +163,14 @@ public class BagPanel : UIScene
         //先判断可用属性按钮
         if (int.Parse(UsableProperty_Label.text) > 0)
         {
-            JudgeNum(int.Parse(PhysicalPower_Label.text), PlayerInfoManager.Instance.playerState.PlayerCon, PhysicalPowerMinus_Button.gameObject);
-            JudgeNum(int.Parse(Strength_Label.text), PlayerInfoManager.Instance.playerState.PlayerStr, StrengthMinus_Button.gameObject);
-            JudgeNum(int.Parse(Skill_Label.text), PlayerInfoManager.Instance.playerState.PlayerDex, SkillMinus_Button.gameObject);
-            JudgeNum(int.Parse(Bone_Label.text), PlayerInfoManager.Instance.playerState.PlayerLuk, BoneMinus_Button.gameObject);
+            PhysicalPowerAdd_Button.gameObject.SetActive(true);
+            StrengthAdd_Button.gameObject.SetActive(true);
+            SkillAdd_Button.gameObject.SetActive(true);
+            BoneAdd_Button.gameObject.SetActive(true);
+            PhysicalPowerMinus_Button.gameObject.SetActive(false);
+            StrengthMinus_Button.gameObject.SetActive(false);
+            SkillMinus_Button.gameObject.SetActive(false);
+            BoneMinus_Button.gameObject.SetActive(false);
             Sure_Button.gameObject.SetActive(true);
         }
         else
