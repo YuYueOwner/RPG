@@ -17,12 +17,16 @@
 
     private void Sure()
     {
+        AudioManager.Instance.PlaySound(1);
+
         PlayerInfoManager.Instance.SetEquipmentChange();
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_EquipmentGoodsPanel, false);
     }
 
     private void Cancel()
     {
+        AudioManager.Instance.PlaySound(1);
+
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_EquipmentGoodsPanel, false);
     }
 }

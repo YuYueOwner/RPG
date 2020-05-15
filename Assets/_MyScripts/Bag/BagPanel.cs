@@ -123,7 +123,7 @@ public class BagPanel : UIScene
         PlayerInfoManager.Instance.GetEquipmentInfo();
         CleanUp();
         SetPlayerAttributeInfo();
-        JudgePropertyButton(false);
+        JudgePropertyButton();
     }
     private void JudgeNum(int labelNum, int playerStateNum, GameObject goButton)
     {
@@ -138,26 +138,44 @@ public class BagPanel : UIScene
     }
 
 
-    public void JudgePropertyButton(bool isAdd)
+    public void JudgePropertyButton()
     {
-        if (isAdd == true)
+        //先判断可用属性按钮
+        if (int.Parse(UsableProperty_Label.text) >= 0)
         {
-            //先判断可用属性按钮
-            if (int.Parse(UsableProperty_Label.text) > 0)
+            JudgeNum(int.Parse(PhysicalPower_Label.text), PlayerInfoManager.Instance.playerState.PlayerCon, PhysicalPowerMinus_Button.gameObject);
+            JudgeNum(int.Parse(Strength_Label.text), PlayerInfoManager.Instance.playerState.PlayerStr, StrengthMinus_Button.gameObject);
+            JudgeNum(int.Parse(Skill_Label.text), PlayerInfoManager.Instance.playerState.PlayerDex, SkillMinus_Button.gameObject);
+            JudgeNum(int.Parse(Bone_Label.text), PlayerInfoManager.Instance.playerState.PlayerLuk, BoneMinus_Button.gameObject);
+        }
+        else
+        {
+            foreach (var item in playerPropertyButton)
             {
-                JudgeNum(int.Parse(PhysicalPower_Label.text), PlayerInfoManager.Instance.playerState.PlayerCon, PhysicalPowerMinus_Button.gameObject);
-                JudgeNum(int.Parse(Strength_Label.text), PlayerInfoManager.Instance.playerState.PlayerStr, StrengthMinus_Button.gameObject);
-                JudgeNum(int.Parse(Skill_Label.text), PlayerInfoManager.Instance.playerState.PlayerDex, SkillMinus_Button.gameObject);
-                JudgeNum(int.Parse(Bone_Label.text), PlayerInfoManager.Instance.playerState.PlayerLuk, BoneMinus_Button.gameObject);
+                item.gameObject.SetActive(false);
             }
-            else
+            Sure_Button.gameObject.SetActive(true);
+        }
+    }
+
+    public void ChangePropertySureButton()
+    {
+        //先判断可用属性按钮
+        if (int.Parse(UsableProperty_Label.text) > 0)
+        {
+            JudgeNum(int.Parse(PhysicalPower_Label.text), PlayerInfoManager.Instance.playerState.PlayerCon, PhysicalPowerMinus_Button.gameObject);
+            JudgeNum(int.Parse(Strength_Label.text), PlayerInfoManager.Instance.playerState.PlayerStr, StrengthMinus_Button.gameObject);
+            JudgeNum(int.Parse(Skill_Label.text), PlayerInfoManager.Instance.playerState.PlayerDex, SkillMinus_Button.gameObject);
+            JudgeNum(int.Parse(Bone_Label.text), PlayerInfoManager.Instance.playerState.PlayerLuk, BoneMinus_Button.gameObject);
+            Sure_Button.gameObject.SetActive(true);
+        }
+        else
+        {
+            foreach (var item in playerPropertyButton)
             {
-                foreach (var item in playerPropertyButton)
-                {
-                    item.gameObject.SetActive(false);
-                }
-                Sure_Button.gameObject.SetActive(true);
+                item.gameObject.SetActive(false);
             }
+            Sure_Button.gameObject.SetActive(false);
         }
     }
 
@@ -219,6 +237,8 @@ public class BagPanel : UIScene
 
     private void AddProperty(GameObject go)
     {
+        AudioManager.Instance.PlaySound(1);
+
         string key = "";
         int sum = int.Parse(UsableProperty_Label.text);
         if (sum > 0)
@@ -249,11 +269,14 @@ public class BagPanel : UIScene
             PlayerPrefsManager.Instance.SetAttributePlayerPrefs(PlayerInfoManager.Instance.GetPlayerPrefsKey(5), -1);
             SetUsableProperty_Label(int.Parse(UsableProperty_Label.text) - 1);
         }
-        JudgePropertyButton(true);
+        if (int.Parse(UsableProperty_Label.text) < 0) return;
+        JudgePropertyButton();
     }
 
     private void MinusProperty(GameObject go)
     {
+        AudioManager.Instance.PlaySound(1);
+
         UILabel propertyLabel = go.transform.parent.GetChild(0).GetComponent<UILabel>();
         propertyLabel.text = (int.Parse(propertyLabel.text) - 1).ToString();
 
@@ -282,7 +305,7 @@ public class BagPanel : UIScene
         PlayerPrefsManager.Instance.SetAttributePlayerPrefs(PlayerInfoManager.Instance.GetPlayerPrefsKey(5), 1);
         SetUsableProperty_Label(int.Parse(UsableProperty_Label.text) + 1);
         ExistBoxIsForbidden();
-        JudgePropertyButton(false);
+        JudgePropertyButton();
 
     }
 
@@ -298,11 +321,14 @@ public class BagPanel : UIScene
 
     private void Sure(GameObject go)
     {
+        AudioManager.Instance.PlaySound(1);
+
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_ChangePropertyPanel, true);
     }
 
     private void Back()
     {
+        AudioManager.Instance.PlaySound(1);
         PlayerPrefsManager.Instance.SetPlayerPrefs(false);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_OpenBagPanel, true);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_BagPanel, false);

@@ -14,6 +14,7 @@
 
     public void OpenBag()
     {
+        AudioManager.Instance.PlaySound(1);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_OpenBagPanel, false);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_BagPanel, true);
         //SceneManager.LoadScene("SceneStart");

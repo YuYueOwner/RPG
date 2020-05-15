@@ -17,12 +17,16 @@
 
     private void Sure()
     {
+        AudioManager.Instance.PlaySound(1);
+
         PlayerInfoManager.Instance.RemovePlayerItemData(PlayerInfoManager.Instance.SelectItemId);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_DiscardGoodsPanel, false);
     }
 
     private void Cancel()
     {
+        AudioManager.Instance.PlaySound(1);
+
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_DiscardGoodsPanel, false);
     }
 }

@@ -213,6 +213,7 @@ GameObject:
   - component: {fileID: 1204028577}
   - component: {fileID: 1204028581}
   - component: {fileID: 1204028582}
+  - component: {fileID: 1204028583}
   m_Layer: 8
   m_Name: UI Root
   m_TagString: Untagged
@@ -351,6 +352,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f23a3f5ccbb72504c8856e10ea2e93e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1204028583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204028576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd45bb4fc8c165459dc9872aadb18e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1582765257
@@ -557,12 +570,12 @@ PrefabInstance:
     - target: {fileID: 8157896553396128956, guid: abdd27b672c483d48b5d6c09d213a376,
         type: 3}
       propertyPath: mWidth
-      value: 130
+      value: 118
       objectReference: {fileID: 0}
     - target: {fileID: 8157896553396128956, guid: abdd27b672c483d48b5d6c09d213a376,
         type: 3}
       propertyPath: aspectRatio
-      value: 6.5
+      value: 5.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abdd27b672c483d48b5d6c09d213a376, type: 3}

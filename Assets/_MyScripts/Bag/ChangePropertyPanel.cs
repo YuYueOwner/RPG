@@ -17,13 +17,17 @@
 
     private void Sure()
     {
+        AudioManager.Instance.PlaySound(1);
+
         PlayerPrefsManager.Instance.SetPlayerPrefs(true);
-        BagPanel._instance.JudgePropertyButton(false);
+        BagPanel._instance.ChangePropertySureButton();
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_ChangePropertyPanel, false);
     }
 
     private void Cancel()
     {
+        AudioManager.Instance.PlaySound(1);
+
         PlayerPrefsManager.Instance.SetPlayerPrefs(false);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_ChangePropertyPanel, false);
     }
