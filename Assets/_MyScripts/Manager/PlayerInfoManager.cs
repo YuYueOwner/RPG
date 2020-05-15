@@ -149,27 +149,28 @@ public class PlayerInfoManager
     {
         PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
         PropConfig.PropObject data = cfgData.GetListConfigElementByID(id);
+        GoodsInfoPanel._instance.GoodsTitelLabel.text = data.ItemName;
         switch (data.ConfigType)
         {
             case "Weapon":
-                ItemName.text = data.ItemName + "\r\n" + "攻击力         " + data.WeaponAttack + "\r\n" +
-                                                                                  "身法      " + data.WeaponDex + "\r\n" +
-                                                                                   "力道      " + data.WeaponStrength + "\r\n" +
-                                                                                   "体质     " + data.WeaponCon + "\r\n" +
-                                                                                   "根骨     " + data.WeaponLuk + "\r\n" +
-                                                                                   "命中率    " + data.WeaponHitRate;
+                ItemName.text = "攻击力    " + data.WeaponAttack + "\r\n" +
+                                            "身法      " + data.WeaponDex + "\r\n" +
+                                            "力道      " + data.WeaponStrength + "\r\n" +
+                                            "体质      " + data.WeaponCon + "\r\n" +
+                                            "根骨      " + data.WeaponLuk + "\r\n" +
+                                            "命中率   " + data.WeaponHitRate;
                 break;
             case "Armor":
-                ItemName.text = data.ItemName + "\r\n" + "防御值        " + data.ArmorDefence + "\r\n" +
-                                                                                  "身法      " + data.ArmorDex + "\r\n" +
-                                                                                   "力道      " + data.ArmorStrength + "\r\n" +
-                                                                                   "体质     " + data.ArmorCon + "\r\n" +
-                                                                                   "根骨     " + data.ArmorLuk + "\r\n" +
-                                                                                   "速度   " + data.ArmorRoll;
+                ItemName.text = "防御值    " + data.ArmorDefence + "\r\n" +
+                                           "身法       " + data.ArmorDex + "\r\n" +
+                                           "力道       " + data.ArmorStrength + "\r\n" +
+                                           "体质       " + data.ArmorCon + "\r\n" +
+                                           "根骨       " + data.ArmorLuk + "\r\n" +
+                                           "速度       " + data.ArmorRoll;
                 break;
             case "Consumables":
-                ItemName.text = data.ItemName + "\r\n" + "生命值回复数值        " + data.ConsumableHpIncrease + "\r\n" +
-                                                                                  "健康度回复数值      " + data.ConsumableHealthIncrease;
+                ItemName.text = "生命值回复数值      " + data.ConsumableHpIncrease + "\r\n" +
+                                           "健康度回复数值      " + data.ConsumableHealthIncrease;
 
                 break;
             default:

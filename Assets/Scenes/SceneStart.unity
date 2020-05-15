@@ -570,12 +570,12 @@ PrefabInstance:
     - target: {fileID: 8157896553396128956, guid: abdd27b672c483d48b5d6c09d213a376,
         type: 3}
       propertyPath: mWidth
-      value: 118
+      value: 132
       objectReference: {fileID: 0}
     - target: {fileID: 8157896553396128956, guid: abdd27b672c483d48b5d6c09d213a376,
         type: 3}
       propertyPath: aspectRatio
-      value: 5.9
+      value: 6.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abdd27b672c483d48b5d6c09d213a376, type: 3}
@@ -959,10 +959,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8397184315742914185, guid: 05cbe47dd00dbfe4aa0a96d5d647dbe7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -199
+      objectReference: {fileID: 0}
     - target: {fileID: 8397184316226892348, guid: 05cbe47dd00dbfe4aa0a96d5d647dbe7,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 113
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397184315742914198, guid: 05cbe47dd00dbfe4aa0a96d5d647dbe7,
+        type: 3}
+      propertyPath: mWidth
+      value: 370
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397184315742914198, guid: 05cbe47dd00dbfe4aa0a96d5d647dbe7,
+        type: 3}
+      propertyPath: aspectRatio
+      value: 6.37931
       objectReference: {fileID: 0}
     - target: {fileID: 8397184316226892349, guid: 05cbe47dd00dbfe4aa0a96d5d647dbe7,
         type: 3}
@@ -975,6 +990,11 @@ PrefabInstance:
       value: 2.4832215
       objectReference: {fileID: 0}
     - target: {fileID: 8397184316367300345, guid: 05cbe47dd00dbfe4aa0a96d5d647dbe7,
+        type: 3}
+      propertyPath: mText
+      value: "\u7269\u54C1\u63CF\u8FF0"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397184316762210602, guid: 05cbe47dd00dbfe4aa0a96d5d647dbe7,
         type: 3}
       propertyPath: mText
       value: "\u7269\u54C1\u63CF\u8FF0"
