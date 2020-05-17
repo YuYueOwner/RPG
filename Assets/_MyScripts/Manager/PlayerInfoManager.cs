@@ -106,11 +106,13 @@ public class PlayerInfoManager
                     if (playerItemData[i].PackageItemNum <= 0)
                     {
                         playerItemData.Remove(playerItemData[i]);
+                        return;
                     }
                 }
                 else
                 {
                     playerItemData.Remove(playerItemData[i]);
+                    return;
                 }
             }
         }
@@ -131,6 +133,7 @@ public class PlayerInfoManager
                 if (playerItemData[i].PackageItemID == id)
                 {
                     playerItemData[i].PackageItemNum += 1;
+                    return;
                 }
             }
         }
