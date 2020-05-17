@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 635959350}
   - component: {fileID: 635959351}
   m_Layer: 8
-  m_Name: SkillPanel
+  m_Name: SkillAttackPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -764,7 +764,7 @@ PrefabInstance:
     - target: {fileID: 8157896553396128956, guid: abdd27b672c483d48b5d6c09d213a376,
         type: 3}
       propertyPath: aspectRatio
-      value: 6.3
+      value: 5.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abdd27b672c483d48b5d6c09d213a376, type: 3}

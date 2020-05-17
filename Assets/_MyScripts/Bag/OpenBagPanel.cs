@@ -30,6 +30,6 @@
     {
         AudioManager.Instance.PlaySound(1);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_OpenBagPanel, false);
-        UIManager.Instance.SetVisible(UIPanelName.SceneStart_SkillPanel, true);
+        UIManager.Instance.SetVisible(UIPanelName.SceneStart_SkillAttackPanel, true);
     }
 }

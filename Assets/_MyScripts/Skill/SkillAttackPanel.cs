@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillPanel : UIScene
+public class SkillAttackPanel : UIScene
 {
 
 }
