@@ -1290,7 +1290,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 156
   mHeight: 72
-  mDepth: 1
+  mDepth: 2
   mMat: {fileID: 0}
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
@@ -2999,7 +2999,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3010
+  startingRenderQueue: 3006
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -4058,7 +4058,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 156
   mHeight: 72
-  mDepth: 1
+  mDepth: 2
   mMat: {fileID: 0}
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
@@ -4494,7 +4494,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 156
   mHeight: 72
-  mDepth: 1
+  mDepth: 2
   mMat: {fileID: 0}
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
@@ -6443,7 +6443,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 156
   mHeight: 72
-  mDepth: 1
+  mDepth: 2
   mMat: {fileID: 0}
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
@@ -7230,7 +7230,7 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 29447caccb8843546936da0927ecd67a, type: 3}
   mFont: {fileID: 0}
-  mText: "\u6B66\u5B66\u5E93"
+  mText: "\u9632\u5177\u5E93"
   mFontSize: 30
   mFontStyle: 0
   mAlignment: 0
@@ -8649,7 +8649,7 @@ PrefabInstance:
     - target: {fileID: 8157896553396128956, guid: abdd27b672c483d48b5d6c09d213a376,
         type: 3}
       propertyPath: aspectRatio
-      value: 6.3
+      value: 5.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abdd27b672c483d48b5d6c09d213a376, type: 3}
@@ -9003,7 +9003,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3002
+  startingRenderQueue: 3011
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
