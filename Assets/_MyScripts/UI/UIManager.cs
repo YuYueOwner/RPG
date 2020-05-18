@@ -13,6 +13,8 @@ public class UIPanelName
     public const string SceneStart_GoodsInfoPanel = "GoodsInfoPanel";
     public const string SceneStart_EquipmentGoodsPanel = "EquipmentGoodsPanel";
     public const string SceneStart_SkillAttackPanel = "SkillAttackPanel";
+    public const string SceneStart_SkillDefendPanel = "SkillDefendPanel";
+
 
 
 }

@@ -1,4 +1,4 @@
-﻿public class SkillAttackPanel : UIScene
+﻿public class SkillDefendPanel : UIScene
 {
     private UIButton Attack_Button;
     private UIButton Defend_Button;
@@ -21,19 +21,20 @@
     //攻
     private void Attack()
     {
+        UIManager.Instance.SetVisible(UIPanelName.SceneStart_SkillAttackPanel, true);
+        UIManager.Instance.SetVisible(UIPanelName.SceneStart_SkillDefendPanel, false);
     }
 
     //守
     private void Defend()
     {
-        UIManager.Instance.SetVisible(UIPanelName.SceneStart_SkillAttackPanel, false);
-        UIManager.Instance.SetVisible(UIPanelName.SceneStart_SkillDefendPanel, true);
+
     }
 
     //返回
     private void Back()
     {
-        UIManager.Instance.SetVisible(UIPanelName.SceneStart_SkillAttackPanel, false);
+        UIManager.Instance.SetVisible(UIPanelName.SceneStart_SkillDefendPanel, false);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_OpenBagPanel, true);
 
     }
