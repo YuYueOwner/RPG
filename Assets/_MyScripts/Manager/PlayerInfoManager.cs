@@ -294,10 +294,11 @@ public class PlayerInfoManager
     }
 
     //判断是否能够使用消耗品 当前血量小于最大血量或者当前经验小于最大经验
-    public void UseItemAddHpAndExp(int id)
+    public bool UseItemAddHpAndExp(int id)
     {
         PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
         PropConfig.PropObject data = cfgData.GetListConfigElementByID(id);
+        bool bo = true;
         if (data.ConsumableHpIncrease + GetPlayerAttribute(6) < GetPlayerAttribute(7))
         {
             playerState.PlayerHpCurrent = data.ConsumableHpIncrease + GetPlayerAttribute(6);
@@ -305,11 +306,13 @@ public class PlayerInfoManager
         else
         {
             playerState.PlayerHpCurrent = GetPlayerAttribute(7);
+            bo = false;
         }
 
         if (data.ConsumableHealthIncrease + GetPlayerAttribute(12) < GetPlayerAttribute(13))
         {
             playerState.PlayerHealth = data.ConsumableHealthIncrease + GetPlayerAttribute(12);
+            bo = true;
         }
         else
         {
@@ -320,6 +323,7 @@ public class PlayerInfoManager
         PlayerPrefsManager.Instance.SetPlayerPrefs(keyHp, playerState.PlayerHpCurrent);
         PlayerPrefsManager.Instance.SetPlayerPrefs(keyHealth, playerState.PlayerHealth);
         BagPanel._instance.SetPlayerAttributeInfo();
+        return bo;
         //GetPlayerAttribute(6) < GetPlayerAttribute(7) || GetPlayerAttribute(8) < GetPlayerAttribute(9);
     }
 

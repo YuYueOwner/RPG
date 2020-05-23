@@ -45,8 +45,11 @@ public class BagDrag : UIDragDropItem
             {
                 if (PlayerInfoManager.Instance.ExistIsCanUseItem())
                 {
-                    PlayerInfoManager.Instance.UseItemAddHpAndExp(id);
-                    PlayerInfoManager.Instance.RemovePlayerItemData(id);
+                    bool bo = PlayerInfoManager.Instance.UseItemAddHpAndExp(id);
+                    if (bo)
+                    {
+                        PlayerInfoManager.Instance.RemovePlayerItemData(id);
+                    }
                     //消耗物品把对应的数据加上 GOTO  物品数据就是上面的cfgData
                 }
                 else
