@@ -1,4 +1,4 @@
-﻿SkillID|SkillType|SkillQuality|SkillLv|SkillName|SkillTime|SkillAtk|SkillRoll|SkillHitRate|SkillDex|SkillArmorPen|SkillCrit|UseLv|SkillDodge|SkillRoll|SkillAtk|SkillDef|SkillInfo
+﻿SkillID|SkillType|SkillQuality|SkillLv|SkillName|SkillTime|SkillAtk|SkillRoll|SkillHitRate|SkillDex|SkillArmorPen|SkillCrit|UseLv|DefenceSkillDodge|DefenceSkillRoll|DefenceSkillAtk|DefenceSkillDef|SkillInfo
 int|string|string|string|string|int|int|int|int|int|int|int|int|int|int|int|int|string
 1|剑|白|凡品|基础剑法|1|5|2|5|0|0|5|1|0|0|0|0|基础剑法
 2|剑|白|出类|基础剑法|1|6|2|6|0|0|5|1|0|0|0|0|基础剑法
