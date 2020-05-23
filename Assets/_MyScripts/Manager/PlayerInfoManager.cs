@@ -58,6 +58,7 @@ public class PlayerInfoManager
         playerState.PlayerEquipArmorID = 1;
     }
 
+
     public void SetItemInfo()
     {
         PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
@@ -374,5 +375,16 @@ public class PlayerInfoManager
             Debug.Log("没有这个下标对应的数据");
         }
         return count;
+    }
+
+    //返回一个背包id的集合
+    public List<int> BagId()
+    {
+        List<int> BagID = new List<int>();
+        for (int i = 0; i < playerItemData.Count; i++)
+        {
+            BagID.Add(playerItemData[i].PackageItemID);
+        }
+        return BagID;
     }
 }
