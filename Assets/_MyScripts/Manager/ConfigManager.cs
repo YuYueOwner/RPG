@@ -85,6 +85,16 @@ public class ConfigManager
                 // 等级经验表
                 configBase = new PlayerLevelExpConfig();
             }
+            else if (name == "Skill")
+            {
+                // 技能表
+                configBase = new SkillConfig();
+            }
+            else if (name == "PlayerLevelSkillExp")
+            {
+                // 技能等级表
+                configBase = new PlayerLevelSkillExpConfig();
+            }
             else
             {
                 Debug.LogError("没有找到这张表" + name);
