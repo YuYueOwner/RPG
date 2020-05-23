@@ -87,6 +87,7 @@ public class BagPanel : UIScene
         playerAttributeLable.Add(UsableProperty_Label);
         playerAttributeLable.Add(Hp_Label);
         playerAttributeLable.Add(Health_Label);
+        playerAttributeLable.Add(Experience_Label);
 
         playerAttributeBox.Add(Helper.GetChild<BoxCollider>(PhysicalPower_Label.transform.parent, "PhysicalPower_Add_Button"));
         playerAttributeBox.Add(Helper.GetChild<BoxCollider>(PhysicalPower_Label.transform.parent, "Strength_Add_Button"));
@@ -203,6 +204,16 @@ public class BagPanel : UIScene
                     }
                     break;
                 case 6:
+                    if (count > 0)
+                    {
+                        playerAttributeLable[i].text = count.ToString() + "/" + PlayerInfoManager.Instance.GetPlayerAttribute(13).ToString();
+                    }
+                    else
+                    {
+                        playerAttributeLable[i].text = PlayerInfoManager.Instance.GetPlayerAttribute(12).ToString() + "/" + PlayerInfoManager.Instance.GetPlayerAttribute(13).ToString();
+                    }
+                    break;
+                case 7:
                     if (count > 0)
                     {
                         playerAttributeLable[i].text = count.ToString() + "/" + PlayerInfoManager.Instance.GetPlayerAttribute(9).ToString();

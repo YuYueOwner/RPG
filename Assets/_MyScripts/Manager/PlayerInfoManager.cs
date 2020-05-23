@@ -35,6 +35,8 @@ public class PlayerInfoManager
         playerAttributeInfo[9] = "PlayerExperienceMax";
         playerAttributeInfo[10] = "Equip";//身上的装备id 武器
         playerAttributeInfo[11] = "Equip1";//身上的装备id1 防具
+        playerAttributeInfo[12] = "PlayerHealth";
+        playerAttributeInfo[13] = "PlayerHealthMax";
 
         playerState.PlayerCon = 50;
         playerState.PlayerStr = 50;
@@ -45,8 +47,8 @@ public class PlayerInfoManager
         playerState.PlayerHpCurrent = 100;
         playerState.PlayerHealth = 80;
         playerState.PlayerHealthMax = 100;
-        playerState.ExpPlayer = 80;
-        playerState.ExpMaxPlayer = 100;
+        playerState.ExpPlayer = 0;
+        playerState.ExpMaxPlayer = 200;
         playerState.PlayerName = "张三";
         playerState.PlayerMoney = 0;
         playerState.PlayerLv = 100;
@@ -90,7 +92,7 @@ public class PlayerInfoManager
         }
     }
 
-    //删除背包里的物品
+    //删除背包里的物品 
     public void RemovePlayerItemData(int id)
     {
         PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
@@ -353,9 +355,17 @@ public class PlayerInfoManager
         }
         else if (i == 8)
         {
-            count = playerState.PlayerHealth;
+            count = playerState.ExpPlayer;
         }
         else if (i == 9)
+        {
+            count = playerState.ExpMaxPlayer;
+        }
+        else if (i == 12)
+        {
+            count = playerState.PlayerHealth;
+        }
+        else if (i == 13)
         {
             count = playerState.PlayerHealthMax;
         }
