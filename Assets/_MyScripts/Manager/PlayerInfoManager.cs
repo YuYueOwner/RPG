@@ -307,16 +307,16 @@ public class PlayerInfoManager
             playerState.PlayerHpCurrent = GetPlayerAttribute(7);
         }
 
-        if (data.ConsumableHealthIncrease + GetPlayerAttribute(8) < GetPlayerAttribute(9))
+        if (data.ConsumableHealthIncrease + GetPlayerAttribute(12) < GetPlayerAttribute(13))
         {
-            playerState.PlayerHealth = data.ConsumableHealthIncrease + GetPlayerAttribute(8);
+            playerState.PlayerHealth = data.ConsumableHealthIncrease + GetPlayerAttribute(12);
         }
         else
         {
-            playerState.PlayerHealth = GetPlayerAttribute(9);
+            playerState.PlayerHealth = GetPlayerAttribute(13);
         }
         string keyHp = GetPlayerPrefsKey(6);
-        string keyHealth = GetPlayerPrefsKey(8);
+        string keyHealth = GetPlayerPrefsKey(12);
         PlayerPrefsManager.Instance.SetPlayerPrefs(keyHp, playerState.PlayerHpCurrent);
         PlayerPrefsManager.Instance.SetPlayerPrefs(keyHealth, playerState.PlayerHealth);
         BagPanel._instance.SetPlayerAttributeInfo();
