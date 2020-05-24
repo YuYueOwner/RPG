@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 2153424078125498994}
   m_Layer: 8
   m_Name: SkillDefendPanel_Item_Item
-  m_TagString: Untagged
+  m_TagString: Cell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,9 +144,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2153424078626888289}
   - component: {fileID: 2153424078626888288}
+  - component: {fileID: 6999075405719932797}
+  - component: {fileID: 7131931322353702615}
   m_Layer: 8
   m_Name: SP_Icon
-  m_TagString: Untagged
+  m_TagString: Goods
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -200,7 +202,7 @@ MonoBehaviour:
   mHeight: 76
   mDepth: 11
   mMat: {fileID: 0}
-  autoResizeBoxCollider: 0
+  autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1.0526316
@@ -217,9 +219,38 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 1429842818424157604, guid: 73e8dd64e94506f478a8d1e91f0ec20b, type: 3}
-  mSpriteName: icon4
+  mAtlas: {fileID: 6708568833357504720, guid: 79149f2d13756664896d537dadb64d60, type: 3}
+  mSpriteName: DexSkill_01
   mFillCenter: 1
+--- !u!65 &6999075405719932797
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2153424078626888290}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 80, y: 76, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7131931322353702615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2153424078626888290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba85fa2881cc21d458642585faf13552, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  restriction: 0
+  cloneOnDrag: 0
+  pressAndHoldDelay: 1
+  interactable: 1
 --- !u!1 &2153424078692751053
 GameObject:
   m_ObjectHideFlags: 0

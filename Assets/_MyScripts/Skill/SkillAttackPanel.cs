@@ -54,31 +54,54 @@ public class SkillAttackPanel : UIScene
     public void OnCreateOwnSkillItem()
     {
         SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 8; i++)
         {
-            int id = UnityEngine.Random.Range(i, 900);
             GameObject obj = skillGrid.GetChild(i).gameObject;//Instantiate(Resources.Load("Prefabs/SkillDefendPanel_Item_Item"), Vector3.zero, Quaternion.identity) as GameObject;
-            obj.transform.SetParent(skillGrid.transform);
-            obj.transform.localScale = Vector3.one;
-            obj.transform.tag = "Untagged";
-            UISprite sp = obj.transform.Find("SP_Icon").GetComponent<UISprite>();
-            sp.transform.tag = "Untagged";
+
+            GameObject SP_Lock = obj.transform.GetChild(1).gameObject;
+            UISprite sp = obj.transform.GetChild(2).GetComponent<UISprite>();
 
             BoxCollider box = obj.transform.GetComponent<BoxCollider>();
+            BoxCollider spBox = sp.transform.GetComponent<BoxCollider>();
 
-            SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
-            bool isHasData = data != null;
-            box.enabled = isHasData;
+            bool isHasData = false;
+            bool unLock = false;
+            if (i < 3)
+            {
+                int id = UnityEngine.Random.Range(i, 900);
+                obj.name = id.ToString();
+                sp.name = id.ToString();
+                SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
+                isHasData = data != null;
+                obj.transform.tag = "OpenLockHasValueParent";
+                sp.transform.tag = "OpenLockHasValue";
+            }
+            else
+            {
+                if (i < 5)
+                {
+                    obj.transform.tag = "OpenLockHasValueParent";
+                    sp.transform.tag = "OpenLockNotValue";
+                }
+                else
+                {
+                    obj.transform.tag = "NotOpen";
+                    sp.transform.tag = "NotOpen";
+                    unLock = true;
+                }
+            }
+            SP_Lock.SetActive(unLock);
+            box.enabled = isHasData || !unLock;
+            spBox.enabled = isHasData || !unLock;
             if (isHasData)//如果有数据
             {
                 sp.spriteName = "ParrySkill_05";// cfgData.GetListConfigElementByID(data.SkillID).;
             }
             else
             {
-                sp.spriteName = "";
+                sp.spriteName = "1";
             }
         }
-        skillGrid.Reposition();
     }
 
     //生成防御技能Item
@@ -100,10 +123,11 @@ public class SkillAttackPanel : UIScene
                 GameObject obj = Instantiate(Resources.Load("Prefabs/SkillDefendPanel_Item_Item"), Vector3.zero, Quaternion.identity) as GameObject;
                 obj.transform.SetParent(grid.transform);
                 obj.transform.localScale = Vector3.one;
-                obj.transform.tag = "Untagged";
-                UISprite sp = obj.transform.Find("SP_Icon").GetComponent<UISprite>();
-                sp.transform.tag = "Untagged";
-
+                UISprite sp = obj.transform.GetChild(1).GetComponent<UISprite>();
+                obj.transform.tag = "OwnSkill";
+                sp.transform.tag = "OwnSkill";
+                obj.name = item.Value[j].ToString();
+                sp.name = item.Value[j].ToString();
                 BoxCollider box = obj.transform.GetComponent<BoxCollider>();
 
                 SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(item.Value[j]);
@@ -115,7 +139,7 @@ public class SkillAttackPanel : UIScene
                 }
                 else
                 {
-                    sp.spriteName = "";
+                    sp.spriteName = "1";
                 }
             }
             grid.Reposition();
@@ -128,6 +152,6 @@ public class SkillAttackPanel : UIScene
         }
 
         table.Reposition();
-        sv.ResetPosition();
+        //sv.ResetPosition();
     }
 }
