@@ -329,6 +329,11 @@ PrefabInstance:
       propertyPath: verticalScrollBar
       value: 
       objectReference: {fileID: 1348394112}
+    - target: {fileID: 8701940520950811054, guid: ac4f66f0c39334649b0912faf0c00506,
+        type: 3}
+      propertyPath: showScrollBars
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac4f66f0c39334649b0912faf0c00506, type: 3}
 --- !u!4 &843662668 stripped
