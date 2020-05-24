@@ -133,7 +133,7 @@ MonoBehaviour:
   sorting: 0
   pivot: 0
   maxPerLine: 8
-  cellWidth: 223.7
+  cellWidth: 212
   cellHeight: 121.3
   animateSmoothly: 0
   hideInactive: 1
