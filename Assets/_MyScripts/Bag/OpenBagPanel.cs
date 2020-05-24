@@ -15,7 +15,6 @@
         base.Start();
         OpenBag_Button.onClick.Add(new EventDelegate(OpenBag));
         OpenSkill_Button.onClick.Add(new EventDelegate(OpenSkill));
-
     }
 
     public void OpenBag()
@@ -31,6 +30,7 @@
         AudioManager.Instance.PlaySound(1);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_OpenBagPanel, false);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_SkillAttackPanel, true);
-        SkillAttackPanel._instance.OnCreateSkillDefendItem();
+        SkillAttackPanel._instance.OnCreateOwnSkillItem();
+        SkillAttackPanel._instance.OnCreateSkillAttackItem();
     }
 }

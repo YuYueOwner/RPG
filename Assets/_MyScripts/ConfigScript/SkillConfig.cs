@@ -1,7 +1,5 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
-using System;
 namespace HotFix_Project.Config
 {
     public class SkillConfig : ConfigBase
@@ -27,7 +25,6 @@ namespace HotFix_Project.Config
             public Int32 DefenceSkillDef;
             public string SkillInfo;
         }
-        public List<SkillObject> skillObjList = new List<SkillObject>();
 
         public override void InitConfig(string[] configArr)
         {
@@ -58,5 +55,23 @@ namespace HotFix_Project.Config
                 skillObjList.Add(skillObj);
             }
         }
+
+        //根据物品id获取这个物品整条数据
+        public SkillConfig.SkillObject GetListConfigElementByID(int id)
+        {
+            SkillObject skillObj = null;
+            for (int i = 0; i < skillObjList.Count; i++)
+            {
+                if (skillObjList[i].SkillID == id)
+                {
+                    skillObj = skillObjList[i];
+                }
+            }
+            return skillObj;
+        }
+
+        public List<SkillObject> skillObjList = new List<SkillObject>();
+
+
     }
 }

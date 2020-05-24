@@ -109,7 +109,7 @@ public class BagDrag : UIDragDropItem
             this.transform.localPosition = Vector3.zero;
             this.transform.parent.GetComponent<BoxCollider>().enabled = false;
         }
-        //如果当下时撞到的是装备
+        //如果当下时撞到的是已装备的技能
         else if (surface.tag == "Goods")
         {
             Transform Parent = null;
@@ -119,6 +119,11 @@ public class BagDrag : UIDragDropItem
             surface.transform.parent = Parent;                      //自己移动到想被交换的位置
             //交换完成 位移归零 （交换时是位移的改变 缩放没有变）
             surface.transform.localPosition = transform.localPosition = Vector3.zero;
+        }
+        //如果当下时撞到的是装备库的技能不做处理
+        else if (surface.tag == "Untagged")
+        {
+
         }
         else
         {
