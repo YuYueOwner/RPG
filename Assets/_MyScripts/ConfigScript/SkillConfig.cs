@@ -24,6 +24,7 @@ namespace HotFix_Project.Config
             public Int32 DefenceSkillAtk;
             public Int32 DefenceSkillDef;
             public string SkillInfo;
+            public int SkillIcon;
         }
 
         public override void InitConfig(string[] configArr)
@@ -52,11 +53,12 @@ namespace HotFix_Project.Config
                 skillObj.DefenceSkillAtk = int.Parse(data[15]);
                 skillObj.DefenceSkillDef = int.Parse(data[16]);
                 skillObj.SkillInfo = data[17];
+                skillObj.SkillIcon = int.Parse(data[18]);
                 skillObjList.Add(skillObj);
             }
         }
 
-        //根据物品id获取这个物品整条数据
+        //根据物品id获取这个技能整条数据
         public SkillConfig.SkillObject GetListConfigElementByID(int id)
         {
             SkillObject skillObj = null;
@@ -68,6 +70,54 @@ namespace HotFix_Project.Config
                 }
             }
             return skillObj;
+        }
+
+        //根据物品id获取这个技能icon
+        public string GetSkillIconByID(int id)
+        {
+            string icon = "";
+            for (int i = 0; i < skillObjList.Count; i++)
+            {
+                if (skillObjList[i].SkillID == id)
+                {
+                    if (skillObjList[i].SkillType == "剑")
+                    {
+                        //01-08 DexSkill_01
+                        icon = "DexSkill_0" + UnityEngine.Random.Range(1, 8);
+                    }
+                    else if (skillObjList[i].SkillType == "刀")
+                    {
+                        //01-08 DexSkill_01
+                        icon = "DexSkill_0" + UnityEngine.Random.Range(1, 8);
+                    }
+                    else if (skillObjList[i].SkillType == "枪")
+                    {
+                        //01-08 ParrySkill_01
+                        icon = "ParrySkill_0" + UnityEngine.Random.Range(1, 8);
+                    }
+                    else if (skillObjList[i].SkillType == "棍")
+                    {
+                        //01-08 DexSkill_01
+                        icon = "ParrySkill_0" + UnityEngine.Random.Range(1, 8);
+                    }
+                    else if (skillObjList[i].SkillType == "叉")
+                    {
+                        //01-09 SwordSkill_0
+                        icon = "SwordSkill_0" + UnityEngine.Random.Range(1, 9);
+                    }
+                    else if (skillObjList[i].SkillType == "锤")
+                    {
+                        //01-09 DexSkill_01
+                        icon = "SwordSkill_0" + UnityEngine.Random.Range(1, 9);
+                    }
+                    else if (skillObjList[i].SkillType == "轻功")
+                    {
+                        //01-08 DexSkill_01
+                        icon = "DexSkill_0" + UnityEngine.Random.Range(1, 8);
+                    }
+                }
+            }
+            return icon;
         }
 
         public List<SkillObject> skillObjList = new List<SkillObject>();
