@@ -8,9 +8,11 @@ public class SkillAttackPanel : UIScene
     private UIButton Back_Button;
     private UITable table;
     private UIScrollView sv;
+    public static SkillAttackPanel _instance;
 
     private void Awake()
     {
+        _instance = this;
         Attack_Button = Helper.GetChild<UIButton>(this.transform, "Attack_Button");
         Defend_Button = Helper.GetChild<UIButton>(this.transform, "Defend_Button");
         Back_Button = Helper.GetChild<UIButton>(this.transform, "Back_Button");
@@ -48,14 +50,37 @@ public class SkillAttackPanel : UIScene
 
 
     //生成防御技能Item
-    private void OnCreateSkillDefendItem()
+    public void OnCreateSkillDefendItem()
     {
         //生成技能类型数量
         for (int i = 0; i < 3; i++)
         {
-            Transform trans = Instantiate(Resources.Load("SkillDefendPanel_Item"), Vector3.zero, Quaternion.identity) as Transform;
-            UIGrid grid = trans.Find("Grid").GetComponent<UIGrid>();
-            trans.Find("LB_TypeName").GetComponent<UILabel>().text = "刀";
+            GameObject trans = Instantiate(Resources.Load("Prefabs/SkillDefendPanel_Item"), Vector3.zero, Quaternion.identity) as GameObject;
+            trans.name = i.ToString();
+            trans.transform.SetParent(table.transform);
+            trans.transform.localScale = Vector3.one;
+            UIGrid grid = Helper.GetChild<UIGrid>(trans.transform, "Grid");
+            for (int j = 0; j < 9; j++)
+            {
+                GameObject item = Instantiate(Resources.Load("Prefabs/SkillDefendPanel_Item_Item"), Vector3.zero, Quaternion.identity) as GameObject;
+                item.transform.SetParent(grid.transform);
+                item.transform.localScale = Vector3.one;
+            }
+            grid.Reposition();
+            grid.repositionNow = true;
+            //需要判断哪个解锁了                           
+            switch (i)
+            {
+                case 0:
+                    Helper.GetChild<UILabel>(trans.transform, "LB_TypeName").text = "刀";
+                    break;
+                case 1:
+                    Helper.GetChild<UILabel>(trans.transform, "LB_TypeName").text = "剑";
+                    break;
+                default:
+                    Helper.GetChild<UILabel>(trans.transform, "LB_TypeName").text = "枪";
+                    break;
+            }
             List<int> list = new List<int>();//本集合存放的是该技能类型的已拥有的所有技能
             OnCreateSkillItem.GetInstance().OnCreateSkillItemClick(grid, list);
         }

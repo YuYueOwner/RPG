@@ -52,9 +52,9 @@ public class SkillDefendPanel : UIScene
         //生成技能类型数量
         for (int i = 0; i < 3; i++)
         {
-            Transform trans = Instantiate(Resources.Load("SkillDefendPanel_Item"), Vector3.zero, Quaternion.identity) as Transform;
-            UIGrid grid = trans.Find("Grid").GetComponent<UIGrid>();
-            trans.Find("LB_TypeName").GetComponent<UILabel>().text = "刀";
+            GameObject trans = Instantiate(Resources.Load("Prefabs/SkillDefendPanel_Item"), Vector3.zero, Quaternion.identity) as GameObject;
+            UIGrid grid = Helper.GetChild<UIGrid>(trans.transform, "Grid");
+            Helper.GetChild<UILabel>(trans.transform, "LB_TypeName").text = "刀";
             List<int> list = new List<int>();//本集合存放的是该技能类型的已拥有的所有技能
             OnCreateSkillItem.GetInstance().OnCreateSkillItemClick(grid, list);
         }
