@@ -1,15 +1,13 @@
 ﻿using HotFix_Project.Config;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Microsoft.Win32;
 
 //角色数据中转站
 public class PlayerStateManager : MonoBehaviour
 {
 
-    //public static PlayerStateManager instane { get; set; }
+    public static PlayerStateManager instane { get; set; }
 
 
     public int PlayerNum;//当前所有角色个数
@@ -55,11 +53,21 @@ public class PlayerStateManager : MonoBehaviour
     public int isNew;//下一次打开背包是否重置数据，1重置，0不重置
     public List<PackageItem> playerItemData = new List<PackageItem>();
 
+    public static PlayerStateManager GetInstance()
+    {
+        if (instane == null)
+        {
+            instane = new PlayerStateManager();
+        }
+        return instane;
+    }
+
+
+
     private void Start()
     {
         GameObject.DontDestroyOnLoad(gameObject);
         PlayerStateLoad();
-
         SkillLoad();
         //s  SetPlayUseTime();
 
@@ -151,6 +159,34 @@ public class PlayerStateManager : MonoBehaviour
         }
         SetFloatArray("SkillLv", a);
     }
+
+    //随机生成技能  测试用
+    public Dictionary<string, List<int>> OnCreateSkill()
+    {
+        //测试用 key 是技能类型 技能Id
+        Dictionary<string, List<int>> skillIdDic = new Dictionary<string, List<int>>();
+        SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
+        //初始化30个数据
+        List<int> skillData;
+        for (int i = 0; i < 30; i++)
+        {
+            int id = UnityEngine.Random.Range(i, 900);
+            SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
+            if (skillIdDic.TryGetValue(data.SkillType, out skillData))
+            {
+
+            }
+            else
+            {
+                skillData = new List<int>();
+                skillIdDic[data.SkillType] = skillData;
+            }
+            skillData.Add(id);
+        }
+        return skillIdDic;
+    }
+
+
 
     //将所有技能设置为未解锁，0=未解锁，1=解锁
     public void InitSkillLock()
