@@ -79,7 +79,31 @@ public class BagDragSkiil : UIDragDropItem
             //换成显示技能内容的
             //PlayerInfoManager.Instance.ShowItemInfo(int.Parse(transform.name));
 
+            //根据鼠标点击的位置显示详细信息面板
+            Vector3 worldPoint = UICamera.currentCamera.ScreenToWorldPoint(Input.mousePosition);
             UIManager.Instance.SetVisible(UIPanelName.SceneStart_GoodsInfoPanel, true);
+            if (UICamera.currentCamera.ScreenToWorldPoint(Input.mousePosition).x >= 1f)
+            {
+                if (UICamera.currentCamera.ScreenToWorldPoint(Input.mousePosition).y >= 0.6f)
+                {
+                    GoodsInfoPanel._instance.goBg_Sprite.transform.position = new Vector3(worldPoint.x - 0.5f, worldPoint.y - 0.5f, worldPoint.z);
+                }
+                else
+                {
+                    GoodsInfoPanel._instance.goBg_Sprite.transform.position = new Vector3(worldPoint.x - 0.5f, worldPoint.y + 0.5f, worldPoint.z);
+                }
+            }
+            else
+            {
+                if (UICamera.currentCamera.ScreenToWorldPoint(Input.mousePosition).y >= 0.6f)
+                {
+                    GoodsInfoPanel._instance.goBg_Sprite.transform.position = new Vector3(worldPoint.x + 0.5f, worldPoint.y - 0.5f, worldPoint.z);
+                }
+                else
+                {
+                    GoodsInfoPanel._instance.goBg_Sprite.transform.position = new Vector3(worldPoint.x + 0.5f, worldPoint.y + 0.5f, worldPoint.z);
+                }
+            }
         }
     }
 
