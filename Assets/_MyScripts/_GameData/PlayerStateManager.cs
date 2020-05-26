@@ -1,7 +1,9 @@
 ﻿using HotFix_Project.Config;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Microsoft.Win32;
 
 //角色数据中转站
 public class PlayerStateManager : MonoBehaviour
@@ -46,13 +48,12 @@ public class PlayerStateManager : MonoBehaviour
     public float[] SkillExpMax = new float[3] { 2000, 10000, 30000 }; //技能升级最大经验值，1升2需2k，2升3需10k,3升4需30k
     public int[] PlayerExpMax = new int[30] { 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2400, 2600, 2800, 3000, 3300, 3600, 3900, 4200, 4500, 4800, 5100, 5400, 5700, 6000, 99999 };
 
-
-
+    public int[] AttackQuene = new int[8];//攻击技能序列
+    public int[] DefenceQuene = new int[8];//防御技能序列
 
     public int[] PackageItem = new int[80];
     public int isNew;//下一次打开背包是否重置数据，1重置，0不重置
     public List<PackageItem> playerItemData = new List<PackageItem>();
-
     public static PlayerStateManager GetInstance()
     {
         if (instane == null)
@@ -61,15 +62,13 @@ public class PlayerStateManager : MonoBehaviour
         }
         return instane;
     }
-
-
-
     private void Start()
     {
         GameObject.DontDestroyOnLoad(gameObject);
         PlayerStateLoad();
+
         SkillLoad();
-        //s  SetPlayUseTime();
+        //  SetPlayUseTime();
 
 
     }
@@ -159,7 +158,6 @@ public class PlayerStateManager : MonoBehaviour
         }
         SetFloatArray("SkillLv", a);
     }
-
     //随机生成技能  测试用
     public Dictionary<string, List<int>> OnCreateSkill()
     {
@@ -185,10 +183,7 @@ public class PlayerStateManager : MonoBehaviour
         }
         return skillIdDic;
     }
-
-
-
-    //将所有技能设置为未解锁，0=未解锁，1=解锁
+    //将所有技能设置为未解锁，0=未解锁，1=解锁，然后初始化技能，将基础技能设置为解锁
     public void InitSkillLock()
     {
         //假设当前有1000个技能，将1000个技能的全部设置为未解锁
@@ -196,6 +191,33 @@ public class PlayerStateManager : MonoBehaviour
         for (int i = 0; i < a.Length; i++)
         {
             a[i] = 0;
+            switch (i)
+            {
+                case 1:
+                    a[i] = 1;
+                    break;
+                case 169:
+                    a[i] = 1;
+                    break;
+                case 333:
+                    a[i] = 1;
+                    break;
+                case 497:
+                    a[i] = 1;
+                    break;
+                case 657:
+                    a[i] = 1;
+                    break;
+                case 817:
+                    a[i] = 1;
+                    break;
+                case 977:
+                    a[i] = 1;
+                    break;
+                case 985:
+                    a[i] = 1;
+                    break;
+            }
         }
         SetFloatArray("SkillLock", a);
     }
@@ -207,6 +229,8 @@ public class PlayerStateManager : MonoBehaviour
         SkillExp = GetFloatArray("SkillExp");//技能经验
         SkillLv = GetFloatArray("SkillLv");//技能等级
         SkillLock = GetFloatArray("SkillLock");//技能是否解锁
+        AttackQuene = GetIntArray("AttackQuene");//攻击序列
+        DefenceQuene = GetIntArray("DefenceQuene");//防御序列
     }
 
     //将中转站中技能数据储存至PlayerPrefs中
@@ -215,6 +239,8 @@ public class PlayerStateManager : MonoBehaviour
         SetFloatArray("SkillExp", SkillExp);//技能经验
         SetFloatArray("SkillLv", SkillLv);//技能等级
         SetFloatArray("SkillLock", SkillLock);//技能是否解锁
+        SetIntArray("AttackQuene", AttackQuene);//进攻序列
+        SetIntArray("DefenceQuene", DefenceQuene);//防御序列
         Debug.Log("技能数据已保存");
     }
 
@@ -239,6 +265,18 @@ public class PlayerStateManager : MonoBehaviour
             SkillExp[SkillID] = 0;
             Debug.Log("技能" + SkillID + "已升级，现在等级为" + SkillLv[SkillID]);
         }
+    }
+
+    //同步攻击技能序列，i为在序列中的序号，ID为技能ID，当技能为空时ID=0；
+    public void RefreshAttackQuene(int i, int ID)
+    {
+        AttackQuene[i] = ID;
+    }
+
+    //同步防御技能序列，i为在序列中的序号，ID为技能ID，当技能为空时ID=0；
+    public void RefreshDefenceQuene(int i, int ID)
+    {
+        DefenceQuene[i] = ID;
     }
     //=====================================================================================================================================
 
@@ -324,6 +362,7 @@ public class PlayerStateManager : MonoBehaviour
 
         isNew = PlayerPrefs.GetInt("isNew");
         LoadPackageItem();
+        SkillLoad();
     }
 
     //将中转站内的当前角色数据保存至PlayerPrefs
@@ -361,6 +400,7 @@ public class PlayerStateManager : MonoBehaviour
 
         PlayerPrefs.SetInt("isNew", isNew);
         SavePackageItem();
+        SkillSave();
     }
 
     /// <summary>
@@ -407,20 +447,20 @@ public class PlayerStateManager : MonoBehaviour
     //void SetPlayUseTime()
     //{
     //    RegistryKey RootKey, RegKey;
-    //    //项名为：HKEY_CURRENT_USER\Software
-    //    RootKey = Registry.CurrentUser.OpenSubKey("SOFTWARE", true);
-    //    //打开子项：HKEY_CURRENT_USER\Software\MyRegDataApp
-    //    if ((RegKey = RootKey.OpenSubKey("TestToControlUseTime", true)) == null)
+    //    //项名为：HKEY_CURRENT_USER\Software
+    //    RootKey = Registry.CurrentUser.OpenSubKey("SOFTWARE", true);
+    //    //打开子项：HKEY_CURRENT_USER\Software\MyRegDataApp
+    //    if ((RegKey = RootKey.OpenSubKey("TestToControlUseTime", true)) == null)
     //    {
     //        RootKey.CreateSubKey("TestToControlUseTime");       //不存在，则创建子项
-    //        RegKey = RootKey.OpenSubKey("TestToControlUseTime", true);
+    //        RegKey = RootKey.OpenSubKey("TestToControlUseTime", true);
     //        RegKey.SetValue("UseTime", (object)1);              //创建键值，存储已使用次数
-    //        return;
+    //        return;
     //    }
     //    try
     //    {
     //        object usetime = RegKey.GetValue("UseTime");        //读取键值，已使用次数
-    //        print("已使用使用:" + usetime + "次");
+    //        print("已使用使用:" + usetime + "次");
     //        int newtime = int.Parse(usetime.ToString()) + 1;
     //        RegKey.SetValue("UseTime", (object)newtime);    //更新键值，已使用次数+1
 
@@ -441,8 +481,8 @@ public class PlayerStateManager : MonoBehaviour
     //public void ResetUseTime()
     //{
     //    RegistryKey RootKey, RegKey;
-    //    //项名为：HKEY_CURRENT_USER\Software
-    //    RootKey = Registry.CurrentUser.OpenSubKey("SOFTWARE", true);
+    //    //项名为：HKEY_CURRENT_USER\Software
+    //    RootKey = Registry.CurrentUser.OpenSubKey("SOFTWARE", true);
     //    //打开子项：HKEY_CURRENT_USER\Software\MyRegDataApp
     //    RootKey.CreateSubKey("TestToControlUseTime");       //不存在，则创建子项
     //    RegKey = RootKey.OpenSubKey("TestToControlUseTime", true);
