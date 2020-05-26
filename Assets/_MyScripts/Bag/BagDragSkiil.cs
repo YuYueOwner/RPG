@@ -77,7 +77,7 @@ public class BagDragSkiil : UIDragDropItem
         if (parentName > 0)
         {
             //换成显示技能内容的
-            //PlayerInfoManager.Instance.ShowItemInfo(int.Parse(transform.name));
+            PlayerInfoManager.Instance.ShowSkillItemInfo(int.Parse(transform.name));
 
             //根据鼠标点击的位置显示详细信息面板
             Vector3 worldPoint = UICamera.currentCamera.ScreenToWorldPoint(Input.mousePosition);

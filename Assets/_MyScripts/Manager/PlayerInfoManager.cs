@@ -187,6 +187,36 @@ public class PlayerInfoManager
         ItemDesc.text = data.ItemInfomation;
     }
 
+    public void ShowSkillItemInfo(int id)
+    {
+        SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
+        SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
+        GoodsInfoPanel._instance.GoodsTitelLabel.text = data.SkillName;
+        if (data.SkillType == "剑" || data.SkillType == "刀" || data.SkillType == "枪" || data.SkillType == "棍" || data.SkillType == "叉" || data.SkillType == "锤")
+        {
+            ItemName.text = "类别      " + data.SkillType + "\r\n" +
+                                         "品质      " + data.SkillQuality + "\r\n" +
+                                         "级别      " + data.SkillLv + "\r\n" +
+                                         "攻击力   " + data.SkillAtk + "\r\n" +
+                                         "命中率   " + data.SkillHitRate + "\r\n" +
+                                         "身法      " + data.SkillDex + "\r\n" +
+                                         "破甲      " + data.SkillArmorPen + "\r\n" +
+                                         "暴击      " + data.SkillCrit;// + "\r\n" +
+                                                                     //  "经验值   " + data.WeaponHitRate;
+        }
+        else
+        {
+            ItemName.text = "类别      " + data.SkillType + "\r\n" +
+                                         "品质      " + data.SkillQuality + "\r\n" +
+                                         "级别      " + data.SkillLv + "\r\n" +
+                                         "闪避      " + data.DefenceSkillDodge + "\r\n" +
+                                         "身法      " + data.SkillDex;// + "\r\n" +
+                                                                    //  "经验值   " + data.WeaponHitRate;
+        }
+        //Debug.LogError(data.ItemID);
+        ItemDesc.text = data.SkillInfo;
+    }
+
     //获取玩家装备信息
     public void GetEquipmentInfo()
     {

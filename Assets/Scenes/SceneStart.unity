@@ -1171,5 +1171,20 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8397184316226892348, guid: 05cbe47dd00dbfe4aa0a96d5d647dbe7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 113
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397184316226892349, guid: 05cbe47dd00dbfe4aa0a96d5d647dbe7,
+        type: 3}
+      propertyPath: mHeight
+      value: 189
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397184316226892349, guid: 05cbe47dd00dbfe4aa0a96d5d647dbe7,
+        type: 3}
+      propertyPath: aspectRatio
+      value: 1.957672
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05cbe47dd00dbfe4aa0a96d5d647dbe7, type: 3}
