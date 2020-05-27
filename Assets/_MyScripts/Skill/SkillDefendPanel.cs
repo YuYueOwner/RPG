@@ -1,19 +1,20 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-public class SkillDefendPanel : UIScene
+﻿public class SkillDefendPanel : UIScene
 {
     private UIButton Attack_Button;
     private UIButton Defend_Button;
     private UIButton Back_Button;
     private UITable table;
+    private UIGrid skillGrid;
     private UIScrollView sv;
+    public static SkillDefendPanel _instance;
 
     private void Awake()
     {
         Attack_Button = Helper.GetChild<UIButton>(this.transform, "Attack_Button");
         Defend_Button = Helper.GetChild<UIButton>(this.transform, "Defend_Button");
         Back_Button = Helper.GetChild<UIButton>(this.transform, "Back_Button");
+
+        skillGrid = Helper.GetChild<UIGrid>(this.transform, "SkillGrid");
         table = Helper.GetChild<UITable>(this.transform, "Table");
         sv = Helper.GetChild<UIScrollView>(this.transform, "SV");
     }
@@ -44,21 +45,5 @@ public class SkillDefendPanel : UIScene
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_SkillDefendPanel, false);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_OpenBagPanel, true);
 
-    }
-
-    //生成防御技能Item
-    private void OnCreateSkillDefendItem()
-    {
-        //生成技能类型数量
-        for (int i = 0; i < 3; i++)
-        {
-            GameObject trans = Instantiate(Resources.Load("Prefabs/SkillDefendPanel_Item"), Vector3.zero, Quaternion.identity) as GameObject;
-            UIGrid grid = Helper.GetChild<UIGrid>(trans.transform, "Grid");
-            Helper.GetChild<UILabel>(trans.transform, "LB_TypeName").text = "刀";
-            List<int> list = new List<int>();//本集合存放的是该技能类型的已拥有的所有技能
-            OnCreateSkillItem.GetInstance().OnCreateSkillItemClick(grid, list);
-        }
-        table.Reposition();
-        sv.ResetPosition();
     }
 }

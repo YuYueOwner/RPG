@@ -104,7 +104,7 @@ public class SkillAttackPanel : UIScene
         }
     }
 
-    //生成防御技能Item
+    //生成攻击技能Item
     public void OnCreateSkillAttackItem()
     {
         SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
@@ -113,14 +113,14 @@ public class SkillAttackPanel : UIScene
         //生成技能类型数量
         foreach (var item in dic)
         {
-            GameObject trans = Instantiate(Resources.Load("Prefabs/SkillDefendPanel_Item"), Vector3.zero, Quaternion.identity) as GameObject;
+            GameObject trans = Instantiate(Resources.Load("Prefabs/SkillPanel_Item"), Vector3.zero, Quaternion.identity) as GameObject;
             //trans.name = i.ToString();
             trans.transform.SetParent(table.transform);
             trans.transform.localScale = Vector3.one;
             UIGrid grid = Helper.GetChild<UIGrid>(trans.transform, "Grid");
             for (int j = 0; j < item.Value.Count; j++)
             {
-                GameObject obj = Instantiate(Resources.Load("Prefabs/SkillDefendPanel_Item_Item"), Vector3.zero, Quaternion.identity) as GameObject;
+                GameObject obj = Instantiate(Resources.Load("Prefabs/SkillPanel_Item_Item"), Vector3.zero, Quaternion.identity) as GameObject;
                 obj.transform.SetParent(grid.transform);
                 obj.transform.localScale = Vector3.one;
                 UISprite sp = obj.transform.GetChild(1).GetComponent<UISprite>();
