@@ -111,8 +111,9 @@ public class BagDragSkiil : UIDragDropItem
     //通过重写的鼠标监听事件(开始拖动)
     public override void StartDragging()
     {
+        StopAllCoroutines();
+        UIManager.Instance.SetVisible(UIPanelName.SceneStart_GoodsInfoPanel, false);
         parent = this.transform.parent;
-
         base.StartDragging();
         //this.GetComponent<UISprite>().depth = 11;
         recordParentCollider = this.transform.parent.GetComponent<BoxCollider>();

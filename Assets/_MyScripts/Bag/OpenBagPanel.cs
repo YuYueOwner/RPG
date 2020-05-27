@@ -32,5 +32,8 @@
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_SkillAttackPanel, true);
         SkillAttackPanel._instance.OnCreateOwnSkillItem();
         SkillAttackPanel._instance.OnCreateSkillAttackItem();
+        SkillDefendPanel._instance.OnCreateOwnSkillItem();
+        SkillDefendPanel._instance.OnCreateSkillAttackItem();
+
     }
 }
