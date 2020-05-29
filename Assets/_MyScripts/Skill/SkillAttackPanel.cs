@@ -96,7 +96,25 @@ public class SkillAttackPanel : UIScene
             spBox.enabled = isHasData || !unLock;
             if (isHasData)//如果有数据
             {
-                sp.spriteName = "ParrySkill_05";// cfgData.GetListConfigElementByID(data.SkillID).;
+                var dic = PlayerStateManager.GetInstance().OnCreateSkill();
+                foreach (var item in dic)
+                {
+                    for (int j = 0; j < item.Value.Count; j++)
+                    {
+                        SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(item.Value[j]);
+
+                        int skillIcon = cfgData.GetListConfigElementByID(data.SkillID).SkillIcon;
+
+                        if (skillIcon < 70)
+                        {
+                            sp.spriteName = skillIcon.ToString();
+                        }
+                        else
+                        {
+                            sp.spriteName = "1";
+                        }
+                    }
+                }
             }
             else
             {
@@ -136,8 +154,18 @@ public class SkillAttackPanel : UIScene
                 box.enabled = isHasData;
                 if (isHasData)//如果有数据
                 {
-                    sp.spriteName = "ParrySkill_05";// cfgData.GetListConfigElementByID(data.SkillID).;
-                    bg_icon.spriteName = "ParrySkill_05";
+                    int skillIcon = cfgData.GetListConfigElementByID(data.SkillID).SkillIcon;
+                    if (skillIcon < 70)
+                    {
+                        sp.spriteName = skillIcon.ToString();
+                        bg_icon.spriteName = skillIcon.ToString();
+                    }
+                    else
+                    {
+                        sp.spriteName = "1";
+                        bg_icon.spriteName = "1";
+
+                    }
                 }
                 else
                 {

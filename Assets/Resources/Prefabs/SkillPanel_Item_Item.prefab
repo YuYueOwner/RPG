@@ -83,7 +83,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 6708568833357504720, guid: 79149f2d13756664896d537dadb64d60, type: 3}
+  mAtlas: {fileID: 1832570589552162880, guid: ac6775a297aa71a4bad4f4065379b249, type: 3}
   mSpriteName: SkillIconBackground
   mFillCenter: 1
 --- !u!1 &2153424077829881515
@@ -306,7 +306,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 6708568833357504720, guid: 79149f2d13756664896d537dadb64d60, type: 3}
+  mAtlas: {fileID: 1832570589552162880, guid: ac6775a297aa71a4bad4f4065379b249, type: 3}
   mSpriteName: DexSkill_01
   mFillCenter: 1
 --- !u!65 &6999075405719932797

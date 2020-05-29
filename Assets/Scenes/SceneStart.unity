@@ -294,6 +294,94 @@ PrefabInstance:
       propertyPath: showScrollBars
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7821216907050752314, guid: ac4f66f0c39334649b0912faf0c00506,
+        type: 3}
+      propertyPath: mAtlas
+      value: 
+      objectReference: {fileID: 1832570589552162880, guid: ac6775a297aa71a4bad4f4065379b249,
+        type: 3}
+    - target: {fileID: 7821216907050752314, guid: ac4f66f0c39334649b0912faf0c00506,
+        type: 3}
+      propertyPath: mSpriteName
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 523223618768698001, guid: ac4f66f0c39334649b0912faf0c00506,
+        type: 3}
+      propertyPath: mAtlas
+      value: 
+      objectReference: {fileID: 1832570589552162880, guid: ac6775a297aa71a4bad4f4065379b249,
+        type: 3}
+    - target: {fileID: 523223618768698001, guid: ac4f66f0c39334649b0912faf0c00506,
+        type: 3}
+      propertyPath: mSpriteName
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2793717725528679525, guid: ac4f66f0c39334649b0912faf0c00506,
+        type: 3}
+      propertyPath: mAtlas
+      value: 
+      objectReference: {fileID: 1832570589552162880, guid: ac6775a297aa71a4bad4f4065379b249,
+        type: 3}
+    - target: {fileID: 2793717725528679525, guid: ac4f66f0c39334649b0912faf0c00506,
+        type: 3}
+      propertyPath: mSpriteName
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4694719490181983974, guid: ac4f66f0c39334649b0912faf0c00506,
+        type: 3}
+      propertyPath: mAtlas
+      value: 
+      objectReference: {fileID: 1832570589552162880, guid: ac6775a297aa71a4bad4f4065379b249,
+        type: 3}
+    - target: {fileID: 4694719490181983974, guid: ac4f66f0c39334649b0912faf0c00506,
+        type: 3}
+      propertyPath: mSpriteName
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5753506433969065378, guid: ac4f66f0c39334649b0912faf0c00506,
+        type: 3}
+      propertyPath: mAtlas
+      value: 
+      objectReference: {fileID: 1832570589552162880, guid: ac6775a297aa71a4bad4f4065379b249,
+        type: 3}
+    - target: {fileID: 5753506433969065378, guid: ac4f66f0c39334649b0912faf0c00506,
+        type: 3}
+      propertyPath: mSpriteName
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6575860418112176113, guid: ac4f66f0c39334649b0912faf0c00506,
+        type: 3}
+      propertyPath: mAtlas
+      value: 
+      objectReference: {fileID: 1832570589552162880, guid: ac6775a297aa71a4bad4f4065379b249,
+        type: 3}
+    - target: {fileID: 6575860418112176113, guid: ac4f66f0c39334649b0912faf0c00506,
+        type: 3}
+      propertyPath: mSpriteName
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 250616191411384930, guid: ac4f66f0c39334649b0912faf0c00506,
+        type: 3}
+      propertyPath: mAtlas
+      value: 
+      objectReference: {fileID: 1832570589552162880, guid: ac6775a297aa71a4bad4f4065379b249,
+        type: 3}
+    - target: {fileID: 250616191411384930, guid: ac4f66f0c39334649b0912faf0c00506,
+        type: 3}
+      propertyPath: mSpriteName
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4238383194350004197, guid: ac4f66f0c39334649b0912faf0c00506,
+        type: 3}
+      propertyPath: mAtlas
+      value: 
+      objectReference: {fileID: 1832570589552162880, guid: ac6775a297aa71a4bad4f4065379b249,
+        type: 3}
+    - target: {fileID: 4238383194350004197, guid: ac4f66f0c39334649b0912faf0c00506,
+        type: 3}
+      propertyPath: mSpriteName
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac4f66f0c39334649b0912faf0c00506, type: 3}
 --- !u!4 &843662668 stripped
@@ -764,7 +852,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3020
+  startingRenderQueue: 3021
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -867,7 +955,7 @@ PrefabInstance:
     - target: {fileID: 8157896553396128956, guid: abdd27b672c483d48b5d6c09d213a376,
         type: 3}
       propertyPath: aspectRatio
-      value: 5.9
+      value: 5.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abdd27b672c483d48b5d6c09d213a376, type: 3}
