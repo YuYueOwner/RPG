@@ -56,19 +56,22 @@ public class SkillAttackPanel : UIScene
         SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
         for (int i = 0; i < 8; i++)
         {
+            //上面卡组的整个物体
             GameObject obj = skillGrid.GetChild(i).gameObject;//Instantiate(Resources.Load("Prefabs/SkillDefendPanel_Item_Item"), Vector3.zero, Quaternion.identity) as GameObject;
-
+            //锁的图标
             GameObject SP_Lock = obj.transform.GetChild(1).gameObject;
+            //技能icon图标
             UISprite sp = obj.transform.GetChild(2).GetComponent<UISprite>();
-
-            BoxCollider box = obj.transform.GetComponent<BoxCollider>();
+            //卡组物体触发器
+            BoxCollider objBox = obj.transform.GetComponent<BoxCollider>();
+            //技能触发器（用于替换、扔）
             BoxCollider spBox = sp.transform.GetComponent<BoxCollider>();
 
             bool isHasData = false;
             bool unLock = false;
             if (i < 3)
             {
-                int id = UnityEngine.Random.Range(i, 900);
+                int id = UnityEngine.Random.Range(i, 977);
                 obj.name = id.ToString();
                 sp.name = id.ToString();
                 SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
@@ -76,22 +79,20 @@ public class SkillAttackPanel : UIScene
                 obj.transform.tag = "OpenLockHasValueParent";
                 sp.transform.tag = "OpenLockHasValue";
             }
+            else if (i >= 3 && i < 5)
+            {
+                obj.transform.tag = "OpenLockHasValueParent";
+                sp.transform.tag = "OpenLockNotValue";
+            }
             else
             {
-                if (i < 5)
-                {
-                    obj.transform.tag = "OpenLockHasValueParent";
-                    sp.transform.tag = "OpenLockNotValue";
-                }
-                else
-                {
-                    obj.transform.tag = "NotOpen";
-                    sp.transform.tag = "NotOpen";
-                    unLock = true;
-                }
+                obj.transform.tag = "NotOpen";
+                sp.transform.tag = "NotOpen";
+                unLock = true;
             }
+
             SP_Lock.SetActive(unLock);
-            box.enabled = isHasData || !unLock;
+            objBox.enabled = isHasData || !unLock;
             spBox.enabled = isHasData || !unLock;
             if (isHasData)//如果有数据
             {
@@ -99,7 +100,7 @@ public class SkillAttackPanel : UIScene
             }
             else
             {
-                sp.spriteName = "1";
+                sp.spriteName = null;
             }
         }
     }
@@ -114,7 +115,6 @@ public class SkillAttackPanel : UIScene
         foreach (var item in dic)
         {
             GameObject trans = Instantiate(Resources.Load("Prefabs/SkillPanel_Item"), Vector3.zero, Quaternion.identity) as GameObject;
-            //trans.name = i.ToString();
             trans.transform.SetParent(table.transform);
             trans.transform.localScale = Vector3.one;
             UIGrid grid = Helper.GetChild<UIGrid>(trans.transform, "Grid");
@@ -139,7 +139,7 @@ public class SkillAttackPanel : UIScene
                 }
                 else
                 {
-                    sp.spriteName = "1";
+                    sp.spriteName = null;
                 }
             }
             grid.Reposition();
