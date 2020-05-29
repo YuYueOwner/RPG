@@ -129,6 +129,7 @@ public class SkillAttackPanel : UIScene
                 obj.name = item.Value[j].ToString();
                 sp.name = item.Value[j].ToString();
                 BoxCollider box = obj.transform.GetComponent<BoxCollider>();
+                UISprite bg_icon = Helper.GetChild<UISprite>(obj.transform, "Bg_Icon");
 
                 SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(item.Value[j]);
                 bool isHasData = data != null;
@@ -136,6 +137,7 @@ public class SkillAttackPanel : UIScene
                 if (isHasData)//如果有数据
                 {
                     sp.spriteName = "ParrySkill_05";// cfgData.GetListConfigElementByID(data.SkillID).;
+                    bg_icon.spriteName = "ParrySkill_05";
                 }
                 else
                 {
