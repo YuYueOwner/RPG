@@ -301,6 +301,7 @@ GameObject:
   - component: {fileID: 8971565690862538166}
   - component: {fileID: 8971565690862538167}
   - component: {fileID: 8971565690862538164}
+  - component: {fileID: 690493014}
   m_Layer: 8
   m_Name: Sure_Button
   m_TagString: Untagged
@@ -417,6 +418,22 @@ MonoBehaviour:
   disabledSprite2D: {fileID: 0}
   pixelSnap: 0
   onClick: []
+--- !u!114 &690493014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8971565690862538162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c041f61e4a9fbf4e830210f5d933ece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tweenTarget: {fileID: 0}
+  hover: {x: 1.5, y: 1.5, z: 1.5}
+  pressed: {x: 0.8, y: 0.8, z: 0.8}
+  duration: 0.2
 --- !u!1 &8971565690942730222
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,6 +445,7 @@ GameObject:
   - component: {fileID: 8971565690942730209}
   - component: {fileID: 8971565690942730211}
   - component: {fileID: 6552102249677272096}
+  - component: {fileID: 4507091388524295077}
   m_Layer: 8
   m_Name: EquipmentSkillPanel
   m_TagString: Untagged
@@ -489,7 +507,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3000
+  startingRenderQueue: 3023
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -516,6 +534,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4507091388524295077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8971565690942730222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c6a020043c413042b991aa53f83fdf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  side: 8
+  type: 1
 --- !u!1 &8971565691127201359
 GameObject:
   m_ObjectHideFlags: 0
