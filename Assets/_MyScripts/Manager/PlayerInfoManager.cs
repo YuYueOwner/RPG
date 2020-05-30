@@ -239,6 +239,9 @@ public class PlayerInfoManager
         }
     }
 
+
+    public int weaponId = 0;
+    public int armorId = 0;
     //设置玩家装备改变
     public void SetEquipmentChange()
     {
@@ -248,6 +251,7 @@ public class PlayerInfoManager
 
         if (data.ConfigType == "Weapon")
         {
+            weaponId = SelectItemId;
             string key = PlayerInfoManager.Instance.GetPlayerPrefsKey(10);
             int value = -1;
             value = PlayerPrefsManager.Instance.GetIntPlayerPrefs(key);
@@ -271,6 +275,7 @@ public class PlayerInfoManager
             string key = PlayerInfoManager.Instance.GetPlayerPrefsKey(11);
             int value = -1;
             value = PlayerPrefsManager.Instance.GetIntPlayerPrefs(key);
+            armorId = SelectItemId;
             //Debug.LogError("装备id:" + value);
             //11存防具装备
             if (value > 0)
