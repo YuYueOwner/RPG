@@ -130,6 +130,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: OpenBagPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 4052987841888862287, guid: aeb676ff37cc4dd42b179772214975a3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4052987841888862286, guid: aeb676ff37cc4dd42b179772214975a3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -755,6 +760,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BagPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 8157896552500613063, guid: abdd27b672c483d48b5d6c09d213a376,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8157896552500613064, guid: abdd27b672c483d48b5d6c09d213a376,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1148,6 +1158,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EquipmentSkillPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 8971565690942730222, guid: 471868a8117182d4d9d7c62bd3d82cec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8971565690942730209, guid: 471868a8117182d4d9d7c62bd3d82cec,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1216,6 +1231,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GoodsInfoPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397184316055576733, guid: 05cbe47dd00dbfe4aa0a96d5d647dbe7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8397184316055576730, guid: 05cbe47dd00dbfe4aa0a96d5d647dbe7,
         type: 3}
