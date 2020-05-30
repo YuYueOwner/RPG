@@ -72,7 +72,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3005
+  startingRenderQueue: 3022
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -438,8 +438,8 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 6708568833357504720, guid: 79149f2d13756664896d537dadb64d60, type: 3}
-  mSpriteName: DexSkill_02
+  mAtlas: {fileID: 1832570589552162880, guid: ac6775a297aa71a4bad4f4065379b249, type: 3}
+  mSpriteName: 1
   mFillCenter: 1
 --- !u!114 &414665992046415695
 MonoBehaviour:
@@ -555,8 +555,8 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 6708568833357504720, guid: 79149f2d13756664896d537dadb64d60, type: 3}
-  mSpriteName: DexSkill_02
+  mAtlas: {fileID: 1832570589552162880, guid: ac6775a297aa71a4bad4f4065379b249, type: 3}
+  mSpriteName: 1
   mFillCenter: 1
 --- !u!114 &1836585620344228968
 MonoBehaviour:
@@ -672,8 +672,8 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 6708568833357504720, guid: 79149f2d13756664896d537dadb64d60, type: 3}
-  mSpriteName: DexSkill_02
+  mAtlas: {fileID: 1832570589552162880, guid: ac6775a297aa71a4bad4f4065379b249, type: 3}
+  mSpriteName: 1
   mFillCenter: 1
 --- !u!114 &6200274648529195196
 MonoBehaviour:
@@ -3182,7 +3182,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3000
+  startingRenderQueue: 3006
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -3394,8 +3394,8 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 6708568833357504720, guid: 79149f2d13756664896d537dadb64d60, type: 3}
-  mSpriteName: DexSkill_02
+  mAtlas: {fileID: 1832570589552162880, guid: ac6775a297aa71a4bad4f4065379b249, type: 3}
+  mSpriteName: 1
   mFillCenter: 1
 --- !u!114 &116252529685685707
 MonoBehaviour:
@@ -3511,8 +3511,8 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 6708568833357504720, guid: 79149f2d13756664896d537dadb64d60, type: 3}
-  mSpriteName: DexSkill_02
+  mAtlas: {fileID: 1832570589552162880, guid: ac6775a297aa71a4bad4f4065379b249, type: 3}
+  mSpriteName: 1
   mFillCenter: 1
 --- !u!114 &8444459101795104103
 MonoBehaviour:
@@ -4247,8 +4247,8 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 6708568833357504720, guid: 79149f2d13756664896d537dadb64d60, type: 3}
-  mSpriteName: DexSkill_02
+  mAtlas: {fileID: 1832570589552162880, guid: ac6775a297aa71a4bad4f4065379b249, type: 3}
+  mSpriteName: 1
   mFillCenter: 1
 --- !u!114 &4774072373999764853
 MonoBehaviour:
@@ -4725,8 +4725,8 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 6708568833357504720, guid: 79149f2d13756664896d537dadb64d60, type: 3}
-  mSpriteName: DexSkill_02
+  mAtlas: {fileID: 1832570589552162880, guid: ac6775a297aa71a4bad4f4065379b249, type: 3}
+  mSpriteName: 1
   mFillCenter: 1
 --- !u!114 &5668914690854284266
 MonoBehaviour:
@@ -4928,8 +4928,8 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 6708568833357504720, guid: 79149f2d13756664896d537dadb64d60, type: 3}
-  mSpriteName: DexSkill_02
+  mAtlas: {fileID: 1832570589552162880, guid: ac6775a297aa71a4bad4f4065379b249, type: 3}
+  mSpriteName: 1
   mFillCenter: 1
 --- !u!114 &2060363487122103217
 MonoBehaviour:

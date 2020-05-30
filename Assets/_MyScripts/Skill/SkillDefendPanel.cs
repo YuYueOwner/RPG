@@ -69,7 +69,7 @@ public class SkillDefendPanel : UIScene
             bool unLock = false;
             if (i < 3)
             {
-                int id = UnityEngine.Random.Range(i, 900);
+                int id = UnityEngine.Random.Range(977, 991);
                 obj.name = id.ToString();
                 sp.name = id.ToString();
                 SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
@@ -96,17 +96,34 @@ public class SkillDefendPanel : UIScene
             spBox.enabled = isHasData || !unLock;
             if (isHasData)//如果有数据
             {
-                sp.spriteName = "ParrySkill_05";// cfgData.GetListConfigElementByID(data.SkillID).;
+                var dic = PlayerStateManager.GetInstance().OnCreateSkill();
+                foreach (var item in dic)
+                {
+                    for (int j = 0; j < item.Value.Count; j++)
+                    {
+                        SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(item.Value[j]);
+
+                        int skillIcon = cfgData.GetListConfigElementByID(data.SkillID).SkillIcon;
+                        if (skillIcon < 70)
+                        {
+                            sp.spriteName = skillIcon.ToString();
+                        }
+                        else
+                        {
+                            sp.spriteName = "1";
+                        }
+                    }
+                }
             }
             else
             {
-                sp.spriteName = "1";
+                sp.spriteName = null;
             }
         }
     }
 
     //生成防御技能Item
-    public void OnCreateSkillAttackItem()
+    public void OnCreateSkillDefendItem()
     {
         SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
         var dic = PlayerStateManager.GetInstance().OnCreateSkill();

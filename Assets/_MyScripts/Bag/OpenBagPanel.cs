@@ -33,7 +33,7 @@
         SkillAttackPanel._instance.OnCreateOwnSkillItem();
         SkillAttackPanel._instance.OnCreateSkillAttackItem();
         SkillDefendPanel._instance.OnCreateOwnSkillItem();
-        SkillDefendPanel._instance.OnCreateSkillAttackItem();
+        //  SkillDefendPanel._instance.OnCreateSkillDefendItem();
 
     }
 }
