@@ -212,7 +212,7 @@ public class PlayerStateManager : MonoBehaviour
     public bool CheckSkillIsCanUse(int id, int i)
     {
         PlayerLv = 1000;
-        PlayerEquipWeaponID = 5;
+        //Debug.LogError("背包里的装备:" + PlayerEquipWeaponID);
         SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
         SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
         PropConfig propCfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
@@ -227,7 +227,7 @@ public class PlayerStateManager : MonoBehaviour
                     //背包里有武器装备  可以装备技能
                     if (PlayerLv >= data.UseLv)
                     {
-                        Debug.LogError(i + "      " + id);
+                        //Debug.LogError(i + "      " + id);
                         RefreshAttackQuene(i, id);
                         return true;
                     }
