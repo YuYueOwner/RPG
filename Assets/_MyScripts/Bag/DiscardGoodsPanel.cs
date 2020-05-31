@@ -21,9 +21,14 @@
     private void Sure()
     {
         AudioManager.Instance.PlaySound(1);
-        if (configType != null && configType == "skill")
+        if (configType != null && configType == "SkillGrid")
         {
             SkillAttackPanel._instance.RevomeSkill(PlayerInfoManager.Instance.SelectSkillId);
+            PlayerStateManager.GetInstance().RemoveSkillQuene(PlayerInfoManager.Instance.SelectSkillId);
+        }
+        else if (configType != null && configType == "DefGrid")
+        {
+            SkillDefendPanel._instance.RevomeSkill(PlayerInfoManager.Instance.SelectSkillId);
             PlayerStateManager.GetInstance().RemoveSkillQuene(PlayerInfoManager.Instance.SelectSkillId);
         }
         else

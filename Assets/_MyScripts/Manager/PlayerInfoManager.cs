@@ -262,6 +262,17 @@ public class PlayerInfoManager
                 AddPlayerItemData(value);
                 //把替换上去的装备从背包删除
                 RemovePlayerItemData(SelectItemId);
+
+
+                //判断是否清空技能数据
+                PropConfig.PropObject data1 = cfgData.GetListConfigElementByID(value);
+                if (data.ItemType != data1.ItemType)
+                {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        PlayerStateManager.instane.RefreshAttackQuene(j, 0);
+                    }
+                }
             }
             else
             {

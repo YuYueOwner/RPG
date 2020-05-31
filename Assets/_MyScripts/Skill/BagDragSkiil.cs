@@ -113,7 +113,7 @@ public class BagDragSkiil : UIDragDropItem
                 //丢弃技能
                 transform.localPosition = Vector3.zero;
                 PlayerInfoManager.Instance.SelectSkillId = this.name;
-                DiscardGoodsPanel._instance.SetType("skill");
+                DiscardGoodsPanel._instance.SetType(this.parent.parent.name);
                 UIManager.Instance.SetVisible(UIPanelName.SceneStart_DiscardGoodsPanel, true);
                 //Debug.LogError("22222" + this.tag + "   " + surface.tag);
             }
@@ -127,7 +127,7 @@ public class BagDragSkiil : UIDragDropItem
                 if (PlayerStateManager.GetInstance().CheckSkillIsCanUse(int.Parse(this.name), int.Parse(surface.transform.parent.name)))
                 {
                     //判断要装备的技能是否已经存在，存在的话给替换掉
-                    SkillAttackPanel._instance.RevomeRepetitionSkill(this.name);
+                    SkillAttackPanel._instance.RevomeRepetitionSkill(this.parent.parent.name);
                     //替换ID
                     surface.transform.name = this.transform.name;
                     //替换icon

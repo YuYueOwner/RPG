@@ -18,7 +18,7 @@ public class SkillDefendPanel : UIScene
         Defend_Button = Helper.GetChild<UIButton>(this.transform, "Defend_Button");
         Back_Button = Helper.GetChild<UIButton>(this.transform, "Back_Button");
 
-        skillGrid = Helper.GetChild<UIGrid>(this.transform, "SkillGrid");
+        skillGrid = Helper.GetChild<UIGrid>(this.transform, "DefGrid");
         table = Helper.GetChild<UITable>(this.transform, "Table");
         sv = Helper.GetChild<UIScrollView>(this.transform, "SV");
     }
