@@ -47,7 +47,10 @@ public class SkillDefendPanel : UIScene
     private void Back()
     {
         GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SkillSave();
-
+        for (int i = 0; i < table.transform.childCount; i++)
+        {
+            Destroy(table.transform.GetChild(i).gameObject);
+        }
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_SkillDefendPanel, false);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_OpenBagPanel, true);
 
