@@ -24,6 +24,7 @@
         if (configType != null && configType == "skill")
         {
             SkillAttackPanel._instance.RevomeSkill(PlayerInfoManager.Instance.SelectSkillId);
+            PlayerStateManager.GetInstance().RemoveSkillQuene(PlayerInfoManager.Instance.SelectSkillId);
         }
         else
         {

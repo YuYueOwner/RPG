@@ -203,7 +203,7 @@ public class SkillAttackPanel : UIScene
             Transform trans = skillGrid.GetChild(i);
             if (trans.name == id)
             {
-                trans.GetChild(3).GetComponent<UISprite>().spriteName = "-1";
+                trans.GetChild(2).GetComponent<UISprite>().spriteName = "-1";
             }
         }
     }
