@@ -11,8 +11,8 @@ public class SkillButtonTest : MonoBehaviour
         GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().InitSkillExp();
         GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().InitSkillLv();
         GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().InitSkillLock();
-        //GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().InitSkillQuene();
-        GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SkillLoad();
+        GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().InitSkillQuene();
+        // GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SkillLoad();
     }
 
 
