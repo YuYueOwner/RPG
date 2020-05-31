@@ -33,8 +33,12 @@ public class SkillDefendPanel : UIScene
     //攻
     private void Attack()
     {
+        DeletGridChild();
+
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_SkillAttackPanel, true);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_SkillDefendPanel, false);
+        SkillAttackPanel._instance.OnCreateOwnSkillItem();
+        SkillAttackPanel._instance.OnCreateSkillAttackItem();
     }
 
     //守
@@ -47,13 +51,19 @@ public class SkillDefendPanel : UIScene
     private void Back()
     {
         GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SkillSave();
+        DeletGridChild();
+        SkillAttackPanel._instance.DeletGridChild();
+        UIManager.Instance.SetVisible(UIPanelName.SceneStart_SkillDefendPanel, false);
+        UIManager.Instance.SetVisible(UIPanelName.SceneStart_OpenBagPanel, true);
+
+    }
+
+    public void DeletGridChild()
+    {
         for (int i = 0; i < table.transform.childCount; i++)
         {
             Destroy(table.transform.GetChild(i).gameObject);
         }
-        UIManager.Instance.SetVisible(UIPanelName.SceneStart_SkillDefendPanel, false);
-        UIManager.Instance.SetVisible(UIPanelName.SceneStart_OpenBagPanel, true);
-
     }
 
     //生成拥有的技能列表
