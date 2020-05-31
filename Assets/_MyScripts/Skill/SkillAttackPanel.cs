@@ -67,11 +67,11 @@ public class SkillAttackPanel : UIScene
         int unLockNum = PlayerStateManager.GetInstance().UnLockNum();//解锁格子数量
         int useSkillNum = PlayerStateManager.GetInstance().GetSkillUseNum("attack");//装备该类型技能数量
 
-        //假数据
-        for (int i = 0; i < 3; i++)
-        {
-            PlayerStateManager.GetInstance().AttackQuene[i] = i;
-        }
+        ////假数据
+        //for (int i = 0; i < 3; i++)
+        //{
+        //    PlayerStateManager.GetInstance().AttackQuene[i] = i;
+        //}
         for (int i = 0; i < 8; i++)
         {
             //上面卡组的整个物体
