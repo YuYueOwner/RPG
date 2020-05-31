@@ -461,11 +461,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SkillDefendPanel
       objectReference: {fileID: 0}
-    - target: {fileID: 3089489352287220190, guid: 627bc5503161f6a4ab90868d0770326b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3089489352287220185, guid: 627bc5503161f6a4ab90868d0770326b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -520,11 +515,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3089489351445682967, guid: 627bc5503161f6a4ab90868d0770326b,
-        type: 3}
-      propertyPath: m_Name
-      value: DefGrid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 627bc5503161f6a4ab90868d0770326b, type: 3}
@@ -1068,6 +1058,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1204028580}
     m_Modifications:
+    - target: {fileID: 8971565690942730222, guid: 471868a8117182d4d9d7c62bd3d82cec,
+        type: 3}
+      propertyPath: m_Name
+      value: EquipmentSkillPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8971565690942730222, guid: 471868a8117182d4d9d7c62bd3d82cec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8971565690942730209, guid: 471868a8117182d4d9d7c62bd3d82cec,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1122,16 +1122,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8971565690942730222, guid: 471868a8117182d4d9d7c62bd3d82cec,
-        type: 3}
-      propertyPath: m_Name
-      value: EquipmentSkillPanel
-      objectReference: {fileID: 0}
-    - target: {fileID: 8971565690942730222, guid: 471868a8117182d4d9d7c62bd3d82cec,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 471868a8117182d4d9d7c62bd3d82cec, type: 3}
