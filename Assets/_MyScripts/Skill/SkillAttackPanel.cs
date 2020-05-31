@@ -118,7 +118,7 @@ public class SkillAttackPanel : UIScene
             }
             else
             {
-                sp.spriteName = null;
+                sp.spriteName = "-1";
             }
         }
     }
@@ -136,6 +136,7 @@ public class SkillAttackPanel : UIScene
             trans.transform.SetParent(table.transform);
             trans.transform.localScale = Vector3.one;
             UIGrid grid = Helper.GetChild<UIGrid>(trans.transform, "Grid");
+            grid.name = "attackGrid";
             for (int j = 0; j < item.Value.Count; j++)
             {
                 GameObject obj = Instantiate(Resources.Load("Prefabs/SkillPanel_Item_Item"), Vector3.zero, Quaternion.identity) as GameObject;

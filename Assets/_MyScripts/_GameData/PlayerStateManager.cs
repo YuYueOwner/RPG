@@ -132,8 +132,8 @@ public class PlayerStateManager : MonoBehaviour
     //判断当前装备是否可装备 true可以使用
     public bool CheckSkillIsCanUse(int id, int i)
     {
-        //PlayerLv = 1000;
-        //PlayerEquipWeaponID = 5;
+        PlayerLv = 1000;
+        PlayerEquipWeaponID = 5;
         SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
         SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
         PropConfig propCfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
@@ -208,62 +208,62 @@ public class PlayerStateManager : MonoBehaviour
         SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
         //初始化30个数据
         List<int> skillData;
-        //for (int i = 0; i < 30; i++)
-        //{
-        //    int id = UnityEngine.Random.Range(i, 900);
-        //    SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
-        //    if (skillIdDic.TryGetValue(data.SkillType, out skillData))
-        //    {
-
-        //    }
-        //    else
-        //    {
-        //        skillData = new List<int>();
-        //        skillIdDic[data.SkillType] = skillData;
-        //    }
-
-        //    skillData.Add(id);
-        //}
-        //正式数据
-        for (int i = 0; i < SkillLock.Length; i++)
+        for (int i = 0; i < 30; i++)
         {
-            int id = (int)SkillLock[i];
+            int id = UnityEngine.Random.Range(i, 30);
             SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
-            if (data != null)
+            if (skillIdDic.TryGetValue(data.SkillType, out skillData))
             {
-                if (type == "attack")
-                {
-                    //攻击技能
-                    if (data.SkillType == "刀" || data.SkillType == "剑" || data.SkillType == "枪" || data.SkillType == "棍" || data.SkillType == "叉" || data.SkillType == "锤")
-                    {
 
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-                else
-                {
-                    //防御技能
-                    if (data.SkillType == "刀" || data.SkillType == "剑" || data.SkillType == "枪" || data.SkillType == "棍" || data.SkillType == "叉" || data.SkillType == "锤")
-                    {
-                        break;
-                    }
-                }
-
-                if (skillIdDic.TryGetValue(data.SkillType, out skillData))
-                {
-
-                }
-                else
-                {
-                    skillData = new List<int>();
-                    skillIdDic[data.SkillType] = skillData;
-                }
-                skillData.Add(id);
             }
+            else
+            {
+                skillData = new List<int>();
+                skillIdDic[data.SkillType] = skillData;
+            }
+
+            skillData.Add(id);
         }
+        //正式数据
+        //for (int i = 0; i < SkillLock.Length; i++)
+        //{
+        //    int id = (int)SkillLock[i];
+        //    SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
+        //    if (data != null)
+        //    {
+        //        if (type == "attack")
+        //        {
+        //            //攻击技能
+        //            if (data.SkillType == "刀" || data.SkillType == "剑" || data.SkillType == "枪" || data.SkillType == "棍" || data.SkillType == "叉" || data.SkillType == "锤")
+        //            {
+
+        //            }
+        //            else
+        //            {
+        //                break;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            //防御技能
+        //            if (data.SkillType == "刀" || data.SkillType == "剑" || data.SkillType == "枪" || data.SkillType == "棍" || data.SkillType == "叉" || data.SkillType == "锤")
+        //            {
+        //                break;
+        //            }
+        //        }
+
+        //        if (skillIdDic.TryGetValue(data.SkillType, out skillData))
+        //        {
+
+        //        }
+        //        else
+        //        {
+        //            skillData = new List<int>();
+        //            skillIdDic[data.SkillType] = skillData;
+        //        }
+        //        skillData.Add(id);
+        //    }
+        //}
         return skillIdDic;
     }
     //将所有技能设置为未解锁，0=未解锁，1=解锁，然后初始化技能，将基础技能设置为解锁

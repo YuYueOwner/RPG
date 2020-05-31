@@ -127,7 +127,14 @@ public class BagDragSkiil : UIDragDropItem
                 if (PlayerStateManager.GetInstance().CheckSkillIsCanUse(int.Parse(this.name), int.Parse(surface.transform.parent.name)))
                 {
                     //判断要装备的技能是否已经存在，存在的话给替换掉
-                    SkillAttackPanel._instance.RevomeRepetitionSkill(this.parent.parent.name);
+                    if (this.parent.parent.name == "attackGrid")
+                    {
+                        SkillAttackPanel._instance.RevomeRepetitionSkill(this.name);
+                    }
+                    else if (this.parent.parent.name == "defGrid")
+                    {
+                        SkillDefendPanel._instance.RevomeRepetitionSkill(this.name);
+                    }
                     //替换ID
                     surface.transform.name = this.transform.name;
                     //替换icon

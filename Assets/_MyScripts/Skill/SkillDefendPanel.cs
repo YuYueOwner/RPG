@@ -56,8 +56,13 @@ public class SkillDefendPanel : UIScene
     {
         SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
         int unLockNum = PlayerStateManager.GetInstance().UnLockNum();//解锁格子数量
-        int useSkillNum = PlayerStateManager.GetInstance().GetSkillUseNum("attack");//装备该类型技能数量
+        int useSkillNum = PlayerStateManager.GetInstance().GetSkillUseNum("def");//装备该类型技能数量
 
+        // 假数据
+        for (int i = 0; i < 3; i++)
+        {
+            PlayerStateManager.GetInstance().DefenceQuene[i] = i;
+        }
         for (int i = 0; i < 8; i++)
         {
             GameObject obj = skillGrid.GetChild(i).gameObject;//Instantiate(Resources.Load("Prefabs/SkillDefendPanel_Item_Item"), Vector3.zero, Quaternion.identity) as GameObject;
@@ -75,7 +80,7 @@ public class SkillDefendPanel : UIScene
             {
                 if (i < useSkillNum)
                 {
-                    int id = PlayerStateManager.GetInstance().AttackQuene[i];// UnityEngine.Random.Range(i, 977);
+                    int id = PlayerStateManager.GetInstance().DefenceQuene[i];// UnityEngine.Random.Range(i, 977);
                     sp.name = id.ToString();
                     SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
                     isHasData = data;
@@ -99,7 +104,7 @@ public class SkillDefendPanel : UIScene
             }
             else
             {
-                sp.spriteName = null;
+                sp.spriteName = "-1";
             }
         }
     }
@@ -118,6 +123,8 @@ public class SkillDefendPanel : UIScene
             trans.transform.SetParent(table.transform);
             trans.transform.localScale = Vector3.one;
             UIGrid grid = Helper.GetChild<UIGrid>(trans.transform, "Grid");
+            grid.name = "defGrid";
+
             for (int j = 0; j < item.Value.Count; j++)
             {
                 GameObject obj = Instantiate(Resources.Load("Prefabs/SkillPanel_Item_Item"), Vector3.zero, Quaternion.identity) as GameObject;
@@ -129,13 +136,25 @@ public class SkillDefendPanel : UIScene
                 obj.name = item.Value[j].ToString();
                 sp.name = item.Value[j].ToString();
                 BoxCollider box = obj.transform.GetComponent<BoxCollider>();
+                UISprite bg_icon = Helper.GetChild<UISprite>(obj.transform, "Bg_Icon");
 
                 SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(item.Value[j]);
                 bool isHasData = data != null;
                 box.enabled = isHasData;
                 if (isHasData)//如果有数据
                 {
-                    sp.spriteName = "ParrySkill_05";// cfgData.GetListConfigElementByID(data.SkillID).;
+                    int skillIcon = cfgData.GetListConfigElementByID(data.SkillID).SkillIcon;
+                    if (skillIcon < 70)
+                    {
+                        sp.spriteName = skillIcon.ToString();
+                        bg_icon.spriteName = skillIcon.ToString();
+                    }
+                    else
+                    {
+                        sp.spriteName = "1";
+                        bg_icon.spriteName = "1";
+
+                    }
                 }
                 else
                 {
