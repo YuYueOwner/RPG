@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SkillButtonTest : MonoBehaviour
 {
@@ -13,6 +11,8 @@ public class SkillButtonTest : MonoBehaviour
         GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().InitSkillExp();
         GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().InitSkillLv();
         GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().InitSkillLock();
+        //GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().InitSkillQuene();
+        GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SkillLoad();
     }
 
 

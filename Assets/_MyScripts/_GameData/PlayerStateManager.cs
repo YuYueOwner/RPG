@@ -1,9 +1,7 @@
 ﻿using HotFix_Project.Config;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Microsoft.Win32;
 
 //角色数据中转站
 public class PlayerStateManager : MonoBehaviour
@@ -229,6 +227,7 @@ public class PlayerStateManager : MonoBehaviour
                     //背包里有武器装备  可以装备技能
                     if (PlayerLv >= data.UseLv)
                     {
+                        Debug.LogError(i + "      " + id);
                         RefreshAttackQuene(i, id);
                         return true;
                     }
@@ -308,11 +307,12 @@ public class PlayerStateManager : MonoBehaviour
         //正式数据
         for (int i = 0; i < SkillLock.Length; i++)
         {
-            int id = (int)SkillLock[i];
-            Debug.LogError(id);
-            SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
-            if (data != null)
+            int index = (int)SkillLock[i];
+            if (index > 0)
             {
+                int id = i;
+                SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
+                //Debug.LogError(i + "       " + id);
                 if (type == "attack")
                 {
                     //攻击技能
@@ -322,7 +322,7 @@ public class PlayerStateManager : MonoBehaviour
                     }
                     else
                     {
-                        break;
+                        continue;
                     }
                 }
                 else
@@ -330,7 +330,7 @@ public class PlayerStateManager : MonoBehaviour
                     //防御技能
                     if (data.SkillType == "刀" || data.SkillType == "剑" || data.SkillType == "枪" || data.SkillType == "棍" || data.SkillType == "叉" || data.SkillType == "锤")
                     {
-                        break;
+                        continue;
                     }
                 }
 
@@ -387,6 +387,7 @@ public class PlayerStateManager : MonoBehaviour
     }
 
 
+
     //从PlayerPrefs中读取技能数据至中转站
     public void SkillLoad()
     {
@@ -429,6 +430,18 @@ public class PlayerStateManager : MonoBehaviour
             SkillExp[SkillID] = 0;
             Debug.Log("技能" + SkillID + "已升级，现在等级为" + SkillLv[SkillID]);
         }
+    }
+
+    public void InitSkillQuene()
+    {
+        int[] a = new int[8];
+        for (int i = 0; i < 8; i++)
+        {
+            a[i] = 0;
+            a[i] = 0;
+        }
+        SetIntArray("AttackQuene", a);//进攻序列
+        SetIntArray("DefenceQuene", a);//防御序列
     }
 
     //同步攻击技能序列，i为在序列中的序号，ID为技能ID，当技能为空时ID=0；

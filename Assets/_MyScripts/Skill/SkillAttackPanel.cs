@@ -50,6 +50,7 @@ public class SkillAttackPanel : UIScene
         //{
         //    Debug.LogError(AttackSkillID()[i]);
         //}
+        GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SkillSave();
 
         for (int i = 0; i < table.transform.childCount; i++)
         {
@@ -67,11 +68,6 @@ public class SkillAttackPanel : UIScene
         int unLockNum = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().UnLockNum();//解锁格子数量
         int useSkillNum = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().GetSkillUseNum("attack");//装备该类型技能数量
 
-        ////假数据
-        //for (int i = 0; i < 3; i++)
-        //{
-        //    PlayerStateManager.GetInstance().AttackQuene[i] = i;
-        //}
         for (int i = 0; i < 8; i++)
         {
             //上面卡组的整个物体
@@ -91,9 +87,9 @@ public class SkillAttackPanel : UIScene
 
             if (i < unLockNum)
             {
-                if (i < useSkillNum)
+                int id = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().AttackQuene[i];// UnityEngine.Random.Range(i, 977);
+                if (id > 0)
                 {
-                    int id = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().AttackQuene[i];// UnityEngine.Random.Range(i, 977);
                     sp.name = id.ToString();
                     SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
                     isHasData = data;
@@ -114,7 +110,15 @@ public class SkillAttackPanel : UIScene
             if (isHasData != null)//如果有数据
             {
                 int skillIcon = cfgData.GetListConfigElementByID(isHasData.SkillID).SkillIcon;
-                sp.spriteName = skillIcon.ToString();
+
+                if (skillIcon < 70)
+                {
+                    sp.spriteName = skillIcon.ToString();
+                }
+                else
+                {
+                    sp.spriteName = "1";
+                }
             }
             else
             {
@@ -195,7 +199,7 @@ public class SkillAttackPanel : UIScene
             if (trans.name == id)
             {
                 trans.GetChild(2).GetComponent<UISprite>().spriteName = "-1";
-                GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().RefreshAttackQuene(int.Parse(trans.name), int.Parse(id));
+                GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().RefreshAttackQuene(int.Parse(trans.name), 0);
             }
         }
     }
@@ -210,7 +214,7 @@ public class SkillAttackPanel : UIScene
             {
                 string str = skillGrid.GetChild(i).name;
                 sp.spriteName = "-1";
-                GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().RefreshAttackQuene(int.Parse(str), int.Parse(id));
+                GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().RefreshAttackQuene(int.Parse(str), 0);
             }
         }
     }

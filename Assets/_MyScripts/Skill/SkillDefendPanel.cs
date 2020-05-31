@@ -46,6 +46,8 @@ public class SkillDefendPanel : UIScene
     //返回
     private void Back()
     {
+        GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SkillSave();
+
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_SkillDefendPanel, false);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_OpenBagPanel, true);
 
@@ -78,9 +80,9 @@ public class SkillDefendPanel : UIScene
             bool unLock = false;
             if (i < unLockNum)
             {
-                if (i < useSkillNum)
+                int id = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().DefenceQuene[i];// UnityEngine.Random.Range(i, 977);
+                if (id > 0)
                 {
-                    int id = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().DefenceQuene[i];// UnityEngine.Random.Range(i, 977);
                     sp.name = id.ToString();
                     SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
                     isHasData = data;
@@ -100,7 +102,14 @@ public class SkillDefendPanel : UIScene
             if (isHasData != null)//如果有数据
             {
                 int skillIcon = cfgData.GetListConfigElementByID(isHasData.SkillID).SkillIcon;
-                sp.spriteName = skillIcon.ToString();
+                if (skillIcon < 70)
+                {
+                    sp.spriteName = skillIcon.ToString();
+                }
+                else
+                {
+                    sp.spriteName = "1";
+                }
             }
             else
             {
@@ -183,7 +192,7 @@ public class SkillDefendPanel : UIScene
             if (trans.name == id)
             {
                 trans.GetChild(2).GetComponent<UISprite>().spriteName = "-1";
-                GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().RefreshAttackQuene(int.Parse(trans.name), int.Parse(id));
+                GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().RefreshAttackQuene(int.Parse(trans.name), 0);
             }
         }
     }
@@ -198,7 +207,7 @@ public class SkillDefendPanel : UIScene
             {
                 string str = skillGrid.GetChild(i).name;
                 sp.spriteName = "-1";
-                GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().RefreshAttackQuene(int.Parse(str), int.Parse(id));
+                GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().RefreshAttackQuene(int.Parse(str), 0);
             }
         }
     }
