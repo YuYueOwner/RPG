@@ -139,6 +139,8 @@ public class BagDragSkiil : UIDragDropItem
                     surface.transform.name = this.transform.name;
                     //替换icon
                     surface.GetComponent<UISprite>().spriteName = this.transform.GetComponent<UISprite>().spriteName;
+                    surface.tag = "OpenLockHasValue";
+                    this.tag = "OwnSkill";
                     //Debug.LogError("444444" + this.tag + "   " + surface.tag);
                 }
                 else

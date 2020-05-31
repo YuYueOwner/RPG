@@ -143,12 +143,13 @@ public class SkillDefendPanel : UIScene
                 obj.transform.SetParent(grid.transform);
                 obj.transform.localScale = Vector3.one;
                 UISprite sp = obj.transform.GetChild(1).GetComponent<UISprite>();
-                obj.transform.tag = "OwnSkill";
-                sp.transform.tag = "OwnSkill";
-                obj.name = item.Value[j].ToString();
-                sp.name = item.Value[j].ToString();
                 BoxCollider box = obj.transform.GetComponent<BoxCollider>();
                 UISprite bg_icon = Helper.GetChild<UISprite>(obj.transform, "Bg_Icon");
+                obj.transform.tag = "OwnSkill";
+                sp.transform.tag = "OwnSkill";
+                bg_icon.transform.tag = "OwnSkill";
+                obj.name = item.Value[j].ToString();
+                sp.name = item.Value[j].ToString();
 
                 SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(item.Value[j]);
                 bool isHasData = data != null;

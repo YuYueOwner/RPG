@@ -220,19 +220,19 @@ public class PlayerStateManager : MonoBehaviour
 
         if ((data.SkillType == "刀" || data.SkillType == "剑" || data.SkillType == "枪" || data.SkillType == "棍" || data.SkillType == "叉" || data.SkillType == "锤"))
         {
-            if (data.SkillType == propData.ItemType)
-            {
-                if (PlayerEquipWeaponID > 0)
+            if (PlayerEquipWeaponID > 0)
+                if (data.SkillType == propData.ItemType)
                 {
-                    //背包里有武器装备  可以装备技能
-                    if (PlayerLv >= data.UseLv)
                     {
-                        //Debug.LogError(i + "      " + id);
-                        RefreshAttackQuene(i, id);
-                        return true;
+                        //背包里有武器装备  可以装备技能
+                        if (PlayerLv >= data.UseLv)
+                        {
+                            //Debug.LogError(i + "      " + id);
+                            RefreshAttackQuene(i, id);
+                            return true;
+                        }
                     }
                 }
-            }
         }
         else
         {
