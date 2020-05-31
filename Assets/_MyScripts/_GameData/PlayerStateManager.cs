@@ -1,7 +1,9 @@
 ﻿using HotFix_Project.Config;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Microsoft.Win32;
 
 //角色数据中转站
 public class PlayerStateManager : MonoBehaviour
@@ -36,6 +38,30 @@ public class PlayerStateManager : MonoBehaviour
 
     public int PlayerEquipWeaponID;//已装备武器ID，初始装备乌木剑，WeaponID=1
     public int PlayerEquipArmorID;//已装备护甲ID，初始装备粗布甲，ArmorID=1
+    //武器数据
+    public int WeaponAttack;
+    public int WeaponDex;
+    public int WeaponStrength;
+    public int WeaponCon;
+    public int WeaponLuk;
+    public int WeaponRoll;
+    public int WeaponHitRate;
+    public int WeaponArmorPenetration;
+    public int WeaponCritical;
+    //护甲数据
+    public int ArmorDefence;
+    public int ArmorDex;
+    public int ArmorStrength;
+    public int ArmorCon;
+    public int ArmorLuk;
+    public int ArmorRoll;
+    public int ArmorDodgeRate;
+
+    //面板显示数据total+X
+    public int totalCon;//面板体质
+    public int totalStr;//面板力道
+    public int totalDex;//面板身法
+    public int totalLuk;//面板根骨
 
     public float PlayerWorldPosX;//人物在世界地图中坐标X
     public float PlayerWorldPosY;//人物在世界地图中坐标Y
@@ -66,10 +92,21 @@ public class PlayerStateManager : MonoBehaviour
         PlayerStateLoad();
 
         SkillLoad();
-        //  SetPlayUseTime();
-
+        // SetPlayUseTime();
+        RecountPlayerState();
+        ChangePlayerState();
 
     }
+    //假数据
+    void SetWeapon()
+    {
+        PlayerEquipWeaponID = 1;
+        PlayerEquipArmorID = 16;
+    }
+
+
+
+
 
     //测试数据读写
     void OnlyTest()
@@ -89,6 +126,62 @@ public class PlayerStateManager : MonoBehaviour
             Debug.Log("b" + i + "=" + b[i]);
         }
     }
+    //=======================================
+    //同步玩家已装备物品信息
+    //同步武器和防具ID
+    public void RefreshPlayerEquipmentID(int weaponID, int armorID)
+    {
+        PlayerEquipWeaponID = weaponID;
+        PlayerEquipArmorID = armorID;
+        //重新计算武器及防具加成
+        GetEquipmentInfo();
+        //重新计算面板属性
+        ChangePlayerState();
+        //更新显示
+        BagPanel._instance.SetPlayerAttributeInfo();
+    }
+    //根据武器和防具ID查找具体数据
+    public void GetEquipmentInfo()
+    {
+        //根据武器ID和防具ID在静态数据表中获取到对应的数据
+        PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
+        PropConfig.PropObject weapondata = cfgData.GetListConfigElementByID(PlayerEquipWeaponID);
+        PropConfig.PropObject Armordata = cfgData.GetListConfigElementByID(PlayerEquipArmorID);
+        //武器数据
+        if (PlayerEquipWeaponID > 0)
+        {
+            WeaponAttack = weapondata.WeaponAttack;
+            WeaponDex = weapondata.WeaponDex;
+            WeaponStrength = weapondata.WeaponStrength;
+            WeaponCon = weapondata.WeaponCon;
+            WeaponLuk = weapondata.WeaponLuk;
+            WeaponRoll = weapondata.WeaponRoll;
+            WeaponHitRate = weapondata.WeaponHitRate;
+            WeaponArmorPenetration = weapondata.WeaponArmorPenetration;
+            WeaponCritical = weapondata.WeaponCritical;
+        }
+        //护甲数据
+        if (PlayerEquipArmorID > 0)
+        {
+            ArmorDefence = Armordata.ArmorDefence;
+            ArmorDex = Armordata.ArmorDex;
+            ArmorStrength = Armordata.ArmorStrength;
+            ArmorCon = Armordata.ArmorCon;
+            ArmorLuk = Armordata.ArmorLuk;
+            ArmorRoll = Armordata.ArmorRoll;
+            ArmorDodgeRate = Armordata.ArmorDodgeRate;
+        }
+    }
+
+
+
+    //============================
+    //控制money
+    public void ChangeMoneyPlayer(int money)
+    {
+        PlayerMoney = PlayerMoney + money;
+    }
+
 
     //==============================================================================================================================
     //初始化物品清单
@@ -128,7 +221,6 @@ public class PlayerStateManager : MonoBehaviour
 
         PackageItem = GetIntArray("PackageItem");
     }
-
     //判断当前装备是否可装备 true可以使用
     public bool CheckSkillIsCanUse(int id, int i)
     {
@@ -173,8 +265,7 @@ public class PlayerStateManager : MonoBehaviour
         num = 5 + (PlayerLv - 1) / 5;
         return num;
     }
-
-
+    //===============================================================================================================================
     //技能经验表"SkillExp"
     //技能解锁表"Skill"
     //初始化技能经验表
@@ -200,6 +291,7 @@ public class PlayerStateManager : MonoBehaviour
         }
         SetFloatArray("SkillLv", a);
     }
+
     //随机生成技能  测试用 type =attack攻击技能
     public Dictionary<string, List<int>> OnCreateSkill(string type)
     {
@@ -208,65 +300,65 @@ public class PlayerStateManager : MonoBehaviour
         SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
         //初始化30个数据
         List<int> skillData;
-        for (int i = 0; i < 30; i++)
-        {
-            int id = UnityEngine.Random.Range(i, 30);
-            SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
-            if (skillIdDic.TryGetValue(data.SkillType, out skillData))
-            {
-
-            }
-            else
-            {
-                skillData = new List<int>();
-                skillIdDic[data.SkillType] = skillData;
-            }
-
-            skillData.Add(id);
-        }
-        //正式数据
-        //for (int i = 0; i < SkillLock.Length; i++)
+        //for (int i = 0; i < 30; i++)
         //{
-        //    int id = (int)SkillLock[i];
+        //    int id = UnityEngine.Random.Range(i, 30);
         //    SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
-        //    if (data != null)
+        //    if (skillIdDic.TryGetValue(data.SkillType, out skillData))
         //    {
-        //        if (type == "attack")
-        //        {
-        //            //攻击技能
-        //            if (data.SkillType == "刀" || data.SkillType == "剑" || data.SkillType == "枪" || data.SkillType == "棍" || data.SkillType == "叉" || data.SkillType == "锤")
-        //            {
 
-        //            }
-        //            else
-        //            {
-        //                break;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            //防御技能
-        //            if (data.SkillType == "刀" || data.SkillType == "剑" || data.SkillType == "枪" || data.SkillType == "棍" || data.SkillType == "叉" || data.SkillType == "锤")
-        //            {
-        //                break;
-        //            }
-        //        }
-
-        //        if (skillIdDic.TryGetValue(data.SkillType, out skillData))
-        //        {
-
-        //        }
-        //        else
-        //        {
-        //            skillData = new List<int>();
-        //            skillIdDic[data.SkillType] = skillData;
-        //        }
-        //        skillData.Add(id);
         //    }
+        //    else
+        //    {
+        //        skillData = new List<int>();
+        //        skillIdDic[data.SkillType] = skillData;
+        //    }
+
+        //    skillData.Add(id);
         //}
+        //正式数据
+        for (int i = 0; i < SkillLock.Length; i++)
+        {
+            int id = (int)SkillLock[i];
+            Debug.LogError(id);
+            SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
+            if (data != null)
+            {
+                if (type == "attack")
+                {
+                    //攻击技能
+                    if (data.SkillType == "刀" || data.SkillType == "剑" || data.SkillType == "枪" || data.SkillType == "棍" || data.SkillType == "叉" || data.SkillType == "锤")
+                    {
+
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    //防御技能
+                    if (data.SkillType == "刀" || data.SkillType == "剑" || data.SkillType == "枪" || data.SkillType == "棍" || data.SkillType == "叉" || data.SkillType == "锤")
+                    {
+                        break;
+                    }
+                }
+
+                if (skillIdDic.TryGetValue(data.SkillType, out skillData))
+                {
+
+                }
+                else
+                {
+                    skillData = new List<int>();
+                    skillIdDic[data.SkillType] = skillData;
+                }
+                skillData.Add(id);
+            }
+        }
         return skillIdDic;
-    }
-    //将所有技能设置为未解锁，0=未解锁，1=解锁，然后初始化技能，将基础技能设置为解锁
+    }    //将所有技能设置为未解锁，0=未解锁，1=解锁，然后初始化技能，将基础技能设置为解锁
     public void InitSkillLock()
     {
         //假设当前有1000个技能，将1000个技能的全部设置为未解锁
@@ -361,7 +453,6 @@ public class PlayerStateManager : MonoBehaviour
     {
         DefenceQuene[i] = ID;
     }
-
     //获取已装备的技能数量
     public int GetSkillUseNum(string str)
     {
@@ -419,8 +510,6 @@ public class PlayerStateManager : MonoBehaviour
             }
         }
     }
-
-
     //=====================================================================================================================================
 
     public void PrintPlayerState()
@@ -499,6 +588,25 @@ public class PlayerStateManager : MonoBehaviour
         PlayerMoney = PlayerPrefs.GetInt("PlayerMoney");
         PlayerEquipWeaponID = PlayerPrefs.GetInt("PlayerEquipWeaponID");
         PlayerEquipArmorID = PlayerPrefs.GetInt("PlayerEquipArmorID");
+        //武器数据
+        WeaponAttack = PlayerPrefs.GetInt("WeaponAttack");
+        WeaponDex = PlayerPrefs.GetInt("WeaponDex");
+        WeaponStrength = PlayerPrefs.GetInt("WeaponStrength");
+        WeaponCon = PlayerPrefs.GetInt("WeaponCon");
+        WeaponLuk = PlayerPrefs.GetInt("WeaponLuk");
+        WeaponRoll = PlayerPrefs.GetInt("WeaponRoll");
+        WeaponHitRate = PlayerPrefs.GetInt("WeaponHitRate");
+        WeaponArmorPenetration = PlayerPrefs.GetInt("WeaponArmorPenetration");
+        WeaponCritical = PlayerPrefs.GetInt("WeaponCritical");
+        //护甲数据
+        ArmorDefence = PlayerPrefs.GetInt("ArmorDefence");
+        ArmorDex = PlayerPrefs.GetInt("ArmorDex");
+        ArmorStrength = PlayerPrefs.GetInt("ArmorStrength");
+        ArmorCon = PlayerPrefs.GetInt("ArmorCon");
+        ArmorLuk = PlayerPrefs.GetInt("ArmorLuk");
+        ArmorRoll = PlayerPrefs.GetInt("ArmorRoll");
+        ArmorDodgeRate = PlayerPrefs.GetInt("ArmorDodgeRate");
+
 
         PlayerWorldPosX = PlayerPrefs.GetFloat("PlayerWorldPosX");
         PlayerWorldPosY = PlayerPrefs.GetFloat("PlayerWorldPosY");
@@ -506,6 +614,7 @@ public class PlayerStateManager : MonoBehaviour
         isNew = PlayerPrefs.GetInt("isNew");
         LoadPackageItem();
         SkillLoad();
+
     }
 
     //将中转站内的当前角色数据保存至PlayerPrefs
@@ -537,6 +646,24 @@ public class PlayerStateManager : MonoBehaviour
 
         PlayerPrefs.SetInt("PlayerEquipWeaponID", PlayerEquipWeaponID);
         PlayerPrefs.SetInt("PlayerEquipArmorID", PlayerEquipArmorID);
+        //武器数据
+        PlayerPrefs.SetInt("WeaponAttack", WeaponAttack);
+        PlayerPrefs.SetInt("WeaponDex", WeaponDex);
+        PlayerPrefs.SetInt("WeaponStrength", WeaponStrength);
+        PlayerPrefs.SetInt("WeaponCon", WeaponCon);
+        PlayerPrefs.SetInt("WeaponLuk", WeaponLuk);
+        PlayerPrefs.SetInt("WeaponRoll", WeaponRoll);
+        PlayerPrefs.SetInt("WeaponHitRate", WeaponHitRate);
+        PlayerPrefs.SetInt("WeaponArmorPenetration", WeaponArmorPenetration);
+        PlayerPrefs.SetInt("WeaponCritical", WeaponCritical);
+        //护甲数据
+        PlayerPrefs.SetInt("ArmorDefence", ArmorDefence);
+        PlayerPrefs.SetInt("ArmorDex", ArmorDex);
+        PlayerPrefs.SetInt("ArmorStrength", ArmorStrength);
+        PlayerPrefs.SetInt("ArmorCon", ArmorCon);
+        PlayerPrefs.SetInt("ArmorLuk", ArmorLuk);
+        PlayerPrefs.SetInt("ArmorRoll", ArmorRoll);
+        PlayerPrefs.SetInt("ArmorDodgeRate", ArmorDodgeRate);
 
         PlayerPrefs.SetFloat("PlayerWorldPosX", PlayerWorldPosX);
         PlayerPrefs.SetFloat("PlayerWorldPosY", PlayerWorldPosY);
@@ -590,20 +717,20 @@ public class PlayerStateManager : MonoBehaviour
     //void SetPlayUseTime()
     //{
     //    RegistryKey RootKey, RegKey;
-    //    //项名为：HKEY_CURRENT_USER\Software
-    //    RootKey = Registry.CurrentUser.OpenSubKey("SOFTWARE", true);
-    //    //打开子项：HKEY_CURRENT_USER\Software\MyRegDataApp
-    //    if ((RegKey = RootKey.OpenSubKey("TestToControlUseTime", true)) == null)
+    //    //项名为：HKEY_CURRENT_USER\Software
+    //    RootKey = Registry.CurrentUser.OpenSubKey("SOFTWARE", true);
+    //    //打开子项：HKEY_CURRENT_USER\Software\MyRegDataApp
+    //    if ((RegKey = RootKey.OpenSubKey("TestToControlUseTime", true)) == null)
     //    {
     //        RootKey.CreateSubKey("TestToControlUseTime");       //不存在，则创建子项
-    //        RegKey = RootKey.OpenSubKey("TestToControlUseTime", true);
+    //        RegKey = RootKey.OpenSubKey("TestToControlUseTime", true);
     //        RegKey.SetValue("UseTime", (object)1);              //创建键值，存储已使用次数
-    //        return;
+    //        return;
     //    }
     //    try
     //    {
     //        object usetime = RegKey.GetValue("UseTime");        //读取键值，已使用次数
-    //        print("已使用使用:" + usetime + "次");
+    //        print("已使用使用:" + usetime + "次");
     //        int newtime = int.Parse(usetime.ToString()) + 1;
     //        RegKey.SetValue("UseTime", (object)newtime);    //更新键值，已使用次数+1
 
@@ -624,8 +751,8 @@ public class PlayerStateManager : MonoBehaviour
     //public void ResetUseTime()
     //{
     //    RegistryKey RootKey, RegKey;
-    //    //项名为：HKEY_CURRENT_USER\Software
-    //    RootKey = Registry.CurrentUser.OpenSubKey("SOFTWARE", true);
+    //    //项名为：HKEY_CURRENT_USER\Software
+    //    RootKey = Registry.CurrentUser.OpenSubKey("SOFTWARE", true);
     //    //打开子项：HKEY_CURRENT_USER\Software\MyRegDataApp
     //    RootKey.CreateSubKey("TestToControlUseTime");       //不存在，则创建子项
     //    RegKey = RootKey.OpenSubKey("TestToControlUseTime", true);
@@ -687,11 +814,13 @@ public class PlayerStateManager : MonoBehaviour
 
                 //获得自由分配属性点
                 PlayerAvaliablePoint = PlayerAvaliablePoint + 4;
+                BagPanel._instance.SetUsableProperty_Label(4);
                 //获得固定属性点
                 PlayerCon++;
                 PlayerStr++;
                 PlayerDex++;
                 PlayerLuk++;
+                ChangePlayerState();
             }
             else
             {
@@ -711,16 +840,16 @@ public class PlayerStateManager : MonoBehaviour
         switch (key)
         {
             case "Physical":
-                count = PlayerCon;
+                count = totalCon;
                 return count;
             case "Strength":
-                count = PlayerStr;
+                count = totalStr;
                 return count;
             case "Skill":
-                count = PlayerDex;
+                count = totalDex;
                 return count;
             case "Bone":
-                count = PlayerLuk;
+                count = totalLuk;
                 return count;
             case "PlayerAvaliable":
                 count = PlayerAvaliablePoint;
@@ -754,15 +883,74 @@ public class PlayerStateManager : MonoBehaviour
     }
 
     //同步基础属性至中转站
-    public void RefreshPlayerState(int Con, int Str, int Dex, int Luk, int Avaliable)
+    public void RefreshPlayerStateKey(string key, int value)
     {
-        PlayerCon = Con;
-        PlayerStr = Str;
-        PlayerDex = Dex;
-        PlayerLuk = Luk;
-        PlayerAvaliablePoint = Avaliable;
+        if (key == "PlayerAvaliable")
+        {
+            PlayerAvaliablePoint = PlayerAvaliablePoint + value;
+        }
+        else if (key == "Strength")
+        {
+            PlayerStr = PlayerStr + value;
+        }
+        else if (key == "Physical")
+        {
+            PlayerCon = PlayerCon + value;
+        }
+        else if (key == "Skill")
+        {
+            PlayerDex = PlayerDex + value;
+        }
+        else if (key == "Bone")
+        {
+            PlayerLuk = PlayerLuk + value;
+        }
     }
 
+    //重新计算基础属性加成
+    public void RecountPlayerState()
+    {
+        //生命值：1点体质=50点生命值上限，基础生命值为100
+        int totalCon = PlayerCon + WeaponCon + ArmorCon;
+        PlayerHpMax = 100 + totalCon * 50;
+        PlayerHpCurrent = PlayerHpMax;
+    }
+    //当更换装备后重新计算面板属性
+    public void ChangePlayerState()
+    {
+        totalCon = PlayerCon + WeaponCon + ArmorCon;
+        totalStr = PlayerStr + WeaponStrength + ArmorStrength;
+        totalDex = PlayerDex + WeaponDex + ArmorDex;
+        totalLuk = PlayerLuk + WeaponLuk + ArmorLuk;
+    }
+
+    //同步人物属性至中转站
+    public void SetPlayerState(int currentHP, int HealthLoss)
+    {
+        PlayerHpCurrent = currentHP;
+        PlayerHealth = PlayerHealth - HealthLoss;
+    }
+
+
+
+    //同步玩家当前位置
+    public void RefreshPlayerPos(float x, float y)
+    {
+        PlayerWorldPosX = x;
+        PlayerWorldPosY = y;
+    }
+
+    //健康恢复，每过10小时恢复1点
+    public void HealthRecovery(float time)
+    {
+        int a = (int)(time / 10);
+
+        PlayerHealth = PlayerHealth + a;
+
+
+        if (PlayerHealth > PlayerHealthMax) PlayerHealth = PlayerHealthMax;
+
+    }
 
 
 

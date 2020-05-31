@@ -325,7 +325,7 @@ public class BagPanel : UIScene
     }
 
 
-    private void SetUsableProperty_Label(int count)
+    public void SetUsableProperty_Label(int count)
     {
         int sum = 0;
         if (int.TryParse(count.ToString(), out sum))
