@@ -298,11 +298,43 @@ public class PlayerStateManager : MonoBehaviour
         AttackQuene[i] = ID;
     }
 
+    //卸下技能
+    public void RemoveSkillQuene(string ID)
+    {
+        int id;
+        if (int.TryParse(ID, out id))
+        {
+            SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
+            SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
+            if (data.SkillType == "刀" || data.SkillType == "剑" || data.SkillType == "枪" || data.SkillType == "棍" || data.SkillType == "叉" || data.SkillType == "锤")
+            {
+                for (int i = 0; i < AttackQuene.Length; i++)
+                {
+                    if (AttackQuene[i] == id)
+                    {
+                        AttackQuene[i] = 0;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < DefenceQuene.Length; i++)
+                {
+                    if (DefenceQuene[i] == id)
+                    {
+                        DefenceQuene[i] = 0;
+                    }
+                }
+            }
+        }
+    }
+
     //同步防御技能序列，i为在序列中的序号，ID为技能ID，当技能为空时ID=0；
     public void RefreshDefenceQuene(int i, int ID)
     {
         DefenceQuene[i] = ID;
     }
+
     //=====================================================================================================================================
 
     public void PrintPlayerState()
