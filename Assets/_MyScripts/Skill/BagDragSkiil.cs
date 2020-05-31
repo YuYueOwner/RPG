@@ -112,7 +112,7 @@ public class BagDragSkiil : UIDragDropItem
             {
                 //丢弃技能
                 transform.localPosition = Vector3.zero;
-                //PlayerInfoManager.Instance.SelectItemId = int.Parse(transform.name);
+                PlayerInfoManager.Instance.SelectSkillId = this.name;
                 UIManager.Instance.SetVisible(UIPanelName.SceneStart_DiscardGoodsPanel, true);
                 //Debug.LogError("22222" + this.tag + "   " + surface.tag);
             }
@@ -132,6 +132,7 @@ public class BagDragSkiil : UIDragDropItem
                 }
                 else
                 {
+                    DiscardGoodsPanel._instance.SetType("skill");
                     UIManager.Instance.SetVisible(UIPanelName.SceneStart_EquipmentSkillPanel, true);
                 }
             }

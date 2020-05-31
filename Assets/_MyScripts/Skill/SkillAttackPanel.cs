@@ -184,4 +184,17 @@ public class SkillAttackPanel : UIScene
         table.Reposition();
         //sv.ResetPosition();
     }
+
+    //删除技能
+    public void RevomeSkill(string id)
+    {
+        for (int i = 0; i < skillGrid.transform.childCount; i++)
+        {
+            Transform trans = skillGrid.GetChild(i);
+            if (trans.name == id)
+            {
+                trans.GetChild(3).GetComponent<UISprite>().spriteName = "-1";
+            }
+        }
+    }
 }

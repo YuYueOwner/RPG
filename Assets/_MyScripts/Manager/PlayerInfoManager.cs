@@ -14,6 +14,8 @@ public class PlayerInfoManager
     public List<PackageItem> playerItemData = new List<PackageItem>();
     //丢弃的物品或者鼠标长留的物品id
     public int SelectItemId;
+    //丢弃的技能id
+    public string SelectSkillId;
     //鼠标长留物品0.5秒后显示的物品名称
     public UILabel ItemName;
     //鼠标长留物品0.5秒后显示的物品介绍
