@@ -80,15 +80,16 @@ public class BagDrag : UIDragDropItem
     }
 
 
+    private BoxCollider recordParentCollider;
     //通过重写的鼠标监听事件(开始拖动)
     public override void StartDragging()
     {
         base.StartDragging();
         this.GetComponent<UISprite>().depth = 10;
         recordParentCollider = this.transform.parent.GetComponent<BoxCollider>();
+        Debug.LogError(this.transform.parent.name);
     }
 
-    private BoxCollider recordParentCollider;
 
     /// <summary>
     /// 重写父类里的拖拽方法

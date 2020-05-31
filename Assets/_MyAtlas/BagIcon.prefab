@@ -1,0 +1,675 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4350135638115327215
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8768985839677304322}
+  - component: {fileID: 7709526146121803345}
+  m_Layer: 0
+  m_Name: BagIcon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8768985839677304322
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4350135638115327215}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7709526146121803345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4350135638115327215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0c51bb0b6e93049af5e88f93826e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 11545237c83135e46a3ced8a550c6b58, type: 2}
+  mSprites:
+  - name: ItemImage1
+    x: 648
+    y: 1261
+    width: 144
+    height: 227
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 62
+    paddingRight: 50
+    paddingTop: 13
+    paddingBottom: 16
+  - name: ItemImage10
+    x: 877
+    y: 821
+    width: 188
+    height: 222
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 34
+    paddingRight: 34
+    paddingTop: 17
+    paddingBottom: 17
+  - name: ItemImage11
+    x: 462
+    y: 1202
+    width: 185
+    height: 212
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 38
+    paddingRight: 33
+    paddingTop: 22
+    paddingBottom: 22
+  - name: ItemImage12
+    x: 203
+    y: 34
+    width: 201
+    height: 206
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 39
+    paddingRight: 16
+    paddingTop: 16
+    paddingBottom: 34
+  - name: ItemImage13
+    x: 938
+    y: 398
+    width: 197
+    height: 218
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 38
+    paddingRight: 21
+    paddingTop: 14
+    paddingBottom: 24
+  - name: ItemImage14
+    x: 194
+    y: 695
+    width: 192
+    height: 226
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 38
+    paddingRight: 26
+    paddingTop: 11
+    paddingBottom: 19
+  - name: ItemImage15
+    x: 284
+    y: 471
+    width: 157
+    height: 223
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 59
+    paddingRight: 40
+    paddingTop: 9
+    paddingBottom: 24
+  - name: ItemImage16
+    x: 0
+    y: 922
+    width: 202
+    height: 232
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 27
+    paddingRight: 27
+    paddingTop: 11
+    paddingBottom: 13
+  - name: ItemImage17
+    x: 0
+    y: 207
+    width: 202
+    height: 246
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 27
+    paddingRight: 27
+    paddingTop: 8
+    paddingBottom: 2
+  - name: ItemImage18
+    x: 737
+    y: 368
+    width: 200
+    height: 242
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 38
+    paddingRight: 18
+    paddingTop: 11
+    paddingBottom: 3
+  - name: ItemImage19
+    x: 536
+    y: 322
+    width: 200
+    height: 242
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 38
+    paddingRight: 18
+    paddingTop: 11
+    paddingBottom: 3
+  - name: ItemImage2
+    x: 203
+    y: 940
+    width: 116
+    height: 217
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 70
+    paddingRight: 70
+    paddingTop: 19
+    paddingBottom: 20
+  - name: ItemImage20
+    x: 0
+    y: 695
+    width: 193
+    height: 226
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 37
+    paddingRight: 26
+    paddingTop: 14
+    paddingBottom: 16
+  - name: ItemImage21
+    x: 337
+    y: 1415
+    width: 193
+    height: 226
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 37
+    paddingRight: 26
+    paddingTop: 14
+    paddingBottom: 16
+  - name: ItemImage22
+    x: 542
+    y: 794
+    width: 154
+    height: 235
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 51
+    paddingRight: 51
+    paddingTop: 11
+    paddingBottom: 10
+  - name: ItemImage23
+    x: 387
+    y: 732
+    width: 154
+    height: 235
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 51
+    paddingRight: 51
+    paddingTop: 11
+    paddingBottom: 10
+  - name: ItemImage24
+    x: 0
+    y: 4
+    width: 182
+    height: 202
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 39
+    paddingRight: 35
+    paddingTop: 24
+    paddingBottom: 30
+  - name: ItemImage25
+    x: 133
+    y: 465
+    width: 150
+    height: 229
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 62
+    paddingRight: 44
+    paddingTop: 7
+    paddingBottom: 20
+  - name: ItemImage26
+    x: 531
+    y: 1489
+    width: 163
+    height: 227
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 54
+    paddingRight: 39
+    paddingTop: 14
+    paddingBottom: 15
+  - name: ItemImage27
+    x: 591
+    y: 77
+    width: 198
+    height: 244
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 39
+    paddingRight: 19
+    paddingTop: 6
+    paddingBottom: 6
+  - name: ItemImage28
+    x: 166
+    y: 1158
+    width: 172
+    height: 240
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 54
+    paddingRight: 30
+    paddingTop: 8
+    paddingBottom: 8
+  - name: ItemImage29
+    x: 695
+    y: 1636
+    width: 132
+    height: 240
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 62
+    paddingRight: 62
+    paddingTop: 8
+    paddingBottom: 8
+  - name: ItemImage3
+    x: 0
+    y: 1814
+    width: 105
+    height: 234
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 87
+    paddingRight: 64
+    paddingTop: 8
+    paddingBottom: 14
+  - name: ItemImage30
+    x: 0
+    y: 454
+    width: 132
+    height: 240
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 62
+    paddingRight: 62
+    paddingTop: 8
+    paddingBottom: 8
+  - name: ItemImage31
+    x: 167
+    y: 1410
+    width: 169
+    height: 231
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 53
+    paddingRight: 34
+    paddingTop: 8
+    paddingBottom: 17
+  - name: ItemImage32
+    x: 106
+    y: 1852
+    width: 216
+    height: 196
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 29
+    paddingRight: 11
+    paddingTop: 20
+    paddingBottom: 40
+  - name: ItemImage33
+    x: 150
+    y: 1642
+    width: 190
+    height: 209
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 38
+    paddingRight: 28
+    paddingTop: 23
+    paddingBottom: 24
+  - name: ItemImage34
+    x: 0
+    y: 1618
+    width: 149
+    height: 195
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 55
+    paddingRight: 52
+    paddingTop: 31
+    paddingBottom: 30
+  - name: ItemImage35
+    x: 790
+    y: 172
+    width: 153
+    height: 195
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 51
+    paddingRight: 52
+    paddingTop: 31
+    paddingBottom: 30
+  - name: ItemImage36
+    x: 828
+    y: 1679
+    width: 182
+    height: 220
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 38
+    paddingRight: 36
+    paddingTop: 18
+    paddingBottom: 18
+  - name: ItemImage37
+    x: 339
+    y: 968
+    width: 190
+    height: 207
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 38
+    paddingRight: 28
+    paddingTop: 25
+    paddingBottom: 24
+  - name: ItemImage38
+    x: 373
+    y: 285
+    width: 162
+    height: 185
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 51
+    paddingRight: 43
+    paddingTop: 35
+    paddingBottom: 36
+  - name: ItemImage39
+    x: 793
+    y: 1425
+    width: 164
+    height: 210
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 46
+    paddingRight: 46
+    paddingTop: 22
+    paddingBottom: 24
+  - name: ItemImage4
+    x: 339
+    y: 1176
+    width: 122
+    height: 238
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 78
+    paddingRight: 56
+    paddingTop: 12
+    paddingBottom: 6
+  - name: ItemImage40
+    x: 323
+    y: 1867
+    width: 197
+    height: 181
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 35
+    paddingRight: 24
+    paddingTop: 38
+    paddingBottom: 37
+  - name: ItemImage41
+    x: 341
+    y: 1717
+    width: 203
+    height: 149
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 30
+    paddingRight: 23
+    paddingTop: 50
+    paddingBottom: 57
+  - name: ItemImage42
+    x: 530
+    y: 1030
+    width: 232
+    height: 171
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 16
+    paddingRight: 8
+    paddingTop: 39
+    paddingBottom: 46
+  - name: ItemImage43
+    x: 521
+    y: 1877
+    width: 232
+    height: 171
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 16
+    paddingRight: 8
+    paddingTop: 39
+    paddingBottom: 46
+  - name: ItemImage44
+    x: 442
+    y: 565
+    width: 168
+    height: 166
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 46
+    paddingRight: 42
+    paddingTop: 48
+    paddingBottom: 42
+  - name: ItemImage45
+    x: 754
+    y: 1900
+    width: 180
+    height: 148
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 38
+    paddingRight: 38
+    paddingTop: 49
+    paddingBottom: 59
+  - name: ItemImage46
+    x: 794
+    y: 617
+    width: 203
+    height: 177
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 26
+    paddingRight: 27
+    paddingTop: 32
+    paddingBottom: 47
+  - name: ItemImage47
+    x: 611
+    y: 611
+    width: 182
+    height: 182
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 46
+    paddingRight: 28
+    paddingTop: 36
+    paddingBottom: 38
+  - name: ItemImage48
+    x: 763
+    y: 1044
+    width: 192
+    height: 216
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 34
+    paddingRight: 30
+    paddingTop: 20
+    paddingBottom: 20
+  - name: ItemImage5
+    x: 0
+    y: 1155
+    width: 165
+    height: 243
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 50
+    paddingRight: 41
+    paddingTop: 7
+    paddingBottom: 6
+  - name: ItemImage6
+    x: 203
+    y: 241
+    width: 169
+    height: 223
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 53
+    paddingRight: 34
+    paddingTop: 16
+    paddingBottom: 17
+  - name: ItemImage7
+    x: 697
+    y: 795
+    width: 179
+    height: 234
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 47
+    paddingRight: 30
+    paddingTop: 8
+    paddingBottom: 14
+  - name: ItemImage8
+    x: 0
+    y: 1399
+    width: 166
+    height: 218
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 64
+    paddingRight: 26
+    paddingTop: 26
+    paddingBottom: 12
+  - name: ItemImage9
+    x: 405
+    y: 49
+    width: 185
+    height: 235
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 40
+    paddingRight: 31
+    paddingTop: 11
+    paddingBottom: 10
+  mPixelSize: 1
+  mReplacement: {fileID: 0}
+  mCoordinates: 0
+  sprites: []
