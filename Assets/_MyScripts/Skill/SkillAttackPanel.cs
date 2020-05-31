@@ -66,6 +66,8 @@ public class SkillAttackPanel : UIScene
         SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
         int unLockNum = PlayerStateManager.GetInstance().UnLockNum();//解锁格子数量
         int useSkillNum = PlayerStateManager.GetInstance().GetSkillUseNum("attack");//装备该类型技能数量
+
+        //假数据
         for (int i = 0; i < 3; i++)
         {
             PlayerStateManager.GetInstance().AttackQuene[i] = i;
