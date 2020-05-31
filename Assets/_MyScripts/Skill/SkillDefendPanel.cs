@@ -99,9 +99,14 @@ public class SkillDefendPanel : UIScene
                     sp.name = id.ToString();
                     SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
                     isHasData = data;
+                    obj.transform.tag = "OpenLockHasValueParent";
+                    sp.transform.tag = "OpenLockHasValue";
                 }
-                obj.transform.tag = "OpenLockHasValueParent";
-                sp.transform.tag = "OpenLockNotValue";
+                else
+                {
+                    obj.transform.tag = "OpenLockHasValueParent";
+                    sp.transform.tag = "OpenLockNotValue";
+                }
             }
             else
             {

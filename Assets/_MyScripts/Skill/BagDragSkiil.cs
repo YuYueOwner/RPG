@@ -92,7 +92,7 @@ public class BagDragSkiil : UIDragDropItem
             return;
         }
         //如果拖拽的是上方的技能
-        if (this.tag == "OpenLockHasValue")
+        if (this.tag == "OpenLockHasValue" || this.tag == "OpenLockNotValue")
         {
             //如果是跟上方的格子互换
             if (surface.tag == "OpenLockHasValue" || surface.tag == "OpenLockNotValue")
