@@ -1,4 +1,5 @@
 ﻿using HotFix_Project.Config;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SkillAttackPanel : UIScene
@@ -10,7 +11,6 @@ public class SkillAttackPanel : UIScene
     private UIGrid skillGrid;
     private UIScrollView sv;
     public static SkillAttackPanel _instance;
-
     private void Awake()
     {
         _instance = this;
@@ -45,6 +45,16 @@ public class SkillAttackPanel : UIScene
     //返回
     private void Back()
     {
+        //输出牌组中攻击技能ID
+        //for (int i = 0; i < AttackSkillID().Count; i++)
+        //{
+        //    Debug.LogError(AttackSkillID()[i]);
+        //}
+
+        for (int i = 0; i < table.transform.childCount; i++)
+        {
+            Destroy(table.transform.GetChild(i).gameObject);
+        }
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_SkillAttackPanel, false);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_OpenBagPanel, true);
 
@@ -200,5 +210,25 @@ public class SkillAttackPanel : UIScene
                 PlayerStateManager.instane.RefreshAttackQuene(int.Parse(str), int.Parse(id));
             }
         }
+    }
+
+    //存攻击技能id
+    private List<int> AttackSkillID()
+    {
+        List<int> saveAttackSkillID = new List<int>();
+        for (int i = 0; i < skillGrid.transform.childCount; i++)
+        {
+            string skillNameId = skillGrid.transform.GetChild(i).GetChild(2).name;
+            int result;
+            if (int.TryParse(skillNameId, out result) == true)
+            {
+                saveAttackSkillID.Add(int.Parse(skillNameId));
+            }
+            else
+            {
+                saveAttackSkillID.Add(0);
+            }
+        }
+        return saveAttackSkillID;
     }
 }
