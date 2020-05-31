@@ -26,9 +26,9 @@ public class BagDragSkiil : UIDragDropItem
     IEnumerator Show()
     {
         yield return new WaitForSeconds(0.5f);
-        int parentName;
-        if (int.TryParse(transform.parent.name, out parentName) == false) yield return null;
-        if (parentName > 0)
+        int thisName;
+        if (int.TryParse(transform.name, out thisName) == false) yield return null;
+        if (thisName > 0)
         {
             //换成显示技能内容的
             PlayerInfoManager.Instance.ShowSkillItemInfo(int.Parse(transform.name));
