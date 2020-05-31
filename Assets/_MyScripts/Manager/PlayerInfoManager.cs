@@ -270,7 +270,7 @@ public class PlayerInfoManager
                 {
                     for (int j = 0; j < 8; j++)
                     {
-                        PlayerStateManager.instane.RefreshAttackQuene(j, 0);
+                        GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().RefreshAttackQuene(j, 0);
                     }
                 }
             }

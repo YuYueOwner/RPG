@@ -8,10 +8,6 @@ using Microsoft.Win32;
 //角色数据中转站
 public class PlayerStateManager : MonoBehaviour
 {
-
-    public static PlayerStateManager instane { get; set; }
-
-
     public int PlayerNum;//当前所有角色个数
 
     public int PlayerID;//人物ID
@@ -78,14 +74,7 @@ public class PlayerStateManager : MonoBehaviour
     public int[] PackageItem = new int[80];
     public int isNew;//下一次打开背包是否重置数据，1重置，0不重置
     public List<PackageItem> playerItemData = new List<PackageItem>();
-    public static PlayerStateManager GetInstance()
-    {
-        if (instane == null)
-        {
-            instane = new PlayerStateManager();
-        }
-        return instane;
-    }
+
     private void Start()
     {
         GameObject.DontDestroyOnLoad(gameObject);

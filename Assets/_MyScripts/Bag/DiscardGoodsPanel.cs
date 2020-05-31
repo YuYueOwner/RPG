@@ -1,4 +1,6 @@
-﻿public class DiscardGoodsPanel : UIScene
+﻿using UnityEngine;
+
+public class DiscardGoodsPanel : UIScene
 {
     public static DiscardGoodsPanel _instance;
     private UIButton Sure_Button;
@@ -24,12 +26,12 @@
         if (configType != null && configType == "SkillGrid")
         {
             SkillAttackPanel._instance.RevomeSkill(PlayerInfoManager.Instance.SelectSkillId);
-            PlayerStateManager.GetInstance().RemoveSkillQuene(PlayerInfoManager.Instance.SelectSkillId);
+            GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().RemoveSkillQuene(PlayerInfoManager.Instance.SelectSkillId);
         }
         else if (configType != null && configType == "DefGrid")
         {
             SkillDefendPanel._instance.RevomeSkill(PlayerInfoManager.Instance.SelectSkillId);
-            PlayerStateManager.GetInstance().RemoveSkillQuene(PlayerInfoManager.Instance.SelectSkillId);
+            GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().RemoveSkillQuene(PlayerInfoManager.Instance.SelectSkillId);
         }
         else
         {

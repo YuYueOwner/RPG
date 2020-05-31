@@ -64,8 +64,8 @@ public class SkillAttackPanel : UIScene
     public void OnCreateOwnSkillItem()
     {
         SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
-        int unLockNum = PlayerStateManager.GetInstance().UnLockNum();//解锁格子数量
-        int useSkillNum = PlayerStateManager.GetInstance().GetSkillUseNum("attack");//装备该类型技能数量
+        int unLockNum = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().UnLockNum();//解锁格子数量
+        int useSkillNum = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().GetSkillUseNum("attack");//装备该类型技能数量
 
         ////假数据
         //for (int i = 0; i < 3; i++)
@@ -93,7 +93,7 @@ public class SkillAttackPanel : UIScene
             {
                 if (i < useSkillNum)
                 {
-                    int id = PlayerStateManager.GetInstance().AttackQuene[i];// UnityEngine.Random.Range(i, 977);
+                    int id = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().AttackQuene[i];// UnityEngine.Random.Range(i, 977);
                     sp.name = id.ToString();
                     SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
                     isHasData = data;
@@ -127,7 +127,7 @@ public class SkillAttackPanel : UIScene
     public void OnCreateSkillAttackItem()
     {
         SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
-        var dic = PlayerStateManager.GetInstance().OnCreateSkill("attack");
+        var dic = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().OnCreateSkill("attack");
 
         //生成技能类型数量
         foreach (var item in dic)
@@ -195,7 +195,7 @@ public class SkillAttackPanel : UIScene
             if (trans.name == id)
             {
                 trans.GetChild(2).GetComponent<UISprite>().spriteName = "-1";
-                PlayerStateManager.instane.RefreshAttackQuene(int.Parse(trans.name), int.Parse(id));
+                GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().RefreshAttackQuene(int.Parse(trans.name), int.Parse(id));
             }
         }
     }
@@ -210,7 +210,7 @@ public class SkillAttackPanel : UIScene
             {
                 string str = skillGrid.GetChild(i).name;
                 sp.spriteName = "-1";
-                PlayerStateManager.instane.RefreshAttackQuene(int.Parse(str), int.Parse(id));
+                GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().RefreshAttackQuene(int.Parse(str), int.Parse(id));
             }
         }
     }

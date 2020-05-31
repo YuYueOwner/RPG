@@ -8,8 +8,8 @@ public class SkillButtonTest : MonoBehaviour
 
     public void ResetSkill()
     {
-        PlayerStateManager.instane.PlayerEquipWeaponID = 1;
-        PlayerStateManager.instane.PlayerEquipArmorID = 16;
+        GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().PlayerEquipWeaponID = 1;
+        GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().PlayerEquipArmorID = 16;
         GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().InitSkillExp();
         GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().InitSkillLv();
         GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().InitSkillLock();
@@ -41,8 +41,8 @@ public class SkillButtonTest : MonoBehaviour
     //假数据
     public void SetWeapon()
     {
-        PlayerStateManager.instane.PlayerEquipWeaponID = 1;
-        PlayerStateManager.instane.PlayerEquipArmorID = 16;
+        GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().PlayerEquipWeaponID = 1;
+        GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().PlayerEquipArmorID = 16;
     }
 
 
