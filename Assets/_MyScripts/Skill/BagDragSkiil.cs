@@ -105,7 +105,7 @@ public class BagDragSkiil : UIDragDropItem
                 surface.transform.parent = Parent;                      //自己移动到想被交换的位置
                                                                         //交换完成 位移归零 （交换时是位移的改变 缩放没有变）
                 surface.transform.localPosition = transform.localPosition = Vector3.zero;
-                Debug.LogError("000000" + this.tag + "   " + surface.tag);
+                //Debug.LogError("000000" + this.tag + "   " + surface.tag);
                 return;
             }
             else
@@ -114,7 +114,7 @@ public class BagDragSkiil : UIDragDropItem
                 transform.localPosition = Vector3.zero;
                 //PlayerInfoManager.Instance.SelectItemId = int.Parse(transform.name);
                 UIManager.Instance.SetVisible(UIPanelName.SceneStart_DiscardGoodsPanel, true);
-                Debug.LogError("22222" + this.tag + "   " + surface.tag);
+                //Debug.LogError("22222" + this.tag + "   " + surface.tag);
             }
         }
         else//拖拽的是下方的技能
@@ -122,11 +122,18 @@ public class BagDragSkiil : UIDragDropItem
             //OwnSkill 类型的技能只能给 OpenLockHasValue 和 OpenLockNotValue 类型
             if (surface.tag == "OpenLockHasValue" || surface.tag == "OpenLockNotValue")
             {
-                //替换ID
-                surface.transform.name = this.transform.name;
-                //替换icon
-                surface.GetComponent<UISprite>().spriteName = this.transform.GetComponent<UISprite>().spriteName;
-                Debug.LogError("444444" + this.tag + "   " + surface.tag);
+                if (PlayerStateManager.GetInstance().CheckSkillIsCanUse(int.Parse(this.name)))
+                {
+                    //替换ID
+                    surface.transform.name = this.transform.name;
+                    //替换icon
+                    surface.GetComponent<UISprite>().spriteName = this.transform.GetComponent<UISprite>().spriteName;
+                    //Debug.LogError("444444" + this.tag + "   " + surface.tag);
+                }
+                else
+                {
+                    UIManager.Instance.SetVisible(UIPanelName.SceneStart_EquipmentSkillPanel, true);
+                }
             }
             this.transform.localPosition = Vector3.zero;
         }

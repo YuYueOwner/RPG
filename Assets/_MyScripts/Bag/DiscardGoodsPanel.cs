@@ -2,6 +2,7 @@
 {
     private UIButton Sure_Button;
     private UIButton Cancel_Button;
+    private string type;
 
     private void Awake()
     {
@@ -21,6 +22,12 @@
 
         PlayerInfoManager.Instance.RemovePlayerItemData(PlayerInfoManager.Instance.SelectItemId);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_DiscardGoodsPanel, false);
+    }
+
+    public void SetType()
+    {
+
+
     }
 
     private void Cancel()

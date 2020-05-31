@@ -1,9 +1,7 @@
 ﻿using HotFix_Project.Config;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Microsoft.Win32;
 
 //角色数据中转站
 public class PlayerStateManager : MonoBehaviour
@@ -131,6 +129,33 @@ public class PlayerStateManager : MonoBehaviour
         PackageItem = GetIntArray("PackageItem");
     }
 
+    //判断当前装备是否可装备 true可以使用
+    public bool CheckSkillIsCanUse(int id)
+    {
+        SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
+        SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
+        //PlayerLv = 1000;
+        //PlayerEquipWeaponID = 5;
+        if (data.SkillType == "刀" || data.SkillType == "剑" || data.SkillType == "枪" || data.SkillType == "棍" || data.SkillType == "叉" || data.SkillType == "锤")
+        {
+            if (PlayerEquipWeaponID > 0)
+            {
+                //背包里有武器装备  可以装备技能
+                if (PlayerLv >= data.UseLv)
+                {
+                    return true;
+                }
+            }
+        }
+        else
+        {
+            if (PlayerLv >= data.UseLv)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     //===============================================================================================================================
     //技能经验表"SkillExp"
