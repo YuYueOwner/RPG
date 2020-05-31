@@ -130,20 +130,27 @@ public class PlayerStateManager : MonoBehaviour
     }
 
     //判断当前装备是否可装备 true可以使用
-    public bool CheckSkillIsCanUse(int id)
+    public bool CheckSkillIsCanUse(int id, int i)
     {
+        PlayerLv = 1000;
+        PlayerEquipWeaponID = 5;
         SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
         SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
-        //PlayerLv = 1000;
-        //PlayerEquipWeaponID = 5;
-        if (data.SkillType == "刀" || data.SkillType == "剑" || data.SkillType == "枪" || data.SkillType == "棍" || data.SkillType == "叉" || data.SkillType == "锤")
+        PropConfig propCfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
+        PropConfig.PropObject propData = propCfgData.GetListConfigElementByID(PlayerEquipWeaponID);
+
+        if ((data.SkillType == "刀" || data.SkillType == "剑" || data.SkillType == "枪" || data.SkillType == "棍" || data.SkillType == "叉" || data.SkillType == "锤"))
         {
-            if (PlayerEquipWeaponID > 0)
+            if (data.SkillType == propData.ItemType)
             {
-                //背包里有武器装备  可以装备技能
-                if (PlayerLv >= data.UseLv)
+                if (PlayerEquipWeaponID > 0)
                 {
-                    return true;
+                    //背包里有武器装备  可以装备技能
+                    if (PlayerLv >= data.UseLv)
+                    {
+                        RefreshAttackQuene(i, id);
+                        return true;
+                    }
                 }
             }
         }
@@ -151,6 +158,7 @@ public class PlayerStateManager : MonoBehaviour
         {
             if (PlayerLv >= data.UseLv)
             {
+                RefreshDefenceQuene(i, id);
                 return true;
             }
         }
@@ -158,6 +166,15 @@ public class PlayerStateManager : MonoBehaviour
     }
 
     //===============================================================================================================================
+    //解锁格子数量
+    public int UnLockNum()
+    {
+        int num = 0;
+        num = 5 + (PlayerLv - 1) / 5;
+        return num;
+    }
+
+
     //技能经验表"SkillExp"
     //技能解锁表"Skill"
     //初始化技能经验表
@@ -183,8 +200,8 @@ public class PlayerStateManager : MonoBehaviour
         }
         SetFloatArray("SkillLv", a);
     }
-    //随机生成技能  测试用
-    public Dictionary<string, List<int>> OnCreateSkill()
+    //随机生成技能  测试用 type =attack攻击技能
+    public Dictionary<string, List<int>> OnCreateSkill(string type)
     {
         //测试用 key 是技能类型 技能Id
         Dictionary<string, List<int>> skillIdDic = new Dictionary<string, List<int>>();
@@ -204,8 +221,49 @@ public class PlayerStateManager : MonoBehaviour
                 skillData = new List<int>();
                 skillIdDic[data.SkillType] = skillData;
             }
+
             skillData.Add(id);
         }
+        //正式数据
+        //for (int i = 0; i < SkillLock.Length; i++)
+        //{
+        //    int id = (int)SkillLock[i];
+        //    SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
+        //    if (data != null)
+        //    {
+        //        if (type == "attack")
+        //        {
+        //            //攻击技能
+        //            if (data.SkillType == "刀" || data.SkillType == "剑" || data.SkillType == "枪" || data.SkillType == "棍" || data.SkillType == "叉" || data.SkillType == "锤")
+        //            {
+
+        //            }
+        //            else
+        //            {
+        //                break;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            //防御技能
+        //            if (data.SkillType == "刀" || data.SkillType == "剑" || data.SkillType == "枪" || data.SkillType == "棍" || data.SkillType == "叉" || data.SkillType == "锤")
+        //            {
+        //                break;
+        //            }
+        //        }
+
+        //        if (skillIdDic.TryGetValue(data.SkillType, out skillData))
+        //        {
+
+        //        }
+        //        else
+        //        {
+        //            skillData = new List<int>();
+        //            skillIdDic[data.SkillType] = skillData;
+        //        }
+        //        skillData.Add(id);
+        //    }
+        //}
         return skillIdDic;
     }
     //将所有技能设置为未解锁，0=未解锁，1=解锁，然后初始化技能，将基础技能设置为解锁
@@ -298,6 +356,39 @@ public class PlayerStateManager : MonoBehaviour
         AttackQuene[i] = ID;
     }
 
+    //同步防御技能序列，i为在序列中的序号，ID为技能ID，当技能为空时ID=0；
+    public void RefreshDefenceQuene(int i, int ID)
+    {
+        DefenceQuene[i] = ID;
+    }
+
+    //获取已装备的技能数量
+    public int GetSkillUseNum(string str)
+    {
+        int num = 0;
+        if (str == "attack")
+        {
+            for (int i = 0; i < AttackQuene.Length; i++)
+            {
+                if (AttackQuene[i] > 0)
+                {
+                    num++;
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < DefenceQuene.Length; i++)
+            {
+                if (DefenceQuene[i] > 0)
+                {
+                    num++;
+                }
+            }
+        }
+        return num;
+    }
+
     //卸下技能
     public void RemoveSkillQuene(string ID)
     {
@@ -329,11 +420,6 @@ public class PlayerStateManager : MonoBehaviour
         }
     }
 
-    //同步防御技能序列，i为在序列中的序号，ID为技能ID，当技能为空时ID=0；
-    public void RefreshDefenceQuene(int i, int ID)
-    {
-        DefenceQuene[i] = ID;
-    }
 
     //=====================================================================================================================================
 

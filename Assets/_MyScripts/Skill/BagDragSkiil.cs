@@ -123,8 +123,11 @@ public class BagDragSkiil : UIDragDropItem
             //OwnSkill 类型的技能只能给 OpenLockHasValue 和 OpenLockNotValue 类型
             if (surface.tag == "OpenLockHasValue" || surface.tag == "OpenLockNotValue")
             {
-                if (PlayerStateManager.GetInstance().CheckSkillIsCanUse(int.Parse(this.name)))
+                //Debug.LogError("" + this.parent.name);
+                if (PlayerStateManager.GetInstance().CheckSkillIsCanUse(int.Parse(this.name), int.Parse(surface.transform.parent.name)))
                 {
+                    //判断要装备的技能是否已经存在，存在的话给替换掉
+                    SkillAttackPanel._instance.RevomeRepetitionSkill(this.name);
                     //替换ID
                     surface.transform.name = this.transform.name;
                     //替换icon

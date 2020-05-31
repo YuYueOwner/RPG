@@ -55,6 +55,9 @@ public class SkillDefendPanel : UIScene
     public void OnCreateOwnSkillItem()
     {
         SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
+        int unLockNum = PlayerStateManager.GetInstance().UnLockNum();//解锁格子数量
+        int useSkillNum = PlayerStateManager.GetInstance().GetSkillUseNum("attack");//装备该类型技能数量
+
         for (int i = 0; i < 8; i++)
         {
             GameObject obj = skillGrid.GetChild(i).gameObject;//Instantiate(Resources.Load("Prefabs/SkillDefendPanel_Item_Item"), Vector3.zero, Quaternion.identity) as GameObject;
@@ -64,56 +67,35 @@ public class SkillDefendPanel : UIScene
 
             BoxCollider box = obj.transform.GetComponent<BoxCollider>();
             BoxCollider spBox = sp.transform.GetComponent<BoxCollider>();
+            obj.name = i.ToString();
 
-            bool isHasData = false;
+            SkillConfig.SkillObject isHasData = null;
             bool unLock = false;
-            if (i < 3)
+            if (i < unLockNum)
             {
-                int id = UnityEngine.Random.Range(977, 991);
-                obj.name = id.ToString();
-                sp.name = id.ToString();
-                SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
-                isHasData = data != null;
+                if (i < useSkillNum)
+                {
+                    int id = PlayerStateManager.GetInstance().AttackQuene[i];// UnityEngine.Random.Range(i, 977);
+                    sp.name = id.ToString();
+                    SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
+                    isHasData = data;
+                }
                 obj.transform.tag = "OpenLockHasValueParent";
-                sp.transform.tag = "OpenLockHasValue";
+                sp.transform.tag = "OpenLockNotValue";
             }
             else
             {
-                if (i < 5)
-                {
-                    obj.transform.tag = "OpenLockHasValueParent";
-                    sp.transform.tag = "OpenLockNotValue";
-                }
-                else
-                {
-                    obj.transform.tag = "NotOpen";
-                    sp.transform.tag = "NotOpen";
-                    unLock = true;
-                }
+                obj.transform.tag = "NotOpen";
+                sp.transform.tag = "NotOpen";
+                unLock = true;
             }
             SP_Lock.SetActive(unLock);
-            box.enabled = isHasData || !unLock;
-            spBox.enabled = isHasData || !unLock;
-            if (isHasData)//如果有数据
+            box.enabled = isHasData != null || !unLock;
+            spBox.enabled = isHasData != null || !unLock;
+            if (isHasData != null)//如果有数据
             {
-                var dic = PlayerStateManager.GetInstance().OnCreateSkill();
-                foreach (var item in dic)
-                {
-                    for (int j = 0; j < item.Value.Count; j++)
-                    {
-                        SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(item.Value[j]);
-
-                        int skillIcon = cfgData.GetListConfigElementByID(data.SkillID).SkillIcon;
-                        if (skillIcon < 70)
-                        {
-                            sp.spriteName = skillIcon.ToString();
-                        }
-                        else
-                        {
-                            sp.spriteName = "1";
-                        }
-                    }
-                }
+                int skillIcon = cfgData.GetListConfigElementByID(isHasData.SkillID).SkillIcon;
+                sp.spriteName = skillIcon.ToString();
             }
             else
             {
@@ -126,7 +108,7 @@ public class SkillDefendPanel : UIScene
     public void OnCreateSkillDefendItem()
     {
         SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
-        var dic = PlayerStateManager.GetInstance().OnCreateSkill();
+        var dic = PlayerStateManager.GetInstance().OnCreateSkill("def");
 
         //生成技能类型数量
         foreach (var item in dic)
@@ -171,5 +153,34 @@ public class SkillDefendPanel : UIScene
 
         table.Reposition();
         //sv.ResetPosition();
+    }
+
+    //删除技能
+    public void RevomeSkill(string id)
+    {
+        for (int i = 0; i < skillGrid.transform.childCount; i++)
+        {
+            Transform trans = skillGrid.GetChild(i);
+            if (trans.name == id)
+            {
+                trans.GetChild(2).GetComponent<UISprite>().spriteName = "-1";
+                PlayerStateManager.instane.RefreshAttackQuene(int.Parse(trans.name), int.Parse(id));
+            }
+        }
+    }
+
+    //判断是否有重复的技能删除掉
+    public void RevomeRepetitionSkill(string id)
+    {
+        for (int i = 0; i < skillGrid.transform.childCount; i++)
+        {
+            UISprite sp = skillGrid.GetChild(i).GetChild(2).GetComponent<UISprite>();
+            if (sp.name == id)
+            {
+                string str = skillGrid.GetChild(i).name;
+                sp.spriteName = "-1";
+                PlayerStateManager.instane.RefreshAttackQuene(int.Parse(str), int.Parse(id));
+            }
+        }
     }
 }

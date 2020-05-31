@@ -54,6 +54,12 @@ public class SkillAttackPanel : UIScene
     public void OnCreateOwnSkillItem()
     {
         SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
+        int unLockNum = PlayerStateManager.GetInstance().UnLockNum();//解锁格子数量
+        int useSkillNum = PlayerStateManager.GetInstance().GetSkillUseNum("attack");//装备该类型技能数量
+        for (int i = 0; i < 3; i++)
+        {
+            PlayerStateManager.GetInstance().AttackQuene[i] = i;
+        }
         for (int i = 0; i < 8; i++)
         {
             //上面卡组的整个物体
@@ -67,20 +73,19 @@ public class SkillAttackPanel : UIScene
             //技能触发器（用于替换、扔）
             BoxCollider spBox = sp.transform.GetComponent<BoxCollider>();
 
-            bool isHasData = false;
+            SkillConfig.SkillObject isHasData = null;
             bool unLock = false;
-            if (i < 3)
+            obj.name = i.ToString();
+
+            if (i < unLockNum)
             {
-                int id = UnityEngine.Random.Range(i, 977);
-                obj.name = id.ToString();
-                sp.name = id.ToString();
-                SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
-                isHasData = data != null;
-                obj.transform.tag = "OpenLockHasValueParent";
-                sp.transform.tag = "OpenLockHasValue";
-            }
-            else if (i >= 3 && i < 5)
-            {
+                if (i < useSkillNum)
+                {
+                    int id = PlayerStateManager.GetInstance().AttackQuene[i];// UnityEngine.Random.Range(i, 977);
+                    sp.name = id.ToString();
+                    SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
+                    isHasData = data;
+                }
                 obj.transform.tag = "OpenLockHasValueParent";
                 sp.transform.tag = "OpenLockNotValue";
             }
@@ -92,29 +97,12 @@ public class SkillAttackPanel : UIScene
             }
 
             SP_Lock.SetActive(unLock);
-            objBox.enabled = isHasData || !unLock;
-            spBox.enabled = isHasData || !unLock;
-            if (isHasData)//如果有数据
+            objBox.enabled = isHasData != null || !unLock;
+            spBox.enabled = isHasData != null || !unLock;
+            if (isHasData != null)//如果有数据
             {
-                var dic = PlayerStateManager.GetInstance().OnCreateSkill();
-                foreach (var item in dic)
-                {
-                    for (int j = 0; j < item.Value.Count; j++)
-                    {
-                        SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(item.Value[j]);
-
-                        int skillIcon = cfgData.GetListConfigElementByID(data.SkillID).SkillIcon;
-
-                        if (skillIcon < 70)
-                        {
-                            sp.spriteName = skillIcon.ToString();
-                        }
-                        else
-                        {
-                            sp.spriteName = "1";
-                        }
-                    }
-                }
+                int skillIcon = cfgData.GetListConfigElementByID(isHasData.SkillID).SkillIcon;
+                sp.spriteName = skillIcon.ToString();
             }
             else
             {
@@ -127,7 +115,7 @@ public class SkillAttackPanel : UIScene
     public void OnCreateSkillAttackItem()
     {
         SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
-        var dic = PlayerStateManager.GetInstance().OnCreateSkill();
+        var dic = PlayerStateManager.GetInstance().OnCreateSkill("attack");
 
         //生成技能类型数量
         foreach (var item in dic)
@@ -194,6 +182,22 @@ public class SkillAttackPanel : UIScene
             if (trans.name == id)
             {
                 trans.GetChild(2).GetComponent<UISprite>().spriteName = "-1";
+                PlayerStateManager.instane.RefreshAttackQuene(int.Parse(trans.name), int.Parse(id));
+            }
+        }
+    }
+
+    //判断是否有重复的技能删除掉
+    public void RevomeRepetitionSkill(string id)
+    {
+        for (int i = 0; i < skillGrid.transform.childCount; i++)
+        {
+            UISprite sp = skillGrid.GetChild(i).GetChild(2).GetComponent<UISprite>();
+            if (sp.name == id)
+            {
+                string str = skillGrid.GetChild(i).name;
+                sp.spriteName = "-1";
+                PlayerStateManager.instane.RefreshAttackQuene(int.Parse(str), int.Parse(id));
             }
         }
     }
