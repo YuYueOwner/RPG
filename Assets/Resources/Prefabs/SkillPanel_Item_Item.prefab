@@ -62,14 +62,14 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 80
-  mHeight: 76
+  mWidth: 72
+  mHeight: 68
   mDepth: 9
   mMat: {fileID: 0}
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.0526316
+  aspectRatio: 1.0588236
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -285,14 +285,14 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 80
-  mHeight: 76
+  mWidth: 72
+  mHeight: 68
   mDepth: 11
   mMat: {fileID: 0}
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.0526316
+  aspectRatio: 1.0588236
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -307,7 +307,7 @@ MonoBehaviour:
   bottomType: 1
   topType: 1
   mAtlas: {fileID: 1832570589552162880, guid: ac6775a297aa71a4bad4f4065379b249, type: 3}
-  mSpriteName: DexSkill_01
+  mSpriteName: 1
   mFillCenter: 1
 --- !u!65 &6999075405719932797
 BoxCollider:
@@ -320,7 +320,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 80, y: 76, z: 0}
+  m_Size: {x: 72, y: 68, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7131931322353702615
 MonoBehaviour:

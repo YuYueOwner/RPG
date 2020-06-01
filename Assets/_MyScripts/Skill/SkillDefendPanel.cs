@@ -207,11 +207,11 @@ public class SkillDefendPanel : UIScene
     {
         for (int i = 0; i < skillGrid.transform.childCount; i++)
         {
-            Transform trans = skillGrid.GetChild(i);
+            Transform trans = skillGrid.GetChild(i).GetChild(2);
             if (trans.name == id)
             {
-                trans.GetChild(2).GetComponent<UISprite>().spriteName = "-1";
-                GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().RefreshDefenceQuene(int.Parse(trans.name), 0);
+                trans.GetComponent<UISprite>().spriteName = "-1";
+                GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().RefreshDefenceQuene(int.Parse(trans.parent.name), 0);
             }
         }
     }
