@@ -20,6 +20,8 @@ public class PlayerInfoManager
     public UILabel ItemName;
     //鼠标长留物品0.5秒后显示的物品介绍
     public UILabel ItemDesc;
+    //鼠标长留物品0.5秒后显示的物品经验
+    public UILabel ItemExp;
     //装备
     public List<UISprite> equipmentList = new List<UISprite>();
 
@@ -214,7 +216,8 @@ public class PlayerInfoManager
                                          "身法      " + data.SkillDex;
         }
         //Debug.LogError(data.ItemID);
-        ItemDesc.text = data.SkillInfo + "\r\n" + cfgData.GetSkillLevelAndExpByID(id);
+        ItemDesc.text = data.SkillInfo;
+        ItemExp.text = cfgData.GetSkillLevelAndExpByID(id);
     }
 
     //获取玩家装备信息

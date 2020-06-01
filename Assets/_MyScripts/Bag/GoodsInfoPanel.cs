@@ -12,7 +12,7 @@ public class GoodsInfoPanel : UIScene
         GoodsTitelLabel = Helper.GetChild<UILabel>(this.transform, "GoodsTitelLabel");
         PlayerInfoManager.Instance.ItemName = Helper.GetChild<UILabel>(this.transform, "GoodsPropertyLabel");
         PlayerInfoManager.Instance.ItemDesc = Helper.GetChild<UILabel>(this.transform, "GoodsDescribeLabel");
-
+        PlayerInfoManager.Instance.ItemExp = Helper.GetChild<UILabel>(this.transform, "GoodsExpLabel");
     }
     protected override void Start()
     {
