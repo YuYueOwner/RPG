@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
+
 namespace HotFix_Project.Config
 {
     public class SkillConfig : ConfigBase
@@ -70,6 +72,16 @@ namespace HotFix_Project.Config
                 }
             }
             return skillObj;
+        }
+
+        //根据物品id获取这个技能需求等级及经验阅历
+        public string GetSkillLevelAndExpByID(int id)
+        {
+            string str = "需求等级      {0}\r\n技能阅历     {1}";
+            var data = GetListConfigElementByID(id);
+            string exp = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().GetSkillExp(id);
+            str = string.Format(str, data.UseLv, exp);
+            return str;
         }
 
         //根据物品id获取这个技能icon

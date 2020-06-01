@@ -203,8 +203,8 @@ public class PlayerInfoManager
                                          "命中率   " + data.SkillHitRate + "\r\n" +
                                          "身法      " + data.SkillDex + "\r\n" +
                                          "破甲      " + data.SkillArmorPen + "\r\n" +
-                                         "暴击      " + data.SkillCrit;// + "\r\n" +
-                                                                     //  "经验值   " + data.WeaponHitRate;
+                                         "暴击      " + data.SkillCrit + "\r\n" +
+                                            cfgData.GetSkillLevelAndExpByID(id);//  "经验值   " + data.WeaponHitRate;
         }
         else
         {
@@ -212,8 +212,8 @@ public class PlayerInfoManager
                                          "品质      " + data.SkillQuality + "\r\n" +
                                          "级别      " + data.SkillLv + "\r\n" +
                                          "闪避      " + data.DefenceSkillDodge + "\r\n" +
-                                         "身法      " + data.SkillDex;// + "\r\n" +
-                                                                    //  "经验值   " + data.WeaponHitRate;
+                                         "身法      " + data.SkillDex + "\r\n" +
+                                            cfgData.GetSkillLevelAndExpByID(id);  //  "经验值   " + data.WeaponHitRate;
         }
         //Debug.LogError(data.ItemID);
         ItemDesc.text = data.SkillInfo;

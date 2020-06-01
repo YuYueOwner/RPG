@@ -211,7 +211,7 @@ public class PlayerStateManager : MonoBehaviour
     //判断当前装备是否可装备 true可以使用
     public bool CheckSkillIsCanUse(int id, int i)
     {
-        PlayerLv = 1;
+        PlayerLv = 5;
         //Debug.LogError("背包里的装备:" + PlayerEquipWeaponID);
         SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
         SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
@@ -415,10 +415,17 @@ public class PlayerStateManager : MonoBehaviour
         SkillLock[SkillID] = 1;
     }
 
-    //获得技能经验值
+    //增加技能经验值
     public void AddSkillExp(int SkillID, float exp)
     {
         SkillExp[SkillID] = SkillExp[SkillID] + exp;
+    }
+
+    //获得技能经验值
+    public string GetSkillExp(int SkillID)
+    {
+        string str = SkillExp[SkillID] + "/" + SkillExpMax[(int)(SkillLv[SkillID]) - 1];
+        return str;
     }
 
     //技能升级，当某技能已有经验值>=该技能对应等级的升级经验值时，（检核升级条件）升级
