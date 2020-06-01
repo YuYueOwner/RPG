@@ -211,7 +211,6 @@ public class PlayerStateManager : MonoBehaviour
     //判断当前装备是否可装备 true可以使用
     public bool CheckSkillIsCanUse(int id, int i)
     {
-        PlayerLv = 1;
         //Debug.LogError("背包里的装备:" + PlayerEquipWeaponID);
         SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
         SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);

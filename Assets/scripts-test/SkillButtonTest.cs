@@ -3,15 +3,23 @@
 public class SkillButtonTest : MonoBehaviour
 {
 
+    private PlayerStateManager playerStateManager;
+
+    private void Awake()
+    {
+        playerStateManager = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>();
+    }
+
 
     public void ResetSkill()
     {
-        GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().PlayerEquipWeaponID = 1;
-        GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().PlayerEquipArmorID = 16;
-        GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().InitSkillExp();
-        GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().InitSkillLv();
-        GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().InitSkillLock();
-        GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().InitSkillQuene();
+        playerStateManager.PlayerLv = 1000;
+        playerStateManager.PlayerEquipWeaponID = 1;
+        playerStateManager.PlayerEquipArmorID = 16;
+        playerStateManager.InitSkillExp();
+        playerStateManager.InitSkillLv();
+        playerStateManager.InitSkillLock();
+        playerStateManager.InitSkillQuene();
         // GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SkillLoad();
     }
 
@@ -24,30 +32,15 @@ public class SkillButtonTest : MonoBehaviour
         int a = Random.Range(1, 990);
 
 
-        GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SkillUnlock(a);
+        playerStateManager.SkillUnlock(a);
     }
 
 
     public void LvUp()
     {
-        GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().AddSkillExp(555, 1000);
-        float a = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SkillExp[555];
+        playerStateManager.AddSkillExp(555, 1000);
+        float a = playerStateManager.SkillExp[555];
         Debug.Log("技能555获得1000经验值，总经验值为" + a);
-        GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SkillLvUp(555);
+        playerStateManager.SkillLvUp(555);
     }
-
-
-
-    //假数据
-    public void SetWeapon()
-    {
-        GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().PlayerEquipWeaponID = 1;
-        GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().PlayerEquipArmorID = 16;
-    }
-
-
-
-
-
-
 }
