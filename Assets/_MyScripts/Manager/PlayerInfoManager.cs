@@ -193,7 +193,7 @@ public class PlayerInfoManager
     {
         SkillConfig cfgData = DataTableManager.Instance.GetConfig<SkillConfig>("Skill");
         SkillConfig.SkillObject data = cfgData.GetListConfigElementByID(id);
-        GoodsInfoPanel._instance.GoodsTitelLabel.text = data.SkillName;
+        GoodsInfoPanel._instance.GoodsTitelLabel.text = "[d5d4d4ff]" + data.SkillName + "[-]";
         if (data.SkillType == "剑" || data.SkillType == "刀" || data.SkillType == "枪" || data.SkillType == "棍" || data.SkillType == "叉" || data.SkillType == "锤")
         {
             ItemName.text = "类别      " + data.SkillType + "\r\n" +
@@ -204,7 +204,7 @@ public class PlayerInfoManager
                                          "身法      " + data.SkillDex + "\r\n" +
                                          "破甲      " + data.SkillArmorPen + "\r\n" +
                                          "暴击      " + data.SkillCrit + "\r\n" +
-                                            cfgData.GetSkillLevelAndExpByID(id);//  "经验值   " + data.WeaponHitRate;
+                                           cfgData.GetSkillLevelAndExpByID(id);//  "经验值   " + data.WeaponHitRate;
         }
         else
         {
@@ -341,32 +341,43 @@ public class PlayerInfoManager
     {
         PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
         PropConfig.PropObject data = cfgData.GetListConfigElementByID(id);
-        bool bo = true;
-        if (data.ConsumableHpIncrease + GetPlayerAttribute(6) < GetPlayerAttribute(7))
+        bool isUse = false;// true可使用
+
+        //增加的对应属性大于0 并且当前这个属性没有到最大值
+        if (data.ConsumableHpIncrease > 0 && GetPlayerAttribute(6) < GetPlayerAttribute(7))
         {
-            playerState.PlayerHpCurrent = data.ConsumableHpIncrease + GetPlayerAttribute(6);
-        }
-        else
-        {
-            playerState.PlayerHpCurrent = GetPlayerAttribute(7);
-            bo = false;
+            if (data.ConsumableHpIncrease + GetPlayerAttribute(6) < GetPlayerAttribute(7))
+            {
+                playerState.PlayerHpCurrent = data.ConsumableHpIncrease + GetPlayerAttribute(6);
+            }
+            else
+            {
+                playerState.PlayerHpCurrent = GetPlayerAttribute(7);
+            }
+            isUse = false;
         }
 
-        if (data.ConsumableHealthIncrease + GetPlayerAttribute(12) < GetPlayerAttribute(13))
+        if (data.ConsumableHealthIncrease > 0 && GetPlayerAttribute(12) < GetPlayerAttribute(13))
         {
-            playerState.PlayerHealth = data.ConsumableHealthIncrease + GetPlayerAttribute(12);
-            bo = true;
+            if (data.ConsumableHealthIncrease + GetPlayerAttribute(12) < GetPlayerAttribute(13))
+            {
+                playerState.PlayerHealth = data.ConsumableHealthIncrease + GetPlayerAttribute(12);
+            }
+            else
+            {
+                playerState.PlayerHealth = GetPlayerAttribute(13);
+            }
+            isUse = true;
         }
-        else
+        if (isUse)
         {
-            playerState.PlayerHealth = GetPlayerAttribute(13);
+            string keyHp = GetPlayerPrefsKey(6);
+            string keyHealth = GetPlayerPrefsKey(12);
+            PlayerPrefsManager.Instance.SetPlayerPrefs(keyHp, playerState.PlayerHpCurrent);
+            PlayerPrefsManager.Instance.SetPlayerPrefs(keyHealth, playerState.PlayerHealth);
+            BagPanel._instance.SetPlayerAttributeInfo();
         }
-        string keyHp = GetPlayerPrefsKey(6);
-        string keyHealth = GetPlayerPrefsKey(12);
-        PlayerPrefsManager.Instance.SetPlayerPrefs(keyHp, playerState.PlayerHpCurrent);
-        PlayerPrefsManager.Instance.SetPlayerPrefs(keyHealth, playerState.PlayerHealth);
-        BagPanel._instance.SetPlayerAttributeInfo();
-        return bo;
+        return isUse;
         //GetPlayerAttribute(6) < GetPlayerAttribute(7) || GetPlayerAttribute(8) < GetPlayerAttribute(9);
     }
 
