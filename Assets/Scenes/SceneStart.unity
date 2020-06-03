@@ -204,6 +204,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SkillAttackPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 5228900701426668868, guid: ac4f66f0c39334649b0912faf0c00506,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5228900701426668869, guid: ac4f66f0c39334649b0912faf0c00506,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -460,6 +465,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SkillDefendPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089489352287220190, guid: 627bc5503161f6a4ab90868d0770326b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3089489352287220185, guid: 627bc5503161f6a4ab90868d0770326b,
         type: 3}
@@ -728,7 +738,7 @@ PrefabInstance:
     - target: {fileID: 8157896553396128956, guid: abdd27b672c483d48b5d6c09d213a376,
         type: 3}
       propertyPath: mWidth
-      value: 106
+      value: 118
       objectReference: {fileID: 0}
     - target: {fileID: 8157896553396128956, guid: abdd27b672c483d48b5d6c09d213a376,
         type: 3}
@@ -1136,11 +1146,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GoodsInfoPanel
-      objectReference: {fileID: 0}
-    - target: {fileID: 8397184316055576733, guid: 05cbe47dd00dbfe4aa0a96d5d647dbe7,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8397184316055576730, guid: 05cbe47dd00dbfe4aa0a96d5d647dbe7,
         type: 3}
