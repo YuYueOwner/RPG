@@ -77,9 +77,11 @@ public class BagPanel : UIScene
 
         Equipment0_Sprite = transform.Find("Bg_Sprite/Center/Equipment0_Sprite ").GetComponent<UISprite>();
         Equipment1_Sprite = transform.Find("Bg_Sprite/Center/Equipment1_Sprite ").GetComponent<UISprite>();
-        PlayerInfoManager.Instance.equipmentList.Add(Equipment0_Sprite);
-        PlayerInfoManager.Instance.equipmentList.Add(Equipment1_Sprite);
-
+        if (PlayerInfoManager.Instance.equipmentList.Count <= 0)
+        {
+            PlayerInfoManager.Instance.equipmentList.Add(Equipment0_Sprite);
+            PlayerInfoManager.Instance.equipmentList.Add(Equipment1_Sprite);
+        }
         playerAttributeLable.Add(PhysicalPower_Label);
         playerAttributeLable.Add(Strength_Label);
         playerAttributeLable.Add(Skill_Label);
