@@ -343,6 +343,10 @@ public class PlayerInfoManager
     {
         PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
         PropConfig.PropObject data = cfgData.GetListConfigElementByID(id);
+        if (playerState.PlayerLv < data.UseLevel)
+        {
+            return false;
+        }
         bool isUse = false;// true可使用
 
         //增加的对应属性大于0 并且当前这个属性没有到最大值
