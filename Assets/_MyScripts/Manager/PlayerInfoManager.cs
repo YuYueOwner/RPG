@@ -113,17 +113,18 @@ public class PlayerInfoManager
                     if (playerItemData[i].PackageItemNum <= 0)
                     {
                         playerItemData.Remove(playerItemData[i]);
+                        BagPanel._instance.CleanUp();
                         return;
                     }
                 }
                 else
                 {
                     playerItemData.Remove(playerItemData[i]);
+                    BagPanel._instance.CleanUp();
                     return;
                 }
             }
         }
-        BagPanel._instance.CleanUp();
     }
 
     //添加物品到背包里
