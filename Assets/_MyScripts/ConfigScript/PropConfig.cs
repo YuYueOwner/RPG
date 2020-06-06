@@ -99,6 +99,14 @@ namespace HotFix_Project.Config
             return propObj;
         }
 
+
+        //根据物品id获取这个技能需求等级
+        public string GetSkillLevelByID(int id)
+        {
+            return "需求等级       " + GetListConfigElementByID(id).UseLevel;
+        }
+
+
         //判断是否可以装备或者消耗 返回1可以装备  返回2可以消耗  返回3不可以装备
         public int ExistIsCanConsumeByID(int id)
         {

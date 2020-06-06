@@ -194,6 +194,7 @@ public class PlayerInfoManager
         }
         //Debug.LogError(data.ItemID);
         ItemDesc.text = data.ItemInfomation;
+        ItemExp.text = cfgData.GetSkillLevelByID(id);
     }
 
     public void ShowSkillItemInfo(int id)
