@@ -116,6 +116,10 @@ public class PlayerInfoManager
                         BagPanel._instance.CleanUp();
                         return;
                     }
+                    else
+                    {
+                        BagPanel._instance.CleanUp();
+                    }
                 }
                 else
                 {
