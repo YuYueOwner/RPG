@@ -360,7 +360,7 @@ public class PlayerInfoManager
             {
                 playerState.PlayerHpCurrent = GetPlayerAttribute(7);
             }
-            isUse = false;
+            isUse = true;
         }
 
         if (data.ConsumableHealthIncrease > 0 && GetPlayerAttribute(12) < GetPlayerAttribute(13))
