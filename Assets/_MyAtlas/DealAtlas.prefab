@@ -71,9 +71,61 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: CancelButton
+    x: 2004
+    y: 1937
+    width: 37
+    height: 37
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: ChooseMask
+    x: 1944
+    y: 1916
+    width: 59
+    height: 58
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: LabelFrame
+    x: 247
+    y: 26
+    width: 121
+    height: 55
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: LeftArrow
+    x: 369
+    y: 41
+    width: 26
+    height: 40
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 2
+    paddingRight: 2
+    paddingTop: 2
+    paddingBottom: 2
   - name: MoneyIcon
     x: 1944
-    y: 1899
+    y: 1810
     width: 36
     height: 25
     borderLeft: 0
@@ -86,7 +138,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: MoneyIconBackground
     x: 1944
-    y: 1925
+    y: 1866
     width: 68
     height: 49
     borderLeft: 0
@@ -162,6 +214,19 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: RightArrow
+    x: 2018
+    y: 2008
+    width: 26
+    height: 40
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 2
+    paddingRight: 2
+    paddingTop: 2
+    paddingBottom: 2
   - name: ScrollBar_bar
     x: 1921
     y: 513
@@ -180,6 +245,32 @@ MonoBehaviour:
     y: 1018
     width: 22
     height: 1030
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: ShiftBg
+    x: 400
+    y: 19
+    width: 222
+    height: 144
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: SureButton
+    x: 1944
+    y: 1836
+    width: 46
+    height: 29
     borderLeft: 0
     borderRight: 0
     borderTop: 0
