@@ -40,10 +40,27 @@ public class SkillAttackPanel : UIScene
     {
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_SkillAttackPanel, false);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_SkillDefendPanel, true);
-
+        Refresh();
         DeletGridChild();
         SkillDefendPanel._instance.OnCreateOwnSkillItem();
         SkillDefendPanel._instance.OnCreateSkillDefendItem();
+    }
+    private void Refresh()
+    {
+        for (int i = 0; i < skillGrid.transform.childCount; i++)
+        {
+            int aa;
+            Transform trans = skillGrid.GetChild(i).GetChild(2);
+            if (trans.name == "SP_Icon")
+            {
+                aa = 0;
+            }
+            else
+            {
+                aa = int.Parse(trans.name);
+            }
+            GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().RefreshDefenceQuene(i, aa);
+        }
     }
 
     //返回
@@ -54,8 +71,9 @@ public class SkillAttackPanel : UIScene
         //{
         //    Debug.LogError(AttackSkillID()[i]);
         //}
+        AudioManager.Instance.PlaySound(1);
         GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SkillSave();
-
+        Refresh();
         DeletGridChild();
         SkillDefendPanel._instance.DeletGridChild();
 
