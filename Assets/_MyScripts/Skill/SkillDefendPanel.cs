@@ -226,6 +226,7 @@ public class SkillDefendPanel : UIScene
             {
                 string str = skillGrid.GetChild(i).name;
                 sp.spriteName = "-1";
+                sp.name = "SP_Icon";
                 GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().RefreshDefenceQuene(int.Parse(str), 0);
             }
         }
