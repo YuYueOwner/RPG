@@ -1,6 +1,5 @@
 ﻿NpcType|ItemID|ItemName|IfAvailable|ItemNum|SellPrice|BuyPrice
 string|int|string|int|int|int|int
-商人类型|物品ID|物品名称|是否售卖|售卖数量|物品售价|物品回收价
 EquipNpc1|1|乌木剑|1|5|10|2
 EquipNpc1|2|铁剑|1|5|20|4
 EquipNpc1|3|精钢剑|1|5|50|10

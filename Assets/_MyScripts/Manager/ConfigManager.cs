@@ -95,6 +95,10 @@ public class ConfigManager
                 // 技能等级表
                 configBase = new PlayerLevelSkillExpConfig();
             }
+            else if (name == "MerchantGoods")
+            {
+                configBase = new MerchantGoodsConfig();
+            }
             else
             {
                 Debug.LogError("没有找到这张表" + name);
