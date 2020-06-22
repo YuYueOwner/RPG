@@ -56,6 +56,36 @@ public class DealPanel : UIScene
         base.Start();
         SureButton.onClick.Add(new EventDelegate(Sure));
         BackButton.onClick.Add(new EventDelegate(Back));
+        CreatMerchantGoods();
+    }
+
+    //生成左侧商人物品区中的物品
+    private void CreatMerchantGoods()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            GameObject goMerchant = Instantiate(Resources.Load("Prefabs/Merchant_Item"), Vector3.zero, Quaternion.identity) as GameObject;
+            goMerchant.transform.SetParent(MerchantGrid.transform);
+            goMerchant.transform.localPosition = Vector3.zero;
+            goMerchant.transform.localScale = Vector3.one;
+            //给物品Icon赋值
+            // Helper.GetChild<UISprite>(goMerchant.transform, "GoodsSprite").spriteName = "";
+            //给物品名字赋值
+            // Helper.GetChild<UILabel>(goMerchant.transform, "BagNameLabel").text = "";
+            //给物品金额赋值
+            // Helper.GetChild<UILabel>(goMerchant.transform, "GoldNumLabel").text = "";
+            //物品数量
+            // Helper.GetChild<UILabel>(goMerchant.transform, "GoodsNumLabel").text = "";
+            //如果当前物品金额小于拥有元宝总额，字体变红
+            if (int.Parse(Helper.GetChild<UILabel>(goMerchant.transform, "GoldNumLabel").text) > int.Parse(OwnGoldNumLabel.text))
+            {
+                Helper.GetChild(goMerchant.transform, "SelectFrame").SetActive(true);
+                Helper.GetChild<UILabel>(goMerchant.transform, "BagNameLabel").color = Color.red;
+                Helper.GetChild<UILabel>(goMerchant.transform, "GoldNumLabel").color = Color.red;
+            }
+        }
+        MerchantGrid.repositionNow = true;
+        MerchantGrid.Reposition();
     }
 
     private void Sure()
