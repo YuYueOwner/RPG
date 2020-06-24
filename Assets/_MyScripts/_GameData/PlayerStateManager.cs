@@ -1,5 +1,6 @@
 ﻿using HotFix_Project.Config;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -70,8 +71,19 @@ public class PlayerStateManager : MonoBehaviour
     public int[] DefenceQuene = new int[8];//防御技能序列
 
     public int[] PackageItem = new int[80];
+    public int[] PackageNum = new int[80];
+    public List<int> aa = new List<int>();//背包物品list
+    public List<int> blootlist = new List<int>();//战利品list
+    public List<int> cc = new List<int>();//中转list，用于储存战利品清单中未放完的战利品
+    public int Packagenums = 0;
+
     public int isNew;//下一次打开背包是否重置数据，1重置，0不重置
     public List<PackageItem> playerItemData = new List<PackageItem>();
+
+    public int NpcType;//NpcType=1，装备商人1；=2，装备商人2；=3，药品商人1；=4，药品商人2；=5，杂货商人1；=6，杂货商人2
+    public int NpcImageID;//Npc头像ID
+    public string NpcName;//Npc姓名
+
 
     private void Start()
     {
@@ -167,11 +179,12 @@ public class PlayerStateManager : MonoBehaviour
     public void ChangeMoneyPlayer(int money)
     {
         PlayerMoney = PlayerMoney + money;
+        Debug.Log("获得了" + money + "两银子。");
     }
 
 
     //==============================================================================================================================
-    //初始化物品清单
+    //初始化物品清单，初始化ID及Num
     public void InitPackageItem()
     {
         int[] a = new int[80];
@@ -180,33 +193,65 @@ public class PlayerStateManager : MonoBehaviour
             a[i] = 0;
         }
         SetIntArray("PackageItem", a);
+        SetIntArray("PackageNum", a);
+    }
+
+    //保存包裹物品清单至中转站
+    //public void SavePackageItem1()
+    //{
+    //    List<int> a = PlayerInfoManager.Instance.BagId();
+    //    List<int> b = PlayerInfoManager.Instance.BagNum();
+    //    aa.Clear();
+    //    for (int i = 0; i < a.Count; i++)
+    //    {
+    //        for (int j = 0; j < b[i]; j++)
+    //        {
+    //            aa.Add(a[i]);
+    //        }
+    //    }
+    //    foreach (var item in aa)
+    //    {
+    //        Debug.Log(item);
+    //    }
+    //}
+
+    //向中转站list中添加物品，测试按钮用
+    public void AddItemNew(int id)
+    {
+        if (PlayerInfoManager.Instance.playerItemData.Count < 80)
+        {
+            aa.Add(id);
+            PlayerInfoManager.Instance.SetItemInfo();
+        }
+        else
+        {
+            Debug.LogError("包裹已满，放入物品失败");
+        }
     }
 
 
-
-
-    //保存包裹物品清单
+    //保存中转站的物品清单list至PlayerPrefs中
     public void SavePackageItem()
     {
-        List<int> a = PlayerInfoManager.Instance.BagId();
-        foreach (var item in a)
-        {
-            Debug.Log(item);
-        }
-        int[] array = a.ToArray();
+        int[] array = aa.ToArray();
         for (int i = 0; i < array.Length; i++)
         {
             Debug.Log("array=" + array[i]);
         }
         SetIntArray("PackageItem", array);
-
     }
 
-    //读取包裹物品清单
+    //从读取PlayerPrefs中包裹物品清单至中转站的list中
     public void LoadPackageItem()
     {
 
         PackageItem = GetIntArray("PackageItem");
+        aa.Clear();
+        int n = PackageItem.Length;
+        for (int i = 0; i < n; i++)
+        {
+            aa.Add(PackageItem[i]);
+        }
     }
     //判断当前装备是否可装备 true可以使用
     public bool CheckSkillIsCanUse(int id, int i)
@@ -244,7 +289,76 @@ public class PlayerStateManager : MonoBehaviour
         }
         return false;
     }
+    //更新包裹物品清单
+    //每当有新物品放入，先用PlayerInfoManager.Instance.AddPackageItem()放到playerItemData中，再用PlayerInfoManager.Instance.BagId()读出数据，用SavePackageItem()存到PlayerPrefs中，最后用LoadPackageItem()读取到PackageItem里
+    public void RefreshPackageItem()
+    {
+        SavePackageItem();
+        LoadPackageItem();
 
+    }
+    //向战利品清单blootlist中放入战利品
+    public void AddLoots(int id)
+    {
+        blootlist.Add(id);
+    }
+    //背包中可用格子，只有ID在32-47的物品可以叠加
+    public void PackageUsable()
+    {
+        Packagenums = 0;
+        List<int> aa = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().aa;
+        Hashtable ht = new Hashtable();
+
+        for (int i = 0; i < aa.Count; i++)
+        {
+            if (aa[i] >= 32 && aa[i] <= 47)
+            {
+                if (ht.ContainsKey(aa[i]))
+                {
+                    ht[aa[i]] = int.Parse(ht[aa[i]].ToString()) + 1;
+                }
+                else
+                {
+                    ht.Add(aa[i], 1);
+                }
+            }
+            else
+            {
+                Packagenums++;
+            }
+        }
+        // 再将hashTable里面的键和值相应的输出来
+        IDictionaryEnumerator ie = ht.GetEnumerator();
+
+        while (ie.MoveNext())
+        {
+            Packagenums++;
+            //Debug.Log(ie.Key.ToString() + "记录条数：" + ie.Value);
+        }
+        Debug.Log("共有" + Packagenums + "个格子被占用");
+    }
+
+    //往背包中放入战利品
+    public void AddPackageItem()
+    {
+        for (int i = 0; i < blootlist.Count; i++)
+        {
+            PackageUsable();
+            if (Packagenums < 80)
+            {
+                aa.Add(blootlist[i]);
+                Debug.Log("向包裹中放入物品ID=" + blootlist[i]);
+                PackageUsable();
+                Debug.Log("背包中共有" + Packagenums + "件物品");
+            }
+            else
+            {
+                Debug.Log("包裹已满，战利品清单第" + (i + 1) + "件物品放入失败，存入中转list中");
+                cc.Add(blootlist[i]);
+            }
+        }
+        blootlist.Clear();
+    }
     //===============================================================================================================================
     //解锁格子数量
     public int UnLockNum()
@@ -386,7 +500,18 @@ public class PlayerStateManager : MonoBehaviour
         SetFloatArray("SkillLock", a);
     }
 
-
+    //初始化，将进攻技能列表和防御技能列表id都设置为0
+    public void InitSkillQueen()
+    {
+        int[] a = new int[8];
+        for (int i = 0; i < 8; i++)
+        {
+            a[i] = 0;
+        }
+        AttackQuene = a;
+        DefenceQuene = a;
+        Debug.Log("技能序列初始化完毕");
+    }
 
     //从PlayerPrefs中读取技能数据至中转站
     public void SkillLoad()
@@ -409,6 +534,52 @@ public class PlayerStateManager : MonoBehaviour
         Debug.Log("技能数据已保存");
     }
 
+    //检验技能是否已解锁，true已解锁，false未解锁
+    public bool CheckSkillUnlock(int id)
+    {
+        if (SkillLock[id] == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+
+    }
+    //玩家人物姓名、银两、头像
+    //-----------------------------------------------------------------------------------------
+    public void SetPlayerName(string name)
+    {
+        PlayerName = name;
+    }
+
+    public void SetPlayerImage(int id)
+    {
+        PlayerHeadPhotoID = id;
+    }
+
+    public void SetPlayerMoney(int money)
+    {
+        PlayerMoney = money;
+    }
+    //商人姓名、类型、头像
+    //----------------------------------------------------------------------------------------
+    public void SetNpcName(string name)
+    {
+        NpcName = name;
+    }
+
+    public void SetNpcImage(int id)
+    {
+        NpcImageID = id;
+    }
+
+    public void SetNpcType(int typeID)
+    {
+        NpcType = typeID;
+    }
     //解锁技能
     public void SkillUnlock(int SkillID)
     {
@@ -439,7 +610,7 @@ public class PlayerStateManager : MonoBehaviour
         }
     }
 
-    public void InitSkillQuene()
+    public void InitSkillQueenPlayerPrefs()
     {
         int[] a = new int[8];
         for (int i = 0; i < 8; i++)
@@ -891,6 +1062,13 @@ public class PlayerStateManager : MonoBehaviour
         return 0;
     }
 
+    //同步已装备武器ID
+    public void RefreshWeaponArmorID(int weaponID, int armorID)
+    {
+        PlayerEquipWeaponID = weaponID;
+        PlayerEquipArmorID = armorID;
+    }
+
     //同步基础属性至中转站
     public void RefreshPlayerStateKey(string key, int value)
     {
@@ -924,6 +1102,7 @@ public class PlayerStateManager : MonoBehaviour
         PlayerHpMax = 100 + totalCon * 50;
         PlayerHpCurrent = PlayerHpMax;
     }
+
     //当更换装备后重新计算面板属性
     public void ChangePlayerState()
     {
@@ -931,6 +1110,11 @@ public class PlayerStateManager : MonoBehaviour
         totalStr = PlayerStr + WeaponStrength + ArmorStrength;
         totalDex = PlayerDex + WeaponDex + ArmorDex;
         totalLuk = PlayerLuk + WeaponLuk + ArmorLuk;
+        //重新计算生命值加成
+        int hpmax = PlayerHpMax;
+        PlayerHpMax = 100 + totalCon * 50;
+        int der = PlayerHpMax - hpmax;
+        PlayerHpCurrent = PlayerHpCurrent + der;
     }
 
     //同步人物属性至中转站
@@ -940,7 +1124,12 @@ public class PlayerStateManager : MonoBehaviour
         PlayerHealth = PlayerHealth - HealthLoss;
     }
 
-
+    //使用物品后同步人物血量和健康值至中转站
+    public void RefreshHPandHealth(int currentHP, int currentHealth)
+    {
+        PlayerHpCurrent = currentHP;
+        PlayerHealth = currentHealth;
+    }
 
     //同步玩家当前位置
     public void RefreshPlayerPos(float x, float y)
