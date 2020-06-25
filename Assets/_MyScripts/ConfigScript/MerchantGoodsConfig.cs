@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 namespace HotFix_Project.Config
 {
     public class MerchantGoodsConfig : ConfigBase
@@ -14,11 +12,11 @@ namespace HotFix_Project.Config
             public int ItemNum;
             public int SellPrice;
             public int BuyPrice;
-
         }
 
         public override void InitConfig(string[] configArr)
         {
+            List<MerchantGoodsObject> merchantGoodsList = new List<MerchantGoodsObject>();
             //从2开始是因为01是属性和字段类型
             for (int i = 2; i < configArr.Length; i++)
             {
@@ -34,22 +32,51 @@ namespace HotFix_Project.Config
                 merchantGoodsObj.SellPrice = int.Parse(data[5]);
                 merchantGoodsObj.BuyPrice = int.Parse(data[6]);
                 merchantGoodsList.Add(merchantGoodsObj);
+
+                if (merchantGoodsDic.ContainsKey(data[0]))
+                {
+
+                }
+                else
+                {
+                    merchantGoodsList = new List<MerchantGoodsObject>();
+                    merchantGoodsDic[data[0]] = merchantGoodsList;
+                }
             }
         }
 
-        public MerchantGoodsConfig.MerchantGoodsObject GetListConfigElementByID(int id)
+        public MerchantGoodsConfig.MerchantGoodsObject GetListConfigElementByID(string type, int id)
         {
+            List<MerchantGoodsObject> merchantGoodsList = merchantGoodsDic[type];
+
             MerchantGoodsObject merchantGoodsObj = null;
-            for (int i = 0; i < merchantGoodsList.Count; i++)
+            if (merchantGoodsList != null)
             {
-                if (merchantGoodsList[i].ItemID == id)
+                for (int i = 0; i < merchantGoodsList.Count; i++)
                 {
-                    merchantGoodsObj = merchantGoodsList[i];
+                    if (merchantGoodsList[i].ItemID == id)
+                    {
+                        merchantGoodsObj = merchantGoodsList[i];
+                    }
                 }
             }
             return merchantGoodsObj;
         }
 
-        public List<MerchantGoodsObject> merchantGoodsList = new List<MerchantGoodsObject>();
+        //public MerchantGoodsConfig.MerchantGoodsObject GetListConfigElementByID(int id)
+        //{
+        //    MerchantGoodsObject merchantGoodsObj = null;
+        //    for (int i = 0; i < merchantGoodsList.Count; i++)
+        //    {
+        //        if (merchantGoodsList[i].ItemID == id)
+        //        {
+        //            merchantGoodsObj = merchantGoodsList[i];
+        //        }
+        //    }
+        //    return merchantGoodsObj;
+        //}
+
+        //public List<MerchantGoodsObject> merchantGoodsList = new List<MerchantGoodsObject>();
+        public Dictionary<string, List<MerchantGoodsObject>> merchantGoodsDic = new Dictionary<string, List<MerchantGoodsObject>>();
     }
 }

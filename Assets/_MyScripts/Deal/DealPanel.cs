@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using HotFix_Project.Config;
 using UnityEngine;
 
 public class DealPanel : UIScene
@@ -64,21 +63,32 @@ public class DealPanel : UIScene
     //生成左侧商人物品区中的物品
     private void CreatMerchantGoods()
     {
+        //测试数据
+        string npcType = "EquipNpc1"; //GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().npcType;
+
+        MerchantGoodsConfig cfgData = DataTableManager.Instance.GetConfig<MerchantGoodsConfig>("MerchantGoods");
+        PropConfig cfgPropData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
         for (int i = 0; i < 10; i++)
         {
+            MerchantGoodsConfig.MerchantGoodsObject data = cfgData.GetListConfigElementByID(npcType, i);
             GameObject goMerchant = Instantiate(Resources.Load("Prefabs/Merchant_Item"), Vector3.zero, Quaternion.identity) as GameObject;
             goMerchant.name = i.ToString();
             goMerchant.transform.SetParent(MerchantGrid.transform);
             goMerchant.transform.localPosition = Vector3.zero;
             goMerchant.transform.localScale = Vector3.one;
-            //给物品Icon赋值
-            // Helper.GetChild<UISprite>(goMerchant.transform, "GoodsSprite").spriteName = "";
-            //给物品名字赋值
-            // Helper.GetChild<UILabel>(goMerchant.transform, "BagNameLabel").text = "";
-            //给物品金额赋值
-            // Helper.GetChild<UILabel>(goMerchant.transform, "GoldNumLabel").text = "";
-            //物品数量
-            // Helper.GetChild<UILabel>(goMerchant.transform, "GoodsNumLabel").text = "";
+
+            PropConfig.PropObject propData = cfgPropData.GetListConfigElementByID(i);
+            if (data != null)
+            {
+                //给物品Icon赋值
+                Helper.GetChild<UISprite>(goMerchant.transform, "GoodsSprite").spriteName = propData.ItemIcon;
+                //给物品名字赋值
+                Helper.GetChild<UILabel>(goMerchant.transform, "BagNameLabel").text = propData.ItemName;
+                //给物品金额赋值
+                Helper.GetChild<UILabel>(goMerchant.transform, "GoldNumLabel").text = data.BuyPrice.ToString();
+                //物品数量
+                Helper.GetChild<UILabel>(goMerchant.transform, "GoodsNumLabel").text = data.ItemNum.ToString();
+            }
 
             //如果当前物品金额小于拥有元宝总额，字体变红
             if (int.Parse(Helper.GetChild<UILabel>(goMerchant.transform, "GoldNumLabel").text) > int.Parse(OwnGoldNumLabel.text))
@@ -90,6 +100,9 @@ public class DealPanel : UIScene
         }
         MerchantGrid.repositionNow = true;
         MerchantGrid.Reposition();
+
+        MerchantHeadPhotoSprite.spriteName = "HeadPhoto" + GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().NpcImageID.ToString();
+        MerchantNameLabel.text = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().NpcName.ToString();
     }
 
     private void Sure()
