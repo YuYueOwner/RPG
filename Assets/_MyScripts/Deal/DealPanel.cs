@@ -67,6 +67,7 @@ public class DealPanel : UIScene
     {
         //测试数据
         string npcType = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().NpcType.ToString();
+        int PlayerMoney = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().PlayerMoney;
 
         MerchantGoodsConfig cfgData = DataTableManager.Instance.GetConfig<MerchantGoodsConfig>("MerchantGoods");
         PropConfig cfgPropData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
@@ -93,7 +94,7 @@ public class DealPanel : UIScene
             }
 
             //如果当前物品金额小于拥有元宝总额，字体变红
-            if (int.Parse(Helper.GetChild<UILabel>(goMerchant.transform, "GoldNumLabel").text) > int.Parse(OwnGoldNumLabel.text))
+            if (int.Parse(Helper.GetChild<UILabel>(goMerchant.transform, "GoldNumLabel").text) > PlayerMoney)
             {
                 Helper.GetChild(goMerchant.transform, "InsufficientGold_Sprite").SetActive(true);
                 Helper.GetChild<UILabel>(goMerchant.transform, "BagNameLabel").color = Color.red;
@@ -105,6 +106,7 @@ public class DealPanel : UIScene
 
         MerchantHeadPhotoSprite.spriteName = "HeadPhoto" + GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().NpcImageID;
         MerchantNameLabel.text = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().NpcName.ToString();
+        RefreshPlayerMoney();
     }
 
     private void Sure()
@@ -130,10 +132,11 @@ public class DealPanel : UIScene
     //卖完物品后刷新，判断当前元宝数是否买得起商人物品，是否显示红色遮罩和红色字体
     public void RefeshMerchantGridRedMask()
     {
+        int PlayerMoney = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().PlayerMoney;
         for (int i = 0; i < MerchantGrid.transform.childCount; i++)
         {
             //买不起
-            if (int.Parse(Helper.GetChild<UILabel>(MerchantGrid.GetChild(i), "GoldNumLabel").text) > int.Parse(OwnGoldNumLabel.text))
+            if (int.Parse(Helper.GetChild<UILabel>(MerchantGrid.GetChild(i), "GoldNumLabel").text) > PlayerMoney)
             {
                 Helper.GetChild(MerchantGrid.GetChild(i), "InsufficientGold_Sprite").SetActive(true);
                 Helper.GetChild<UILabel>(MerchantGrid.GetChild(i), "BagNameLabel").color = Color.red;
@@ -146,7 +149,14 @@ public class DealPanel : UIScene
                 Helper.GetChild<UILabel>(MerchantGrid.GetChild(i), "GoldNumLabel").color = Color.white;
             }
         }
+        RefreshPlayerMoney();
     }
+
+    public void RefreshPlayerMoney()
+    {
+        OwnGoldNumLabel.text = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().PlayerMoney.ToString();
+    }
+
     static int Compare(PackageItem r1, PackageItem r2)
     {
         return r1.PackageItemID.CompareTo(r2.PackageItemID);

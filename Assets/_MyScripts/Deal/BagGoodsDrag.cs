@@ -1,5 +1,4 @@
-﻿using HotFix_Project.Config;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class BagGoodsDrag : UIDragDropItem
@@ -24,45 +23,7 @@ public class BagGoodsDrag : UIDragDropItem
 
         if (UICamera.currentTouchID == -2)
         {
-            //鼠标右键点击逻辑，若点击装备则走装备判断逻辑
-            //（是否可以装备，是-装备或替换/否-弹出提示），若点击消耗品则走消耗品判断逻辑（使用该消耗品）。
-            int id = int.Parse(transform.name);
-            PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
-            int type = cfgData.ExistIsCanConsumeByID(id);
-            Debug.LogError("点击的type" + type + "类型为" + cfgData.GetListConfigElementByID(id).ItemType);
-            //返回1可以装备 返回2可以消耗  返回3不可以装备
-            if (type == 0)
-            {
-                Debug.LogError("没有可执行的操作");
-            }
-            else if (type == 1)
-            {
-                UIManager.Instance.SetVisible(UIPanelName.SceneStart_EquipmentGoodsPanel, true);
-                //Debug.LogError("id" + id);
-                PlayerInfoManager.Instance.SelectItemId = id;
-            }
-            else if (type == 2)
-            {
-                if (PlayerInfoManager.Instance.UseItemAddHpAndExp(id))
-                {
-                    Debug.LogError("已经使用");
-                    //bool bo = PlayerInfoManager.Instance.UseItemAddHpAndExp(id);
-                    //if (bo)
-                    //{
-                    PlayerInfoManager.Instance.RemovePlayerItemData(id);
-                    //}
-                    //消耗物品把对应的数据加上 GOTO  物品数据就是上面的cfgData
-                }
-                else
-                {
-                    Debug.LogError("未使用");
-                    UIManager.Instance.SetVisible(UIPanelName.SceneStart_EquipmentBagPanel, true);
-                }
-            }
-            else if (type == 3)
-            {
-                UIManager.Instance.SetVisible(UIPanelName.SceneStart_EquipmentBagPanel, true);
-            }
+
         }
     }
 
@@ -77,8 +38,7 @@ public class BagGoodsDrag : UIDragDropItem
         yield return new WaitForSeconds(0.5f);
         int parentName;
         if (int.TryParse(transform.parent.name, out parentName) == false) yield return null;
-        PlayerInfoManager.Instance.ShowItemInfo(int.Parse(transform.name));
-        UIManager.Instance.SetVisible(UIPanelName.SceneStart_GoodsInfoPanel, true);
+        //UIManager.Instance.SetVisible(UIPanelName.SceneStart_GoodsInfoPanel, true);
     }
 
 
@@ -127,7 +87,6 @@ public class BagGoodsDrag : UIDragDropItem
         {
             //回到原来的位置
             transform.localPosition = Vector3.zero;
-            PlayerInfoManager.Instance.SelectItemId = int.Parse(transform.name);
             UIManager.Instance.SetVisible(UIPanelName.SceneStart_DiscardGoodsPanel, true);
         }
     }
