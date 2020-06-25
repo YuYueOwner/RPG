@@ -58,6 +58,7 @@ public class DealPanel : UIScene
         SureButton.onClick.Add(new EventDelegate(Sure));
         BackButton.onClick.Add(new EventDelegate(Back));
         CreatMerchantGoods();
+        CreatBagGoods();
     }
 
     //生成左侧商人物品区中的物品
@@ -145,7 +146,53 @@ public class DealPanel : UIScene
             }
         }
     }
+    static int Compare(PackageItem r1, PackageItem r2)
+    {
+        return r1.PackageItemID.CompareTo(r2.PackageItemID);
+    }
 
+    //生成背包中数据
+    public void CreatBagGoods()
+    {
+        for (int i = 0; i < BagGoodsGrid.transform.childCount; i++)
+        {
+            GameObject.Destroy(BagGoodsGrid.transform.GetChild(i).gameObject);
+        }
+        var itemList = PlayerInfoManager.Instance.playerItemData;
+        itemList.Sort(Compare);
 
+        PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
+
+        for (int i = 0; i < 80; i++)
+        {
+            GameObject go = null;
+            go = Instantiate(Resources.Load("Prefabs/BagGoods_Item"), Vector3.zero, Quaternion.identity) as GameObject;
+            go.transform.SetParent(BagGoodsGrid.transform);
+            go.transform.localScale = Vector3.one;
+            UISprite sp = go.transform.GetChild(0).GetComponent<UISprite>();
+            PackageItem data = null;
+
+            if (itemList.Count > i)
+            {
+                data = itemList[i];
+            }
+
+            if (data != null)//如果有数据
+            {
+                sp.spriteName = cfgData.GetListConfigElementByID(data.PackageItemID).ItemIcon;
+                //背包中物品数量
+                Helper.GetChild<UILabel>(go.transform, "BagGoodsNumLabel").text = data.PackageItemNum > 1 ? data.PackageItemNum.ToString() : "";
+
+                sp.transform.name = data.PackageItemID.ToString();
+                go.name = data.PackageItemID.ToString();
+            }
+            else
+            {
+                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = null;
+            }
+        }
+        BagGoodsGrid.Reposition();
+        BagGoodsGrid.repositionNow = true;
+    }
 
 }
