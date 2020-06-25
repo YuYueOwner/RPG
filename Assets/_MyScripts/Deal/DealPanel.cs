@@ -79,7 +79,7 @@ public class DealPanel : UIScene
             //如果当前物品金额小于拥有元宝总额，字体变红
             if (int.Parse(Helper.GetChild<UILabel>(goMerchant.transform, "GoldNumLabel").text) > int.Parse(OwnGoldNumLabel.text))
             {
-                Helper.GetChild(goMerchant.transform, "SelectFrame").SetActive(true);
+                Helper.GetChild(goMerchant.transform, "InsufficientGold_Sprite").SetActive(true);
                 Helper.GetChild<UILabel>(goMerchant.transform, "BagNameLabel").color = Color.red;
                 Helper.GetChild<UILabel>(goMerchant.transform, "GoldNumLabel").color = Color.red;
             }
