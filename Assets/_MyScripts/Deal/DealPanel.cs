@@ -112,4 +112,27 @@ public class DealPanel : UIScene
         }
     }
 
+    //卖完物品后刷新，判断当前元宝数是否买得起商人物品，是否显示红色遮罩和红色字体
+    public void RefeshMerchantGridRedMask()
+    {
+        for (int i = 0; i < MerchantGrid.transform.childCount; i++)
+        {
+            //买不起
+            if (int.Parse(Helper.GetChild<UILabel>(MerchantGrid.GetChild(i), "GoldNumLabel").text) > int.Parse(OwnGoldNumLabel.text))
+            {
+                Helper.GetChild(MerchantGrid.GetChild(i), "InsufficientGold_Sprite").SetActive(true);
+                Helper.GetChild<UILabel>(MerchantGrid.GetChild(i), "BagNameLabel").color = Color.red;
+                Helper.GetChild<UILabel>(MerchantGrid.GetChild(i), "GoldNumLabel").color = Color.red;
+            }
+            else//买得起
+            {
+                Helper.GetChild(MerchantGrid.GetChild(i), "InsufficientGold_Sprite").SetActive(false);
+                Helper.GetChild<UILabel>(MerchantGrid.GetChild(i), "BagNameLabel").color = Color.white;
+                Helper.GetChild<UILabel>(MerchantGrid.GetChild(i), "GoldNumLabel").color = Color.white;
+            }
+        }
+    }
+
+
+
 }
