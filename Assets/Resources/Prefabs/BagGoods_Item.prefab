@@ -112,6 +112,7 @@ GameObject:
   - component: {fileID: 4931415086904604828}
   - component: {fileID: 4177761613638012386}
   - component: {fileID: 3621892340582527656}
+  - component: {fileID: 7838761143405564937}
   m_Layer: 8
   m_Name: GoodsSprite
   m_TagString: Untagged
@@ -228,6 +229,22 @@ MonoBehaviour:
   disabledSprite2D: {fileID: 0}
   pixelSnap: 0
   onClick: []
+--- !u!114 &7838761143405564937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4708031040006726004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3666a02cfeddd0743bc7f3969cc0be7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  restriction: 0
+  cloneOnDrag: 0
+  pressAndHoldDelay: 1
+  interactable: 1
 --- !u!1 &5543620720650075273
 GameObject:
   m_ObjectHideFlags: 0
