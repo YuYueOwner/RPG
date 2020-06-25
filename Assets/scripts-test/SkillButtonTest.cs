@@ -69,7 +69,7 @@ public class SkillButtonTest : MonoBehaviour
         int b = Random.Range(1, 3);
         GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SetNpcImage(b);
         Debug.Log("随机设置商人头像=" + b);
-        string c = "杂货商老万";
+        string c = "杂货商老万" + a;
         GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SetNpcName(c);
 
         //随机玩家人物数据

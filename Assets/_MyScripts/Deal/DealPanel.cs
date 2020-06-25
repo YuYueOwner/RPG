@@ -59,13 +59,14 @@ public class DealPanel : UIScene
         BackButton.onClick.Add(new EventDelegate(Back));
         CreatMerchantGoods();
         CreatBagGoods();
+        CreatSellGoods();
     }
 
     //生成左侧商人物品区中的物品
     private void CreatMerchantGoods()
     {
         //测试数据
-        string npcType = "EquipNpc1"; //GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().npcType;
+        string npcType = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().NpcType.ToString();
 
         MerchantGoodsConfig cfgData = DataTableManager.Instance.GetConfig<MerchantGoodsConfig>("MerchantGoods");
         PropConfig cfgPropData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
@@ -102,7 +103,7 @@ public class DealPanel : UIScene
         MerchantGrid.repositionNow = true;
         MerchantGrid.Reposition();
 
-        MerchantHeadPhotoSprite.spriteName = "HeadPhoto" + GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().NpcImageID.ToString();
+        MerchantHeadPhotoSprite.spriteName = "HeadPhoto" + GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().NpcImageID;
         MerchantNameLabel.text = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().NpcName.ToString();
     }
 
@@ -193,6 +194,25 @@ public class DealPanel : UIScene
         }
         BagGoodsGrid.Reposition();
         BagGoodsGrid.repositionNow = true;
+    }
+
+    //生成卖物品的格子
+    public void CreatSellGoods()
+    {
+        for (int i = 0; i < SellGoodsGrid.transform.childCount; i++)
+        {
+            GameObject.Destroy(SellGoodsGrid.transform.GetChild(i).gameObject);
+        }
+        for (int i = 0; i < 80; i++)
+        {
+            GameObject go = null;
+            go = Instantiate(Resources.Load("Prefabs/BagGoods_Item"), Vector3.zero, Quaternion.identity) as GameObject;
+            go.transform.SetParent(SellGoodsGrid.transform);
+            go.transform.localScale = Vector3.one;
+            go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "";
+        }
+        SellGoodsGrid.Reposition();
+        SellGoodsGrid.repositionNow = true;
     }
 
 }
