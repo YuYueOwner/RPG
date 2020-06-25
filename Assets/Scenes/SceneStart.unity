@@ -1817,7 +1817,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3036
+  startingRenderQueue: 3032
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -3019,7 +3019,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3032
+  startingRenderQueue: 3036
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -4819,6 +4819,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   side: 8
   type: 1
+  SellGoodsNumLabel: {fileID: 0}
+  recordCurrentGoodsNum: 0
 --- !u!1 &1582765257
 GameObject:
   m_ObjectHideFlags: 0
