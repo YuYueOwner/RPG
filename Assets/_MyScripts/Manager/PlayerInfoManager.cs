@@ -26,6 +26,9 @@ public class PlayerInfoManager
     public List<UISprite> equipmentList = new List<UISprite>();
 
 
+    //交易系统选择要购买的商品id
+    public int selectDealItemID;
+
     public void SetPlayerAttributeInfo()
     {
         playerAttributeInfo[1] = "Physical";
@@ -157,6 +160,32 @@ public class PlayerInfoManager
             item.PackageItemNum = 1;
             playerItemData.Add(item);
         }
+    }
+
+    //添加物品到背包里
+    public void AddPlayerItemData(int id, int num)
+    {
+        PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
+        PackageItem item = new PackageItem();
+
+        if (cfgData.ExistIsCanOverlayByID(id))
+        {
+            //可以叠加
+            for (int i = 0; i < playerItemData.Count; i++)
+            {
+                if (playerItemData[i].PackageItemID == id)
+                {
+                    playerItemData[i].PackageItemNum += num;
+                    return;
+                }
+            }
+
+        }
+        PropConfig.PropObject data = cfgData.GetListConfigElementByID(id);
+        item.PackageItemID = data.ItemID;
+        item.PackageItemName = data.ItemName;
+        item.PackageItemNum = num;
+        playerItemData.Add(item);
     }
 
     //显示鼠标现在停留的物品信息

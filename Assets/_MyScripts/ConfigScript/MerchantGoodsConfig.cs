@@ -63,6 +63,11 @@ namespace HotFix_Project.Config
             return merchantGoodsObj;
         }
 
+        public List<MerchantGoodsObject> GetListConfigElementByType(string type)
+        {
+            return merchantGoodsDic[type];
+        }
+
         //public MerchantGoodsConfig.MerchantGoodsObject GetListConfigElementByID(int id)
         //{
         //    MerchantGoodsObject merchantGoodsObj = null;

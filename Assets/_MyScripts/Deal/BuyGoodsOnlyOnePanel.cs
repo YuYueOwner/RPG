@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class BuyGoodsOnlyOnePanel : UIScene
+﻿public class BuyGoodsOnlyOnePanel : UIScene
 {
     private UIButton Cancel_Button;
     private UIButton Sure_Button;
@@ -31,6 +27,7 @@ public class BuyGoodsOnlyOnePanel : UIScene
     {
         AudioManager.Instance.PlaySound(1);
         DealPanel._instance.RevertMerchantItemSelectState();
+        DealPanel._instance.OnRefreshBuyData(1);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_BuyGoodsOnlyOnePanel, false);
     }
 }

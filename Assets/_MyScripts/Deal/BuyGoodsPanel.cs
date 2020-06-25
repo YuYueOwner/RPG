@@ -51,6 +51,7 @@ public class BuyGoodsPanel : UIScene
     private void Sure()
     {
         AudioManager.Instance.PlaySound(1);
+        DealPanel._instance.OnRefreshBuyData((int.Parse(SellGoodsNumLabel.text)));
         DealPanel._instance.RevertMerchantItemSelectState();
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_BuyGoodsPanel, false);
     }

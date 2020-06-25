@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MerchantItem : MonoBehaviour
 {
@@ -33,6 +31,7 @@ public class MerchantItem : MonoBehaviour
             ShowSelectFrame();
             UIManager.Instance.SetVisible(UIPanelName.SceneStart_BuyGoodsOnlyOnePanel, true);
         }
+        PlayerInfoManager.Instance.selectDealItemID = int.Parse(this.transform.name);
     }
 
     //显示选择框
