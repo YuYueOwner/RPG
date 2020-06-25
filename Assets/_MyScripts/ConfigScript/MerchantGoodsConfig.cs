@@ -7,7 +7,7 @@ namespace HotFix_Project.Config
     {
         public class MerchantGoodsObject
         {
-            public string NpcType;
+            public int NpcType;
             public int ItemID;
             public string ItemName;
             public int IfAvailable;
@@ -26,7 +26,7 @@ namespace HotFix_Project.Config
 
                 string str = configArr[i];
                 string[] data = str.Split('|');
-                merchantGoodsObj.NpcType = data[0];
+                merchantGoodsObj.NpcType = int.Parse(data[0]);
                 merchantGoodsObj.ItemID = int.Parse(data[1]);
                 merchantGoodsObj.ItemName = data[2];
                 merchantGoodsObj.IfAvailable = int.Parse(data[3]);
