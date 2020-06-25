@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DealPanel : UIScene
 {
+    public static DealPanel _instance;
     #region 商人
     //商人头像
     private UISprite MerchantHeadPhotoSprite;
@@ -36,6 +37,7 @@ public class DealPanel : UIScene
     private UIButton BackButton;
     private void Awake()
     {
+        _instance = this;
         MerchantHeadPhotoSprite = Helper.GetChild<UISprite>(this.transform, "MerchantHeadPhotoSprite");
         MerchantNameLabel = Helper.GetChild<UILabel>(this.transform, "MerchantNameLabel");
         MerchantGrid = Helper.GetChild<UIGrid>(this.transform, "MerchantGrid");
@@ -65,6 +67,7 @@ public class DealPanel : UIScene
         for (int i = 0; i < 10; i++)
         {
             GameObject goMerchant = Instantiate(Resources.Load("Prefabs/Merchant_Item"), Vector3.zero, Quaternion.identity) as GameObject;
+            goMerchant.name = i.ToString();
             goMerchant.transform.SetParent(MerchantGrid.transform);
             goMerchant.transform.localPosition = Vector3.zero;
             goMerchant.transform.localScale = Vector3.one;
@@ -76,6 +79,7 @@ public class DealPanel : UIScene
             // Helper.GetChild<UILabel>(goMerchant.transform, "GoldNumLabel").text = "";
             //物品数量
             // Helper.GetChild<UILabel>(goMerchant.transform, "GoodsNumLabel").text = "";
+
             //如果当前物品金额小于拥有元宝总额，字体变红
             if (int.Parse(Helper.GetChild<UILabel>(goMerchant.transform, "GoldNumLabel").text) > int.Parse(OwnGoldNumLabel.text))
             {
@@ -97,6 +101,15 @@ public class DealPanel : UIScene
     {
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_DealPanel, false);
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_OpenBagPanel, true);
-
     }
+
+    //还原物品选中状态
+    public void RevertMerchantItemSelectState()
+    {
+        for (int i = 0; i < MerchantGrid.transform.childCount; i++)
+        {
+            Helper.GetChild(MerchantGrid.transform.GetChild(i), "SelectFrame").SetActive(false);
+        }
+    }
+
 }

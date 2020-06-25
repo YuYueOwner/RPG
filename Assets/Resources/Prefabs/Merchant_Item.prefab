@@ -485,6 +485,7 @@ GameObject:
   - component: {fileID: 7957838174002225246}
   - component: {fileID: 7957838174002225244}
   - component: {fileID: 7957838174002225247}
+  - component: {fileID: 4139474813092627640}
   m_Layer: 8
   m_Name: Merchant_Item
   m_TagString: Untagged
@@ -603,6 +604,18 @@ MonoBehaviour:
   disabledSprite2D: {fileID: 0}
   pixelSnap: 0
   onClick: []
+--- !u!114 &4139474813092627640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7957838174002225232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9f93020b6cf31a4ea51ce8f55e91c5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7957838174038895232
 GameObject:
   m_ObjectHideFlags: 0

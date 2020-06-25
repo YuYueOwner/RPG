@@ -41,11 +41,15 @@ public class BuyGoodsPanel : UIScene
 
     private void Cancel()
     {
+        AudioManager.Instance.PlaySound(1);
+        DealPanel._instance.RevertMerchantItemSelectState();
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_BuyGoodsPanel, false);
     }
 
     private void Sure()
     {
+        AudioManager.Instance.PlaySound(1);
+        DealPanel._instance.RevertMerchantItemSelectState();
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_BuyGoodsPanel, false);
     }
 }

@@ -16,8 +16,9 @@ public class UIPanelName
     public const string SceneStart_SkillDefendPanel = "SkillDefendPanel";
     public const string SceneStart_EquipmentSkillPanel = "EquipmentSkillPanel";
     public const string SceneStart_DealPanel = "DealPanel";
-    public const string SceneStart_BuyGoodsPanel = "BuyGoodsPanels";
-    public const string SceneStart_BuyGoodsFailedPanel = "BuyGoodsFailedPanels";
+    public const string SceneStart_BuyGoodsPanel = "BuyGoodsPanel";
+    public const string SceneStart_BuyGoodsFailedPanel = "BuyGoodsFailedPanel";
+    public const string SceneStart_BuyGoodsOnlyOnePanel = "BuyGoodsOnlyOnePanel";
 
 }
 public class UIManager : MonoSingleton<UIManager>
