@@ -4,19 +4,24 @@ using UnityEngine;
 
 public class BuyGoodsPanel : UIScene
 {
+    public static BuyGoodsPanel _instance;
     private UIButton Minus_Button;
     private UIButton Add_Button;
     private UIButton Cancel_Button;
     private UIButton Sure_Button;
-    private UILabel SellGoodsNumLabel;
-
+    [HideInInspector]
+    public UILabel SellGoodsNumLabel;
+    [HideInInspector]
+    public int recordCurrentGoodsNum;
     private void Awake()
     {
+        _instance = this;
         Minus_Button = Helper.GetChild<UIButton>(this.transform, "Minus_Button");
         Add_Button = Helper.GetChild<UIButton>(this.transform, "Add_Button");
         Cancel_Button = Helper.GetChild<UIButton>(this.transform, "Cancel_Button");
         Sure_Button = Helper.GetChild<UIButton>(this.transform, "Sure_Button");
         SellGoodsNumLabel = Helper.GetChild<UILabel>(this.transform, "SellGoodsNumLabel");
+
     }
     protected override void Start()
     {
@@ -29,14 +34,13 @@ public class BuyGoodsPanel : UIScene
 
     private void Minus()
     {
-        int num = int.Parse(SellGoodsNumLabel.text);
-        SellGoodsNumLabel.text = num - 5 >= 0 ? (num - 5).ToString() : "0";
+        SellGoodsNumLabel.text = recordCurrentGoodsNum - 5 >= 0 ? (recordCurrentGoodsNum - 5).ToString() : "0";
     }
 
     private void Add()
     {
-        int num = int.Parse(SellGoodsNumLabel.text);
         //判断是否大于上限
+        SellGoodsNumLabel.text = int.Parse(SellGoodsNumLabel.text) + 5 >= recordCurrentGoodsNum ? recordCurrentGoodsNum.ToString() : (int.Parse(SellGoodsNumLabel.text) + 5).ToString();
     }
 
     private void Cancel()

@@ -4,28 +4,44 @@ using UnityEngine;
 
 public class MerchantItem : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void OnClick()
     {
+        //左键弹出数量选择框
+        if (UICamera.currentTouchID == -1)
+        {
+            ShowSelectFrame();
+
+            //先判断物品数量是否大于1
+            if (Helper.GetChild<UILabel>(this.transform, "GoodsNumLabel").text != "")
+            {
+                //记录当前物品总数量
+                BuyGoodsPanel._instance.recordCurrentGoodsNum = int.Parse(Helper.GetChild<UILabel>(this.transform, "GoodsNumLabel").text);
+                //判断物品数量是否小于5
+                BuyGoodsPanel._instance.SellGoodsNumLabel.text = BuyGoodsPanel._instance.recordCurrentGoodsNum < 5 ? BuyGoodsPanel._instance.recordCurrentGoodsNum.ToString() : "5";
+            }
+            else
+            {
+                BuyGoodsPanel._instance.recordCurrentGoodsNum = 1;
+                BuyGoodsPanel._instance.SellGoodsNumLabel.text = "1";
+            }
+            UIManager.Instance.SetVisible(UIPanelName.SceneStart_BuyGoodsPanel, true);
+        }
+
+        //右键选择一个物品
         if (UICamera.currentTouchID == -2)
         {
-            AudioManager.Instance.PlaySound(1);
-            for (int i = 0; i < this.transform.parent.childCount; i++)
-            {
-                Helper.GetChild(this.transform.parent.GetChild(i), "SelectFrame").SetActive(int.Parse(this.name) == i);
-            }
+            ShowSelectFrame();
             UIManager.Instance.SetVisible(UIPanelName.SceneStart_BuyGoodsOnlyOnePanel, true);
+        }
+    }
+
+    //显示选择框
+    private void ShowSelectFrame()
+    {
+        AudioManager.Instance.PlaySound(1);
+        for (int i = 0; i < this.transform.parent.childCount; i++)
+        {
+            Helper.GetChild(this.transform.parent.GetChild(i), "SelectFrame").SetActive(int.Parse(this.name) == i);
         }
     }
 }

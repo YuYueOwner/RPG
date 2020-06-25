@@ -1284,7 +1284,7 @@ MonoBehaviour:
   bottomType: 1
   topType: 1
   mAtlas: {fileID: 7572350772975797766, guid: cc568ce9767212241859814b9d08a1e2, type: 3}
-  mSpriteName: NpcCellBackground
+  mSpriteName: ButtonBg
   mFillCenter: 1
 --- !u!1 &416879290
 GameObject:
