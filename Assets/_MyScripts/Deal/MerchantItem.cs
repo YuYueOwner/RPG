@@ -46,7 +46,7 @@ public class MerchantItem : MonoBehaviour
         AudioManager.Instance.PlaySound(1);
         for (int i = 0; i < this.transform.parent.childCount; i++)
         {
-            Helper.GetChild(this.transform.parent.GetChild(i), "SelectFrame").SetActive(int.Parse(this.name) == i);
+            Helper.GetChild(this.transform.parent.GetChild(i), "SelectFrame").SetActive(int.Parse(this.name) == int.Parse(this.transform.parent.GetChild(i).name));
         }
     }
 }
