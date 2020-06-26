@@ -2,29 +2,35 @@
 
 public class MerchantItem : MonoBehaviour
 {
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            //左键弹出数量选择框
+            if (UICamera.currentTouchID == -1)
+            {
+                ShowSelectFrame();
+
+                //先判断物品数量是否大于1
+                if (Helper.GetChild<UILabel>(this.transform, "GoodsNumLabel").text != "")
+                {
+                    //记录当前物品总数量
+                    BuyGoodsPanel._instance.recordCurrentGoodsNum = int.Parse(Helper.GetChild<UILabel>(this.transform, "GoodsNumLabel").text);
+                    //判断物品数量是否小于5
+                    BuyGoodsPanel._instance.SellGoodsNumLabel.text = BuyGoodsPanel._instance.recordCurrentGoodsNum < 5 ? BuyGoodsPanel._instance.recordCurrentGoodsNum.ToString() : "5";
+                }
+                else
+                {
+                    BuyGoodsPanel._instance.recordCurrentGoodsNum = 1;
+                    BuyGoodsPanel._instance.SellGoodsNumLabel.text = "1";
+                }
+                UIManager.Instance.SetVisible(UIPanelName.SceneStart_BuyGoodsPanel, true);
+            }
+        }
+    }
+
     void OnClick()
     {
-        //左键弹出数量选择框
-        if (UICamera.currentTouchID == -1)
-        {
-            ShowSelectFrame();
-
-            //先判断物品数量是否大于1
-            if (Helper.GetChild<UILabel>(this.transform, "GoodsNumLabel").text != "")
-            {
-                //记录当前物品总数量
-                BuyGoodsPanel._instance.recordCurrentGoodsNum = int.Parse(Helper.GetChild<UILabel>(this.transform, "GoodsNumLabel").text);
-                //判断物品数量是否小于5
-                BuyGoodsPanel._instance.SellGoodsNumLabel.text = BuyGoodsPanel._instance.recordCurrentGoodsNum < 5 ? BuyGoodsPanel._instance.recordCurrentGoodsNum.ToString() : "5";
-            }
-            else
-            {
-                BuyGoodsPanel._instance.recordCurrentGoodsNum = 1;
-                BuyGoodsPanel._instance.SellGoodsNumLabel.text = "1";
-            }
-            UIManager.Instance.SetVisible(UIPanelName.SceneStart_BuyGoodsPanel, true);
-        }
-
         //右键选择一个物品
         if (UICamera.currentTouchID == -2)
         {
