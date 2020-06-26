@@ -73,7 +73,7 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 29447caccb8843546936da0927ecd67a, type: 3}
   mFont: {fileID: 0}
-  mText: 3
+  mText: 
   mFontSize: 15
   mFontStyle: 0
   mAlignment: 0
@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 7838761143405564937}
   m_Layer: 8
   m_Name: GoodsSprite
-  m_TagString: Untagged
+  m_TagString: Goods
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 4098924670724878267}
   m_Layer: 8
   m_Name: BagGoods_Item
-  m_TagString: Untagged
+  m_TagString: Cell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
