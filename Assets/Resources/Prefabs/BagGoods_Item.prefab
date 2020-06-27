@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 3878131110948533684}
   - component: {fileID: 3738278489138836937}
   - component: {fileID: 4676577095876105063}
-  - component: {fileID: 6712334463567215573}
   - component: {fileID: 7371176125622005092}
+  - component: {fileID: 6634084073869227267}
+  - component: {fileID: 549728049732225893}
   m_Layer: 8
   m_Name: GoodsSprite1
   m_TagString: Goods
@@ -67,7 +68,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 72
   mHeight: 72
-  mDepth: 3
+  mDepth: 4
   mMat: {fileID: 0}
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
@@ -102,22 +103,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 72, y: 72, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6712334463567215573
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 549728049732225892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3666a02cfeddd0743bc7f3969cc0be7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  restriction: 0
-  cloneOnDrag: 0
-  pressAndHoldDelay: 1
-  interactable: 1
 --- !u!114 &7371176125622005092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,6 +129,34 @@ MonoBehaviour:
   disabledSprite2D: {fileID: 0}
   pixelSnap: 0
   onClick: []
+--- !u!114 &6634084073869227267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549728049732225892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91c01a5c2362a11418c4bf819170cb8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  restriction: 0
+  cloneOnDrag: 0
+  pressAndHoldDelay: 1
+  interactable: 1
+--- !u!114 &549728049732225893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549728049732225892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daa6fa71d91034d4494c64feeb00bb34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &977835604855206656
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,7 +322,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 72
   mHeight: 72
-  mDepth: 4
+  mDepth: 3
   mMat: {fileID: 0}
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0

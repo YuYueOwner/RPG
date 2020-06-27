@@ -227,10 +227,12 @@ public class DealPanel : UIScene
         {
             GameObject go = null;
             go = Instantiate(Resources.Load("Prefabs/BagGoods_Item"), Vector3.zero, Quaternion.identity) as GameObject;
+            go.tag = "Cell";
             go.transform.SetParent(BagGoodsGrid.transform);
             go.transform.localScale = Vector3.one;
             UISprite sp = go.transform.GetChild(0).GetComponent<UISprite>();
             UISprite sp1 = go.transform.GetChild(1).GetComponent<UISprite>();
+            sp1.tag = "Goods";
             PackageItem data = null;
 
             UILabel lb_num = Helper.GetChild<UILabel>(go.transform, "BagGoodsNumLabel");
@@ -240,13 +242,15 @@ public class DealPanel : UIScene
                 data = itemList[i];
             }
 
+            int itemNum = 0;
             if (data != null)//如果有数据
             {
                 sp.spriteName = cfgData.GetListConfigElementByID(data.PackageItemID).ItemIcon;
                 sp1.spriteName = cfgData.GetListConfigElementByID(data.PackageItemID).ItemIcon;
 
                 //背包中物品数量
-                lb_num.text = data.PackageItemNum > 1 ? data.PackageItemNum.ToString() : "";
+                itemNum = data.PackageItemNum > 1 ? data.PackageItemNum : 1;
+                lb_num.text = itemNum.ToString();
 
                 sp.transform.name = data.PackageItemID.ToString();
                 sp1.transform.name = data.PackageItemID.ToString();
@@ -260,6 +264,7 @@ public class DealPanel : UIScene
                 sp1.spriteName = "-1";
                 lb_num.gameObject.SetActive(false);
             }
+            lb_num.gameObject.SetActive(itemNum > 1);
         }
         BagGoodsGrid.repositionNow = true;
         BagGoodsGrid.Reposition();
@@ -282,9 +287,59 @@ public class DealPanel : UIScene
             go.transform.localScale = Vector3.one;
             go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "-1";
             go.transform.GetChild(1).GetComponent<UISprite>().spriteName = "-1";
+            go.transform.GetChild(0).GetChild(0).GetComponent<UILabel>().text = "";
+            go.transform.GetChild(1).GetComponent<UISprite>().tag = "BagGoods";
         }
         SellGoodsGrid.Reposition();
         SellGoodsGrid.repositionNow = true;
+    }
+
+    //ctrl + 鼠标左键把物品从包裹中移动到待售物品区
+    public void RefreshSellGoods(int id, int num)
+    {
+        PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
+        bool isMerge = cfgData.ExistIsCanOverlayByID(id);
+        for (int i = 0; i < SellGoodsGrid.transform.childCount; i++)
+        {
+            Transform trans = SellGoodsGrid.transform.GetChild(i);
+            int name;
+            //先判断是否是可合并的物品
+            if (isMerge)
+            {
+                //可合并
+                if (int.TryParse(trans.GetChild(1).name, out name) == true)
+                {
+                    if (name == id)
+                    {
+                        UILabel lb_num = trans.GetChild(0).GetChild(0).GetComponent<UILabel>();
+                        lb_num.text = (int.Parse(lb_num.text) + num).ToString();
+                        return;
+                    }
+                }
+
+                for (int j = 0; j < SellGoodsGrid.transform.childCount; j++)
+                {
+                    if (int.TryParse(trans.GetChild(1).name, out name) == false)
+                    {
+                        UISprite sp = trans.GetChild(1).GetComponent<UISprite>();
+                        sp.spriteName = cfgData.GetListConfigElementByID(id).ItemIcon;
+                        sp.name = id.ToString();
+                        trans.GetChild(0).GetChild(0).GetComponent<UILabel>().text = num.ToString();
+
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                if (int.TryParse(trans.GetChild(1).name, out name) == false)
+                {
+                    trans.GetChild(1).GetComponent<UISprite>().spriteName = cfgData.GetListConfigElementByID(id).ItemIcon;
+                    trans.GetChild(0).GetChild(0).GetComponent<UILabel>().text = "1";
+                    return;
+                }
+            }
+        }
     }
 
 }
