@@ -101,8 +101,8 @@ public class DealPanel : UIScene
                     Helper.GetChild<UILabel>(goMerchant.transform, "GoldNumLabel").text = data.BuyPrice.ToString();
                     //物品数量
                     Helper.GetChild<UILabel>(goMerchant.transform, "GoodsNumLabel").text = data.ItemNum.ToString();
-
                 }
+
 
                 //如果当前物品金额小于拥有元宝总额，字体变红
                 if (int.Parse(Helper.GetChild<UILabel>(goMerchant.transform, "GoldNumLabel").text) > PlayerMoney)
@@ -230,7 +230,10 @@ public class DealPanel : UIScene
             go.transform.SetParent(BagGoodsGrid.transform);
             go.transform.localScale = Vector3.one;
             UISprite sp = go.transform.GetChild(0).GetComponent<UISprite>();
+            UISprite sp1 = go.transform.GetChild(1).GetComponent<UISprite>();
             PackageItem data = null;
+
+            UILabel lb_num = Helper.GetChild<UILabel>(go.transform, "BagGoodsNumLabel");
 
             if (itemList.Count > i)
             {
@@ -240,19 +243,26 @@ public class DealPanel : UIScene
             if (data != null)//如果有数据
             {
                 sp.spriteName = cfgData.GetListConfigElementByID(data.PackageItemID).ItemIcon;
+                sp1.spriteName = cfgData.GetListConfigElementByID(data.PackageItemID).ItemIcon;
+
                 //背包中物品数量
-                Helper.GetChild<UILabel>(go.transform, "BagGoodsNumLabel").text = data.PackageItemNum > 1 ? data.PackageItemNum.ToString() : "";
+                lb_num.text = data.PackageItemNum > 1 ? data.PackageItemNum.ToString() : "";
 
                 sp.transform.name = data.PackageItemID.ToString();
+                sp1.transform.name = data.PackageItemID.ToString();
                 go.name = data.PackageItemID.ToString();
+                lb_num.gameObject.SetActive(true);
             }
             else
             {
-                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = null;
+                lb_num.text = "0";
+                sp.spriteName = "-1";
+                sp1.spriteName = "-1";
+                lb_num.gameObject.SetActive(false);
             }
         }
-        BagGoodsGrid.Reposition();
         BagGoodsGrid.repositionNow = true;
+        BagGoodsGrid.Reposition();
     }
 
     //生成卖物品的格子
@@ -266,9 +276,12 @@ public class DealPanel : UIScene
         {
             GameObject go = null;
             go = Instantiate(Resources.Load("Prefabs/BagGoods_Item"), Vector3.zero, Quaternion.identity) as GameObject;
+            go.tag = "BagCell";
+
             go.transform.SetParent(SellGoodsGrid.transform);
             go.transform.localScale = Vector3.one;
-            go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "";
+            go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "-1";
+            go.transform.GetChild(1).GetComponent<UISprite>().spriteName = "-1";
         }
         SellGoodsGrid.Reposition();
         SellGoodsGrid.repositionNow = true;
