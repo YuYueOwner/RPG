@@ -20,7 +20,7 @@ public class BagGoodsItem : MonoBehaviour
     void OnClick()
     {
         //左键从包裹中把该物品全部移动到待售卖区
-        if (UICamera.currentTouchID == -1)
+        if (isDownShift && UICamera.currentTouchID == -1)
         {
             Debug.LogError(this.name);
             UILabel lb_num = transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
