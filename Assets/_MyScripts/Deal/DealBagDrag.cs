@@ -21,7 +21,14 @@ public class DealBagDrag : UIDragDropItem
     {
         base.Update();
     }
-
+    public override void StartDragging()
+    {
+        base.StartDragging();
+        StopAllCoroutines();
+        UIManager.Instance.SetVisible(UIPanelName.SceneStart_GoodsInfoPanel, false);
+        this.GetComponent<UISprite>().depth = 11;
+        Debug.LogError(111111);
+    }
     //0.5s显示详细信息面板
     IEnumerator Show()
     {
