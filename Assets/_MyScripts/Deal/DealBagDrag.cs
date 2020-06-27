@@ -35,7 +35,6 @@ public class DealBagDrag : UIDragDropItem
             //根据鼠标点击的位置显示详细信息面板
             Vector3 worldPoint = UICamera.currentCamera.ScreenToWorldPoint(Input.mousePosition);
             UIManager.Instance.SetVisible(UIPanelName.SceneStart_GoodsInfoPanel, true);
-            Debug.LogError(UICamera.currentCamera.ScreenToWorldPoint(Input.mousePosition).y);
             if (UICamera.currentCamera.ScreenToWorldPoint(Input.mousePosition).x >= 0.9f)
             {
                 if (UICamera.currentCamera.ScreenToWorldPoint(Input.mousePosition).y <= 0.1f)
