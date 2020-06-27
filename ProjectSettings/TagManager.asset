@@ -11,6 +11,8 @@ TagManager:
   - OpenLockNotValue
   - NotOpen
   - OpenLockHasValueParent
+  - BagCell
+  - BagGoods
   layers:
   - Default
   - TransparentFX
