@@ -60,16 +60,24 @@ public class DealBagDrag : UIDragDropItem
         }
     }
 
+    private bool isMerge = false;
     public override void StartDragging()
     {
         base.StartDragging();
-        UILabel lb_num = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel");
-        int num = 0;
-        if (int.TryParse(lb_num.text, out num) == true)
+        StopAllCoroutines();
+        UIManager.Instance.SetVisible(UIPanelName.SceneStart_GoodsInfoPanel, false);
+        if (this.tag == "Goods")
         {
-            lb_num.text = (num - 1).ToString();
-            lb_num.gameObject.SetActive((num - 1) > 1);
-            this.transform.parent.GetChild(0).GetComponent<UISprite>().gameObject.SetActive((num - 1) > 0);
+            isMerge = DealPanel._instance.JudgeSellGoodsIdExist(int.Parse(this.name));
+
+            UILabel lb_num = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel");
+            int num = 0;
+            if (int.TryParse(lb_num.text, out num) == true)
+            {
+                lb_num.text = (num - 1).ToString();
+                lb_num.gameObject.SetActive((num - 1) > 1);
+                this.transform.parent.GetChild(0).GetComponent<UISprite>().gameObject.SetActive((num - 1) >= 0);
+            }
         }
     }
 
@@ -125,22 +133,50 @@ public class DealBagDrag : UIDragDropItem
             //如果当下时撞到的是装备
             else if (surface.tag == "BagGoods")
             {
-                this.tag = "BagGoods";
-                surface.tag = "Goods";
+                int num = int.Parse(Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel").text);
 
-                Helper.GetChild<UILabel>(surface.transform.parent, "BagGoodsNumLabel").text = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel").text;
+                if (isMerge)
+                {
+                    if (num <= 0)
+                    {
+                        //Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel").gameObject.SetActive(false);
+                        this.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = "-1";
+                        UISprite sp = surface.transform.parent.GetChild(1).GetComponent<UISprite>();
+                        sp.name = "BagGoods_Item(Clone)";
+                        sp.spriteName = "-1";
+                    }
+                    DealPanel._instance.RefreshSellGoods(int.Parse(this.name), 1, false);
+                }
+                else
+                {
+                    this.tag = "BagGoods";
+                    surface.tag = "Goods";
+                    PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
 
-                PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
-                Transform Parent = null;
-                //开始交换  
-                Parent = this.transform.parent;         //把撞到的(surface)装备的父物体取出来
-                this.transform.parent = surface.transform.parent;   //把撞到的物体移动过来(把自己的父物体给surface)
-                surface.transform.parent = Parent;                      //自己移动到想被交换的位置
-                                                                        //交换完成 位移归零 （交换时是位移的改变 缩放没有变）
+                    string icon = cfgData.GetListConfigElementByID(int.Parse(this.name)).ItemIcon;
+                    surface.GetComponent<UISprite>().spriteName = icon;
+                    UILabel lb = Helper.GetChild<UILabel>(surface.transform.parent, "BagGoodsNumLabel");
+                    lb.text = "1";
+                    lb.gameObject.SetActive(false);
+
+                    if (num <= 0)
+                    {
+                        //Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel").gameObject.SetActive(false);
+                        this.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = "-1";
+                        UISprite sp = surface.transform.parent.GetChild(1).GetComponent<UISprite>();
+                        sp.name = "BagGoods_Item(Clone)";
+                        sp.spriteName = "-1";
+                    }
+
+                    Transform Parent = null;
+                    //开始交换  
+                    Parent = this.transform.parent;         //把撞到的(surface)装备的父物体取出来
+                    this.transform.parent = surface.transform.parent;   //把撞到的物体移动过来(把自己的父物体给surface)
+                    surface.transform.parent = Parent;                      //自己移动到想被交换的位置
+                }
+
+                //交换完成 位移归零 （交换时是位移的改变 缩放没有变）
                 surface.transform.localPosition = transform.localPosition = Vector3.zero;
-                string icon = cfgData.GetListConfigElementByID(int.Parse(this.name)).ItemIcon;
-                surface.GetComponent<UISprite>().spriteName = icon;
-                Debug.LogError("BagGoods           " + icon);
             }
             else
             {

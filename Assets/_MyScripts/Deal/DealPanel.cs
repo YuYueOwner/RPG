@@ -287,15 +287,37 @@ public class DealPanel : UIScene
             go.transform.localScale = Vector3.one;
             go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "-1";
             go.transform.GetChild(1).GetComponent<UISprite>().spriteName = "-1";
-            go.transform.GetChild(0).GetChild(0).GetComponent<UILabel>().text = "";
+            UILabel lb = go.transform.GetChild(0).GetChild(0).GetComponent<UILabel>();
+            lb.text = "0";
+            lb.gameObject.SetActive(false);
             go.transform.GetChild(1).GetComponent<UISprite>().tag = "BagGoods";
         }
         SellGoodsGrid.Reposition();
         SellGoodsGrid.repositionNow = true;
     }
 
-    //ctrl + 鼠标左键把物品从包裹中移动到待售物品区
-    public void RefreshSellGoods(int id, int num)
+    //判断这个id是否存在。存在并且可合并返回true
+    public bool JudgeSellGoodsIdExist(int id)
+    {
+        PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
+        bool isMerge = cfgData.ExistIsCanOverlayByID(id);
+        if (isMerge)
+        {
+            for (int i = 0; i < SellGoodsGrid.transform.childCount; i++)
+            {
+                Transform trans = SellGoodsGrid.transform.GetChild(i);
+                if (trans.GetChild(1).name == id.ToString())
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    //ctrl + 鼠标左键把物品从包裹中移动到待售物品区  isCtrl true代表是Ctrl + 鼠标左键。不走合并
+    public void RefreshSellGoods(int id, int num, bool isCtrl)
     {
         PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
         bool isMerge = cfgData.ExistIsCanOverlayByID(id);
@@ -304,40 +326,46 @@ public class DealPanel : UIScene
             Transform trans = SellGoodsGrid.transform.GetChild(i);
             int name;
             //先判断是否是可合并的物品
-            if (isMerge)
+            if (isMerge && !isCtrl)
             {
                 //可合并
-                if (int.TryParse(trans.GetChild(1).name, out name) == true)
+                if (int.TryParse(trans.GetChild(1).name, out name) == true && name == id)
                 {
-                    if (name == id)
-                    {
-                        UILabel lb_num = trans.GetChild(0).GetChild(0).GetComponent<UILabel>();
-                        lb_num.text = (int.Parse(lb_num.text) + num).ToString();
-                        return;
-                    }
-                }
-
-                for (int j = 0; j < SellGoodsGrid.transform.childCount; j++)
-                {
-                    if (int.TryParse(trans.GetChild(1).name, out name) == false)
-                    {
-                        UISprite sp = trans.GetChild(1).GetComponent<UISprite>();
-                        sp.spriteName = cfgData.GetListConfigElementByID(id).ItemIcon;
-                        sp.name = id.ToString();
-                        trans.GetChild(0).GetChild(0).GetComponent<UILabel>().text = num.ToString();
-
-                        return;
-                    }
+                    UILabel lb_num = trans.GetChild(0).GetChild(0).GetComponent<UILabel>();
+                    Debug.LogError("lb_num.text" + lb_num.text);
+                    lb_num.text = (int.Parse(lb_num.text) + num).ToString();
+                    lb_num.gameObject.SetActive(num > 1);
+                    return;
                 }
             }
             else
             {
                 if (int.TryParse(trans.GetChild(1).name, out name) == false)
                 {
-                    trans.GetChild(1).GetComponent<UISprite>().spriteName = cfgData.GetListConfigElementByID(id).ItemIcon;
-                    trans.GetChild(0).GetChild(0).GetComponent<UILabel>().text = "1";
+                    UISprite sp = trans.GetChild(1).GetComponent<UISprite>();
+                    sp.spriteName = cfgData.GetListConfigElementByID(id).ItemIcon;
+                    sp.name = id.ToString();
+                    UILabel lb = trans.GetChild(0).GetChild(0).GetComponent<UILabel>();
+                    lb.text = num.ToString();
+                    lb.gameObject.SetActive(num > 1);
                     return;
                 }
+            }
+        }
+
+        for (int j = 0; j < SellGoodsGrid.transform.childCount; j++)
+        {
+            Transform trans = SellGoodsGrid.transform.GetChild(j);
+            int name;
+            if (int.TryParse(trans.GetChild(1).name, out name) == false)
+            {
+                UISprite sp = trans.GetChild(1).GetComponent<UISprite>();
+                sp.spriteName = cfgData.GetListConfigElementByID(id).ItemIcon;
+                sp.name = id.ToString();
+                UILabel lb = trans.GetChild(0).GetChild(0).GetComponent<UILabel>();
+                lb.text = num.ToString();
+                lb.gameObject.SetActive(num > 1);
+                return;
             }
         }
     }
