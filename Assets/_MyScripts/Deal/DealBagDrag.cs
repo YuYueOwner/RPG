@@ -131,8 +131,6 @@ public class DealBagDrag : UIDragDropItem
                 Helper.GetChild<UILabel>(surface.transform.parent, "BagGoodsNumLabel").text = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel").text;
 
                 PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
-                string icon = cfgData.GetListConfigElementByID(int.Parse(this.name)).ItemIcon;
-                surface.GetComponent<UISprite>().spriteName = icon;
                 Transform Parent = null;
                 //开始交换  
                 Parent = this.transform.parent;         //把撞到的(surface)装备的父物体取出来
@@ -140,6 +138,8 @@ public class DealBagDrag : UIDragDropItem
                 surface.transform.parent = Parent;                      //自己移动到想被交换的位置
                                                                         //交换完成 位移归零 （交换时是位移的改变 缩放没有变）
                 surface.transform.localPosition = transform.localPosition = Vector3.zero;
+                string icon = cfgData.GetListConfigElementByID(int.Parse(this.name)).ItemIcon;
+                surface.GetComponent<UISprite>().spriteName = icon;
                 Debug.LogError("BagGoods           " + icon);
             }
             else
