@@ -196,22 +196,40 @@ public class DealPanel : UIScene
         MerchantGrid.repositionNow = true;
         MerchantGrid.Reposition();
 
+        RefreshPlayerMoney();
+
         //CreatBagGoods();
         PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
         for (int i = 0; i < BagGoodsGrid.transform.childCount; i++)
         {
             Transform trans = BagGoodsGrid.transform.GetChild(i);
+            UILabel lb = Helper.GetChild<UILabel>(trans, "BagGoodsNumLabel");
+            if (trans.GetChild(1).name == selectDealItemID.ToString())
+            {
+                lb.text = (int.Parse(lb.text) + num).ToString();
+                lb.gameObject.SetActive(true);
+                trans.GetChild(0).gameObject.SetActive(true);
+                return;
+            }
+        }
 
-            UILabel lb = Helper.GetChild<UILabel>(MerchantGrid.GetChild(i), "GoldNumLabel");
+
+        for (int i = 0; i < BagGoodsGrid.transform.childCount; i++)
+        {
+            Transform trans = BagGoodsGrid.transform.GetChild(i);
+
+            UILabel lb = Helper.GetChild<UILabel>(trans, "BagGoodsNumLabel");
             if (int.Parse(lb.text) <= 0)
             {
                 lb.text = num.ToString();
                 trans.GetChild(0).GetComponent<UISprite>().spriteName = cfgData.GetListConfigElementByID(selectDealItemID).ItemIcon;
-                trans.GetChild(1).GetComponent<UISprite>().spriteName = cfgData.GetListConfigElementByID(selectDealItemID).ItemIcon;
+                UISprite sp = trans.GetChild(1).GetComponent<UISprite>();
+                sp.spriteName = cfgData.GetListConfigElementByID(selectDealItemID).ItemIcon;
+                sp.name = selectDealItemID.ToString();
+                return;
             }
         }
 
-        RefreshPlayerMoney();
     }
 
     public void RefreshPlayerMoney()
@@ -345,7 +363,7 @@ public class DealPanel : UIScene
                 if (int.TryParse(trans.GetChild(1).name, out name) == true && name == id)
                 {
                     UILabel lb_num = trans.GetChild(0).GetChild(0).GetComponent<UILabel>();
-                    Debug.LogError("lb_num.text   " + lb_num.text + "    " + num);
+                    //Debug.LogError(i + "     lb_num.text   " + lb_num.text + "    " + num);
                     int sum = int.Parse(lb_num.text) + num;
                     lb_num.text = (sum).ToString();
                     lb_num.gameObject.SetActive(sum > 1);

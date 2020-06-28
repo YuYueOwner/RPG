@@ -79,10 +79,6 @@ public class DealBagDrag : UIDragDropItem
             {
                 lb_num.text = (num - 1 < 0 ? 0 : num - 1).ToString();
                 lb_num.gameObject.SetActive((num - 1) > 1);
-                this.transform.parent.GetChild(0).GetComponent<UISprite>().gameObject.SetActive((num - 1) >= 0);
-                //拖拽的时候数量 -1， 如果物品数 < 1 隐藏脚标
-                lb_num.text = (int.Parse(lb_num.text) - 1).ToString();
-                lb_num.gameObject.SetActive(int.Parse(lb_num.text) < 1);
                 //如果当前物品是一件的话，拖拽的时候隐藏背包中的图标
                 this.transform.parent.GetChild(0).gameObject.SetActive(int.Parse(lb_num.text) > 0);
             }
@@ -104,7 +100,6 @@ public class DealBagDrag : UIDragDropItem
         }
 
         this.GetComponent<UISprite>().depth = 4;
-        surface.name = this.name;
         if (this.tag == "Goods")
         {
             if (surface.tag == "Cell")
@@ -145,6 +140,8 @@ public class DealBagDrag : UIDragDropItem
                 lb.text = "0";
                 lb.gameObject.SetActive(false);
                 lbSurface.gameObject.SetActive(true);
+
+                surface.name = this.name;
             }
             //如果放下时撞到的物品是空格子
             else if (surface.tag == "BagCell")
@@ -165,16 +162,18 @@ public class DealBagDrag : UIDragDropItem
 
                 if (isMerge)
                 {
+                    int id = 0;
                     if (num <= 0)
                     {
                         //Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel").gameObject.SetActive(false);
                         this.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = "-1";
-                        UISprite sp = surface.transform.parent.GetChild(1).GetComponent<UISprite>();
+                        UISprite sp = this.transform.parent.GetChild(1).GetComponent<UISprite>();
+                        id = int.Parse(this.name);
                         sp.name = "BagGoods_Item(Clone)";
                         sp.spriteName = "-1";
                     }
-                    DealPanel._instance.RefreshSellGoods(int.Parse(this.name), 1, false);
-                    Debug.LogError("合并" + num);
+                    //Debug.LogError(id + "   合并   " + num);
+                    DealPanel._instance.RefreshSellGoods(id, 1, false);
                 }
                 else
                 {
@@ -201,10 +200,12 @@ public class DealBagDrag : UIDragDropItem
                     //开始交换  
                     Parent = this.transform.parent;         //把撞到的(surface)装备的父物体取出来
                     this.transform.parent = surface.transform.parent;   //把撞到的物体移动过来(把自己的父物体给surface)
-                    surface.transform.parent = Parent;                      //自己移动到想被交换的位置
-                    Debug.LogError("交换");
+                    surface.transform.parent = Parent;
+                    //自己移动到想被交换的位置
+                    //Debug.LogError("交换");
                 }
 
+                surface.name = this.name;
                 //交换完成 位移归零 （交换时是位移的改变 缩放没有变）
                 surface.transform.localPosition = transform.localPosition = Vector3.zero;
             }
@@ -238,6 +239,7 @@ public class DealBagDrag : UIDragDropItem
                 surface.transform.parent = Parent;                      //自己移动到想被交换的位置
                                                                         //交换完成 位移归零 （交换时是位移的改变 缩放没有变）
                 surface.transform.localPosition = transform.localPosition = Vector3.zero;
+                surface.name = this.name;
             }
             else
             {
@@ -256,6 +258,7 @@ public class DealBagDrag : UIDragDropItem
             UILabel lb_num = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel");
             lb_num.text = int.Parse(lb_num.text) + 1 + "";
         }
+
 
     }
 }
