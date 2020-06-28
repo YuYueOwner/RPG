@@ -163,7 +163,7 @@ public class DealPanel : UIScene
         RefeshMerchantGridRedMask(selectDealItemID, num);
     }
 
-    //卖完物品后刷新，判断当前元宝数是否买得起商人物品，是否显示红色遮罩和红色字体
+    //买完物品后刷新，判断当前元宝数是否买得起商人物品，是否显示红色遮罩和红色字体
     public void RefeshMerchantGridRedMask(int selectDealItemID, int num)
     {
         int PlayerMoney = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().PlayerMoney;
@@ -196,7 +196,20 @@ public class DealPanel : UIScene
         MerchantGrid.repositionNow = true;
         MerchantGrid.Reposition();
 
-        CreatBagGoods();
+        //CreatBagGoods();
+        PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
+        for (int i = 0; i < BagGoodsGrid.transform.childCount; i++)
+        {
+            Transform trans = BagGoodsGrid.transform.GetChild(i);
+
+            UILabel lb = Helper.GetChild<UILabel>(MerchantGrid.GetChild(i), "GoldNumLabel");
+            if (int.Parse(lb.text) <= 0)
+            {
+                lb.text = num.ToString();
+                trans.GetChild(0).GetComponent<UISprite>().spriteName = cfgData.GetListConfigElementByID(selectDealItemID).ItemIcon;
+                trans.GetChild(1).GetComponent<UISprite>().spriteName = cfgData.GetListConfigElementByID(selectDealItemID).ItemIcon;
+            }
+        }
 
         RefreshPlayerMoney();
     }
@@ -332,9 +345,10 @@ public class DealPanel : UIScene
                 if (int.TryParse(trans.GetChild(1).name, out name) == true && name == id)
                 {
                     UILabel lb_num = trans.GetChild(0).GetChild(0).GetComponent<UILabel>();
-                    Debug.LogError("lb_num.text" + lb_num.text);
-                    lb_num.text = (int.Parse(lb_num.text) + num).ToString();
-                    lb_num.gameObject.SetActive(num > 1);
+                    Debug.LogError("lb_num.text   " + lb_num.text + "    " + num);
+                    int sum = int.Parse(lb_num.text) + num;
+                    lb_num.text = (sum).ToString();
+                    lb_num.gameObject.SetActive(sum > 1);
                     return;
                 }
             }

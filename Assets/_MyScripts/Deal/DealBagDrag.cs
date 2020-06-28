@@ -74,7 +74,7 @@ public class DealBagDrag : UIDragDropItem
             int num = 0;
             if (int.TryParse(lb_num.text, out num) == true)
             {
-                lb_num.text = (num - 1).ToString();
+                lb_num.text = (num - 1 < 0 ? 0 : num - 1).ToString();
                 lb_num.gameObject.SetActive((num - 1) > 1);
                 this.transform.parent.GetChild(0).GetComponent<UISprite>().gameObject.SetActive((num - 1) >= 0);
             }
@@ -110,13 +110,33 @@ public class DealBagDrag : UIDragDropItem
             //如果当下时撞到的是装备
             else if (surface.tag == "Goods")
             {
-                Transform Parent = null;
-                //开始交换  
-                Parent = this.transform.parent;         //把撞到的(surface)装备的父物体取出来
-                this.transform.parent = surface.transform.parent;   //把撞到的物体移动过来(把自己的父物体给surface)
-                surface.transform.parent = Parent;                      //自己移动到想被交换的位置
-                                                                        //交换完成 位移归零 （交换时是位移的改变 缩放没有变）
-                surface.transform.localPosition = transform.localPosition = Vector3.zero;
+                //Transform Parent = null;
+                ////开始交换  
+                //Parent = this.transform.parent;         //把撞到的(surface)装备的父物体取出来
+                //this.transform.parent = surface.transform.parent;   //把撞到的物体移动过来(把自己的父物体给surface)
+                //surface.transform.parent = Parent;                      //自己移动到想被交换的位置
+                //                                                        //交换完成 位移归零 （交换时是位移的改变 缩放没有变）
+                //surface.transform.localPosition = transform.localPosition = Vector3.zero;
+
+                int id = int.Parse(this.name);
+                PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
+                UILabel lb = this.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
+
+                string icon = cfgData.GetListConfigElementByID(int.Parse(this.name)).ItemIcon;
+                surface.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = icon;
+                UISprite spSurface = surface.transform.parent.GetChild(1).GetComponent<UISprite>();
+                spSurface.spriteName = icon;
+                spSurface.name = id.ToString();
+                UILabel lbSurface = surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
+                lbSurface.text = int.Parse(lb.text) + 1 + "";
+
+                this.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = "-1";
+                UISprite sp = this.transform.parent.GetChild(1).GetComponent<UISprite>();
+                sp.spriteName = "-1";
+                sp.name = "BagGoods_Item(Clone)";
+                lb.text = "0";
+                lb.gameObject.SetActive(false);
+                lbSurface.gameObject.SetActive(true);
             }
             //如果放下时撞到的物品是空格子
             else if (surface.tag == "BagCell")
@@ -146,6 +166,7 @@ public class DealBagDrag : UIDragDropItem
                         sp.spriteName = "-1";
                     }
                     DealPanel._instance.RefreshSellGoods(int.Parse(this.name), 1, false);
+                    Debug.LogError("合并" + num);
                 }
                 else
                 {
@@ -173,6 +194,7 @@ public class DealBagDrag : UIDragDropItem
                     Parent = this.transform.parent;         //把撞到的(surface)装备的父物体取出来
                     this.transform.parent = surface.transform.parent;   //把撞到的物体移动过来(把自己的父物体给surface)
                     surface.transform.parent = Parent;                      //自己移动到想被交换的位置
+                    Debug.LogError("交换");
                 }
 
                 //交换完成 位移归零 （交换时是位移的改变 缩放没有变）
@@ -182,6 +204,9 @@ public class DealBagDrag : UIDragDropItem
             {
                 //回到原来的位置
                 transform.localPosition = Vector3.zero;
+                UILabel lb_num = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel");
+                lb_num.text = int.Parse(lb_num.text) + 1 + "";
+                Debug.LogError("回到原来的位置");
             }
         }
         else if (this.tag == "BagGoods")
