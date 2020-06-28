@@ -70,6 +70,7 @@ public class DealBagDrag : UIDragDropItem
         if (this.tag == "Goods")
         {
             isMerge = DealPanel._instance.JudgeSellGoodsIdExist(int.Parse(this.name));
+            this.GetComponent<UISprite>().depth = 100;
 
             UILabel lb_num = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel");
             int num = 0;
@@ -186,6 +187,8 @@ public class DealBagDrag : UIDragDropItem
             {
                 //回到原来的位置
                 transform.localPosition = Vector3.zero;
+                //物品数量加回去
+
             }
         }
         else if (this.tag == "BagGoods")
@@ -213,12 +216,15 @@ public class DealBagDrag : UIDragDropItem
             {
                 //回到原来的位置
                 transform.localPosition = Vector3.zero;
+                //物品数量加回去
             }
         }
         else
         {
             //回到原来的位置
             transform.localPosition = Vector3.zero;
+            //物品数量加回去
+
         }
 
     }
