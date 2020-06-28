@@ -66,17 +66,25 @@ public class DealBagDrag : UIDragDropItem
         base.StartDragging();
         StopAllCoroutines();
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_GoodsInfoPanel, false);
+
         if (this.tag == "Goods")
         {
             isMerge = DealPanel._instance.JudgeSellGoodsIdExist(int.Parse(this.name));
+            this.GetComponent<UISprite>().depth = 100;
 
             UILabel lb_num = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel");
             int num = 0;
+            //如果当前拖拽的格子里是有物品的
             if (int.TryParse(lb_num.text, out num) == true)
             {
                 lb_num.text = (num - 1 < 0 ? 0 : num - 1).ToString();
                 lb_num.gameObject.SetActive((num - 1) > 1);
                 this.transform.parent.GetChild(0).GetComponent<UISprite>().gameObject.SetActive((num - 1) >= 0);
+                //拖拽的时候数量 -1， 如果物品数 < 1 隐藏脚标
+                lb_num.text = (int.Parse(lb_num.text) - 1).ToString();
+                lb_num.gameObject.SetActive(int.Parse(lb_num.text) < 1);
+                //如果当前物品是一件的话，拖拽的时候隐藏背包中的图标
+                this.transform.parent.GetChild(0).gameObject.SetActive(int.Parse(lb_num.text) > 0);
             }
         }
     }
@@ -205,6 +213,7 @@ public class DealBagDrag : UIDragDropItem
                 //回到原来的位置
                 transform.localPosition = Vector3.zero;
                 UILabel lb_num = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel");
+                //物品数量加回去
                 lb_num.text = int.Parse(lb_num.text) + 1 + "";
                 Debug.LogError("回到原来的位置");
             }
@@ -234,12 +243,16 @@ public class DealBagDrag : UIDragDropItem
             {
                 //回到原来的位置
                 transform.localPosition = Vector3.zero;
+                //物品数量加回去
+                lb_num.text = int.Parse(lb_num.text) + 1 + "";
             }
         }
         else
         {
             //回到原来的位置
             transform.localPosition = Vector3.zero;
+            //物品数量加回去
+            lb_num.text = int.Parse(lb_num.text) + 1 + "";
         }
 
     }
