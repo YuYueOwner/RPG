@@ -212,8 +212,8 @@ public class DealBagDrag : UIDragDropItem
             {
                 //回到原来的位置
                 transform.localPosition = Vector3.zero;
-                UILabel lb_num = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel");
                 //物品数量加回去
+                UILabel lb_num = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel");
                 lb_num.text = int.Parse(lb_num.text) + 1 + "";
                 Debug.LogError("回到原来的位置");
             }
@@ -244,6 +244,7 @@ public class DealBagDrag : UIDragDropItem
                 //回到原来的位置
                 transform.localPosition = Vector3.zero;
                 //物品数量加回去
+                UILabel lb_num = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel");
                 lb_num.text = int.Parse(lb_num.text) + 1 + "";
             }
         }
@@ -252,6 +253,7 @@ public class DealBagDrag : UIDragDropItem
             //回到原来的位置
             transform.localPosition = Vector3.zero;
             //物品数量加回去
+            UILabel lb_num = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel");
             lb_num.text = int.Parse(lb_num.text) + 1 + "";
         }
 
