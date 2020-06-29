@@ -123,7 +123,26 @@ public class DealPanel : UIScene
 
     private void Sure()
     {
-        Debug.LogError("要购买物品的数量:" + buyNum);
+        MerchantGoodsConfig cfgData = DataTableManager.Instance.GetConfig<MerchantGoodsConfig>("MerchantGoods");
+        int sum = 0;
+        for (int i = 0; i < SellGoodsGrid.transform.childCount; i++)
+        {
+            Transform trans = SellGoodsGrid.transform.GetChild(i);
+            int id;
+            if (int.TryParse(trans.GetChild(1).name, out id) == true)
+            {
+                int num = int.Parse(trans.GetChild(0).GetChild(0).GetComponent<UILabel>().text);
+                var data = cfgData.GetListConfigElementByID("1", id);
+                sum += num * data.SellPrice;
+                //Debug.LogError("总价格为:" + sum);
+            }
+        }
+        int PlayerMoney = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().PlayerMoney;
+        int price = PlayerMoney + sum;
+        GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SetPlayerMoney(price);
+        RefreshPlayerMoney();
+
+        CreatSellGoods();
     }
 
     private void Back()
