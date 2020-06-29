@@ -66,6 +66,7 @@ public class DealPanel : UIScene
         CreatMerchantGoods();
         CreatBagGoods();
         CreatSellGoods();
+        SellTotalNumLabel.text = "0";
     }
 
     //生成左侧商人物品区中的物品
@@ -125,6 +126,7 @@ public class DealPanel : UIScene
     {
         MerchantGoodsConfig cfgData = DataTableManager.Instance.GetConfig<MerchantGoodsConfig>("MerchantGoods");
         int sum = 0;
+        string npcType = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().NpcType.ToString();
         for (int i = 0; i < SellGoodsGrid.transform.childCount; i++)
         {
             Transform trans = SellGoodsGrid.transform.GetChild(i);
@@ -132,7 +134,7 @@ public class DealPanel : UIScene
             if (int.TryParse(trans.GetChild(1).name, out id) == true)
             {
                 int num = int.Parse(trans.GetChild(0).GetChild(0).GetComponent<UILabel>().text);
-                var data = cfgData.GetListConfigElementByID("1", id);
+                var data = cfgData.GetListConfigElementByID(npcType, id);
                 sum += num * data.SellPrice;
                 //Debug.LogError("总价格为:" + sum);
             }
@@ -301,7 +303,7 @@ public class DealPanel : UIScene
                 //背包中物品数量
                 itemNum = data.PackageItemNum > 1 ? data.PackageItemNum : 1;
                 lb_num.text = itemNum.ToString();
-
+                //Debug.LogError(data.PackageItemName + "     " + data.PackageItemNum + "    " + itemNum);
                 sp.transform.name = data.PackageItemID.ToString();
                 sp1.transform.name = data.PackageItemID.ToString();
                 go.name = data.PackageItemID.ToString();
@@ -365,9 +367,18 @@ public class DealPanel : UIScene
         return false;
     }
 
-    //ctrl + 鼠标左键把物品从包裹中移动到待售物品区
+    //ctrl + 鼠标左键把物品从包裹中移动到待售物品区  isCtrl true代表是Ctrl + 鼠标左键
     public void RefreshBagGoods(int id, int num)
     {
+        MerchantGoodsConfig merCfgData = DataTableManager.Instance.GetConfig<MerchantGoodsConfig>("MerchantGoods");
+        string npcType = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().NpcType.ToString();
+        int sumPrice = int.Parse(SellTotalNumLabel.text);
+        var data = merCfgData.GetListConfigElementByID(npcType, id);
+        sumPrice -= data.SellPrice * num;
+        SellTotalNumLabel.text = sumPrice + "";
+
+        //Debug.LogError(id + "      " + num + "    " + sumPrice + "   " + data.SellPrice);
+
         PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
         for (int j = 0; j < BagGoodsGrid.transform.childCount; j++)
         {
@@ -386,11 +397,22 @@ public class DealPanel : UIScene
                 return;
             }
         }
+
+
     }
 
     //ctrl + 鼠标左键把物品从包裹中移动到待售物品区  isCtrl true代表是Ctrl + 鼠标左键。不走合并
     public void RefreshSellGoods(int id, int num, bool isCtrl)
     {
+        MerchantGoodsConfig merCfgData = DataTableManager.Instance.GetConfig<MerchantGoodsConfig>("MerchantGoods");
+        string npcType = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().NpcType.ToString();
+        int sumPrice = int.Parse(SellTotalNumLabel.text);
+        var data = merCfgData.GetListConfigElementByID(npcType, id);
+        sumPrice += data.SellPrice * num;
+        SellTotalNumLabel.text = sumPrice + "";
+
+        //Debug.LogError(id + "      " + num + "    " + sumPrice + "   " + data.SellPrice);
+
         PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
         bool isMerge = cfgData.ExistIsCanOverlayByID(id);
         for (int i = 0; i < SellGoodsGrid.transform.childCount; i++)

@@ -64,6 +64,14 @@ public class DealBagDrag : UIDragDropItem
     public override void StartDragging()
     {
         base.StartDragging();
+        //判断是否是空格子，是的话return
+        int thisName;
+        if (int.TryParse(transform.parent.GetChild(1).name, out thisName) == false)
+        {
+            this.transform.localPosition = Vector3.zero;
+            return;
+        }
+
         StopAllCoroutines();
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_GoodsInfoPanel, false);
 
@@ -77,7 +85,8 @@ public class DealBagDrag : UIDragDropItem
             //如果当前拖拽的格子里是有物品的
             if (int.TryParse(lb_num.text, out num) == true)
             {
-                lb_num.text = (num - 1 < 0 ? 0 : num - 1).ToString();
+                //lb_num.text = (num - 1 < 0 ? 0 : num - 1).ToString();
+                lb_num.text = (num - 1).ToString();
                 lb_num.gameObject.SetActive((num - 1) > 1);
                 //如果当前物品是一件的话，拖拽的时候隐藏背包中的图标
                 this.transform.parent.GetChild(0).gameObject.SetActive(int.Parse(lb_num.text) > 0);
@@ -99,6 +108,14 @@ public class DealBagDrag : UIDragDropItem
             return;
         }
 
+        //判断是否是空格子，是的话return
+        int thisName;
+        if (int.TryParse(transform.parent.GetChild(1).name, out thisName) == false)
+        {
+            this.transform.localPosition = Vector3.zero;
+            return;
+        }
+
         this.GetComponent<UISprite>().depth = 4;
         if (this.tag == "Goods")
         {
@@ -113,14 +130,6 @@ public class DealBagDrag : UIDragDropItem
             //如果当下时撞到的是装备
             else if (surface.tag == "Goods")
             {
-                //Transform Parent = null;
-                ////开始交换  
-                //Parent = this.transform.parent;         //把撞到的(surface)装备的父物体取出来
-                //this.transform.parent = surface.transform.parent;   //把撞到的物体移动过来(把自己的父物体给surface)
-                //surface.transform.parent = Parent;                      //自己移动到想被交换的位置
-                //                                                        //交换完成 位移归零 （交换时是位移的改变 缩放没有变）
-                //surface.transform.localPosition = transform.localPosition = Vector3.zero;
-
                 int id = int.Parse(this.name);
                 PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
                 UILabel lb = this.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
@@ -136,12 +145,15 @@ public class DealBagDrag : UIDragDropItem
                 this.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = "-1";
                 UISprite sp = this.transform.parent.GetChild(1).GetComponent<UISprite>();
                 sp.spriteName = "-1";
-                sp.name = "BagGoods_Item(Clone)";
+                sp.name = "GoodsSprite1";
                 lb.text = "0";
                 lb.gameObject.SetActive(false);
                 lbSurface.gameObject.SetActive(true);
 
-                surface.name = this.name;
+                surface.name = id.ToString();
+                transform.name = "BagGoods_Item(Clone)";
+
+                surface.transform.localPosition = transform.localPosition = Vector3.one;
             }
             //如果放下时撞到的物品是空格子
             else if (surface.tag == "BagCell")
@@ -159,7 +171,7 @@ public class DealBagDrag : UIDragDropItem
             else if (surface.tag == "BagGoods")
             {
                 int surfaceNum;
-                if (int.Parse(surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>().text) <= 0)
+                if (int.Parse(surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>().text) <= 0 || this.name == surface.name)
                 {
                     // 碰撞到的格子没有物品
                     int num = int.Parse(Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel").text);
@@ -167,12 +179,11 @@ public class DealBagDrag : UIDragDropItem
                     if (isMerge)
                     {
                         int id = 0;
+                        id = int.Parse(this.name);
                         if (num <= 0)
                         {
-                            //Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel").gameObject.SetActive(false);
                             this.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = "-1";
                             UISprite sp = this.transform.parent.GetChild(1).GetComponent<UISprite>();
-                            id = int.Parse(this.name);
                             sp.name = "GoodsSprite1";
                             sp.spriteName = "-1";
                         }
@@ -207,9 +218,9 @@ public class DealBagDrag : UIDragDropItem
                         surface.transform.parent = Parent;
                         //自己移动到想被交换的位置
                         //Debug.LogError("交换");
+                        surface.name = this.name;
                     }
 
-                    surface.name = this.name;
                     //交换完成 位移归零 （交换时是位移的改变 缩放没有变）
                     surface.transform.localPosition = transform.localPosition = Vector3.zero;
                 }
