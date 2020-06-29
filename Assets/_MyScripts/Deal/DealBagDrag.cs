@@ -173,7 +173,7 @@ public class DealBagDrag : UIDragDropItem
                             this.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = "-1";
                             UISprite sp = this.transform.parent.GetChild(1).GetComponent<UISprite>();
                             id = int.Parse(this.name);
-                            sp.name = "BagGoods_Item(Clone)";
+                            sp.name = "GoodsSprite1";
                             sp.spriteName = "-1";
                         }
                         //Debug.LogError(id + "   合并   " + num);
@@ -196,7 +196,7 @@ public class DealBagDrag : UIDragDropItem
                             //Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel").gameObject.SetActive(false);
                             this.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = "-1";
                             UISprite sp = surface.transform.parent.GetChild(1).GetComponent<UISprite>();
-                            sp.name = "BagGoods_Item(Clone)";
+                            sp.name = "GoodsSprite1";
                             sp.spriteName = "-1";
                         }
 
@@ -254,14 +254,15 @@ public class DealBagDrag : UIDragDropItem
                 }
                 else
                 {
+                    this.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = "-1";
                     sp.spriteName = "-1";
-                    sp.name = "BagGoods_Item(Clone)";
+                    sp.name = "GoodsSprite1";
                 }
                 lb.text = (num - 1) + "";
                 surface.GetComponent<UISprite>().spriteName = icon;
                 surface.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = icon;
                 UILabel lb1 = surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
-                lb1.text = num.ToString();
+                lb1.text = int.Parse(lb1.text) + 1 + "";
                 lb1.gameObject.SetActive(num > 1);
                 surface.name = this.name;
                 transform.localPosition = Vector3.zero;

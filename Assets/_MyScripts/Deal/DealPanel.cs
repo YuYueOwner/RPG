@@ -365,6 +365,28 @@ public class DealPanel : UIScene
         return false;
     }
 
+    //ctrl + 鼠标左键把物品从包裹中移动到待售物品区
+    public void RefreshBagGoods(int id, int num)
+    {
+        PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
+        for (int j = 0; j < BagGoodsGrid.transform.childCount; j++)
+        {
+            Transform trans = BagGoodsGrid.transform.GetChild(j);
+            int name;
+            if (int.TryParse(trans.GetChild(1).name, out name) == false)
+            {
+                string icon = cfgData.GetListConfigElementByID(id).ItemIcon;
+                trans.GetChild(0).GetComponent<UISprite>().spriteName = icon;
+                UISprite sp = trans.GetChild(1).GetComponent<UISprite>();
+                sp.spriteName = icon;
+                sp.name = id.ToString();
+                UILabel lb = trans.GetChild(0).GetChild(0).GetComponent<UILabel>();
+                lb.text = num.ToString();
+                lb.gameObject.SetActive(num > 1);
+                return;
+            }
+        }
+    }
 
     //ctrl + 鼠标左键把物品从包裹中移动到待售物品区  isCtrl true代表是Ctrl + 鼠标左键。不走合并
     public void RefreshSellGoods(int id, int num, bool isCtrl)
@@ -393,8 +415,10 @@ public class DealPanel : UIScene
             {
                 if (int.TryParse(trans.GetChild(1).name, out name) == false)
                 {
+                    string icon = cfgData.GetListConfigElementByID(id).ItemIcon;
+                    trans.GetChild(0).GetComponent<UISprite>().spriteName = icon;
                     UISprite sp = trans.GetChild(1).GetComponent<UISprite>();
-                    sp.spriteName = cfgData.GetListConfigElementByID(id).ItemIcon;
+                    sp.spriteName = icon;
                     sp.name = id.ToString();
                     UILabel lb = trans.GetChild(0).GetChild(0).GetComponent<UILabel>();
                     lb.text = num.ToString();
@@ -410,8 +434,10 @@ public class DealPanel : UIScene
             int name;
             if (int.TryParse(trans.GetChild(1).name, out name) == false)
             {
+                string icon = cfgData.GetListConfigElementByID(id).ItemIcon;
+                trans.GetChild(0).GetComponent<UISprite>().spriteName = icon;
                 UISprite sp = trans.GetChild(1).GetComponent<UISprite>();
-                sp.spriteName = cfgData.GetListConfigElementByID(id).ItemIcon;
+                sp.spriteName = icon;
                 sp.name = id.ToString();
                 UILabel lb = trans.GetChild(0).GetChild(0).GetComponent<UILabel>();
                 lb.text = num.ToString();
