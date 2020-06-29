@@ -437,6 +437,7 @@ Transform:
   - {fileID: 1559160546}
   - {fileID: 627669229}
   - {fileID: 951948821}
+  - {fileID: 1336262482058706747}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -929,6 +930,75 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce441755eb73abd44bc71f3a1b959052, type: 3}
+--- !u!1001 &1313044514148608584
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1204028580}
+    m_Modifications:
+    - target: {fileID: 50529854999762290, guid: 8ffa3a6117cec2147aa2a298c40666f8,
+        type: 3}
+      propertyPath: m_Name
+      value: QuitDealPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 50529854999762291, guid: 8ffa3a6117cec2147aa2a298c40666f8,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50529854999762291, guid: 8ffa3a6117cec2147aa2a298c40666f8,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50529854999762291, guid: 8ffa3a6117cec2147aa2a298c40666f8,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50529854999762291, guid: 8ffa3a6117cec2147aa2a298c40666f8,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50529854999762291, guid: 8ffa3a6117cec2147aa2a298c40666f8,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50529854999762291, guid: 8ffa3a6117cec2147aa2a298c40666f8,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50529854999762291, guid: 8ffa3a6117cec2147aa2a298c40666f8,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 50529854999762291, guid: 8ffa3a6117cec2147aa2a298c40666f8,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 50529854999762291, guid: 8ffa3a6117cec2147aa2a298c40666f8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50529854999762291, guid: 8ffa3a6117cec2147aa2a298c40666f8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50529854999762291, guid: 8ffa3a6117cec2147aa2a298c40666f8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8ffa3a6117cec2147aa2a298c40666f8, type: 3}
 --- !u!1001 &1336262480960058425
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -936,11 +1006,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1204028580}
     m_Modifications:
-    - target: {fileID: 1336262481641988653, guid: f0c2898b04c1e444e930162c7601736f,
-        type: 3}
-      propertyPath: m_Name
-      value: BuyGoodsOnlyOnePanel
-      objectReference: {fileID: 0}
     - target: {fileID: 1336262481641988652, guid: f0c2898b04c1e444e930162c7601736f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -996,8 +1061,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1336262481641988653, guid: f0c2898b04c1e444e930162c7601736f,
+        type: 3}
+      propertyPath: m_Name
+      value: BuyGoodsOnlyOnePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1336262481641988653, guid: f0c2898b04c1e444e930162c7601736f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0c2898b04c1e444e930162c7601736f, type: 3}
+--- !u!4 &1336262482058706747 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 50529854999762291, guid: 8ffa3a6117cec2147aa2a298c40666f8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1313044514148608584}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1535722295529105771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1005,11 +1086,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1204028580}
     m_Modifications:
-    - target: {fileID: 1535722295861283115, guid: 54afae25280c01743ab258faabc6f10d,
-        type: 3}
-      propertyPath: m_Name
-      value: DealPanel
-      objectReference: {fileID: 0}
     - target: {fileID: 1535722295861283114, guid: 54afae25280c01743ab258faabc6f10d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1065,6 +1141,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1535722295861283115, guid: 54afae25280c01743ab258faabc6f10d,
+        type: 3}
+      propertyPath: m_Name
+      value: DealPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535722295861283115, guid: 54afae25280c01743ab258faabc6f10d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54afae25280c01743ab258faabc6f10d, type: 3}
 --- !u!1001 &1954295389687327541
@@ -1074,11 +1160,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1204028580}
     m_Modifications:
-    - target: {fileID: 1954295389227471833, guid: e75ed202b02e6e04ea04dbde0f0c4c5d,
-        type: 3}
-      propertyPath: m_Name
-      value: BuyGoodsFailedPanel
-      objectReference: {fileID: 0}
     - target: {fileID: 1954295389227471832, guid: e75ed202b02e6e04ea04dbde0f0c4c5d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1133,6 +1214,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954295389227471833, guid: e75ed202b02e6e04ea04dbde0f0c4c5d,
+        type: 3}
+      propertyPath: m_Name
+      value: BuyGoodsFailedPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954295389227471833, guid: e75ed202b02e6e04ea04dbde0f0c4c5d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e75ed202b02e6e04ea04dbde0f0c4c5d, type: 3}
@@ -1377,11 +1468,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1204028580}
     m_Modifications:
-    - target: {fileID: 4920669277240897421, guid: cd51bf9f0154fd144a8db54aa387340a,
-        type: 3}
-      propertyPath: m_Name
-      value: BuyGoodsPanel
-      objectReference: {fileID: 0}
     - target: {fileID: 4920669277240897422, guid: cd51bf9f0154fd144a8db54aa387340a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1436,6 +1522,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4920669277240897421, guid: cd51bf9f0154fd144a8db54aa387340a,
+        type: 3}
+      propertyPath: m_Name
+      value: BuyGoodsPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 4920669277240897421, guid: cd51bf9f0154fd144a8db54aa387340a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd51bf9f0154fd144a8db54aa387340a, type: 3}

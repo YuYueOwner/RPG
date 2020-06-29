@@ -147,8 +147,8 @@ public class DealPanel : UIScene
 
     private void Back()
     {
-        UIManager.Instance.SetVisible(UIPanelName.SceneStart_DealPanel, false);
-        UIManager.Instance.SetVisible(UIPanelName.SceneStart_OpenBagPanel, true);
+        AudioManager.Instance.PlaySound(1);
+        UIManager.Instance.SetVisible(UIPanelName.SceneStart_QuitDealPanel, true);
     }
 
     //还原物品选中状态

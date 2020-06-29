@@ -19,7 +19,7 @@ public class UIPanelName
     public const string SceneStart_BuyGoodsPanel = "BuyGoodsPanel";
     public const string SceneStart_BuyGoodsFailedPanel = "BuyGoodsFailedPanel";
     public const string SceneStart_BuyGoodsOnlyOnePanel = "BuyGoodsOnlyOnePanel";
-
+    public const string SceneStart_QuitDealPanel = "QuitDealPanel";
 }
 public class UIManager : MonoSingleton<UIManager>
 {
