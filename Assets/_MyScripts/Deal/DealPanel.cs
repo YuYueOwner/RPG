@@ -211,9 +211,14 @@ public class DealPanel : UIScene
                 label.text = (int.Parse(label.text) - num).ToString();
                 if (int.Parse(label.text) == 0)
                 {
-                    //MerchantGrid.GetChild(i).gameObject.SetActive(false);
                     GameObject.Destroy(MerchantGrid.GetChild(i).gameObject);
                 }
+
+                if (int.Parse(label.text) == 1)
+                {
+                    Helper.GetChild(MerchantGrid.GetChild(i), "GoodsNumLabel").SetActive(false);
+                }
+
             }
         }
         MerchantGrid.repositionNow = true;
