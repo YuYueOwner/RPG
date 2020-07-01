@@ -20,6 +20,8 @@ public class BagGoodsItem : MonoBehaviour
     void OnClick()
     {
         int id = 0, num = 0;
+        //判断点击的如果是空格子 return
+        if (!int.TryParse(this.name, out id)) return;
         id = int.Parse(this.name);
         UILabel lb_num = transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
         num = int.Parse(lb_num.text);
