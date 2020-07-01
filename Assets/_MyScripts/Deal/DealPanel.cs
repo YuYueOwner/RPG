@@ -145,7 +145,7 @@ public class DealPanel : UIScene
         int price = PlayerMoney + sum;
         GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SetPlayerMoney(price);
         RefreshPlayerMoney();
-
+        SellTotalNumLabel.text = "0";
         CreatSellGoods();
     }
 
