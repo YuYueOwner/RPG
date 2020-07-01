@@ -102,6 +102,8 @@ public class DealPanel : UIScene
                     Helper.GetChild<UILabel>(goMerchant.transform, "GoldNumLabel").text = data.SellPrice.ToString();
                     //物品数量
                     Helper.GetChild<UILabel>(goMerchant.transform, "GoodsNumLabel").text = data.ItemNum.ToString();
+                    //如果物品数量是1，隐藏
+                    Helper.GetChild(goMerchant.transform, "GoodsNumLabel").SetActive(data.ItemNum != 1);
                 }
 
 
