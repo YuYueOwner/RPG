@@ -60,7 +60,6 @@ public class BagGoodsItem : MonoBehaviour
             if (transform.tag == "Goods")
             {
                 DealPanel._instance.RefreshSellGoods(id, 1, false);
-
             }
             else if (transform.tag == "BagGoods")
             {
@@ -71,9 +70,14 @@ public class BagGoodsItem : MonoBehaviour
                 Debug.LogError("当前物品tag错误");
                 return;
             }
-            if ((num - 1) > 0)
+            if ((num - 1) > 0)//如果还有物品
             {
                 lb_num.text = (num - 1) + "";
+
+                if ((num - 1) == 1)
+                {
+                    lb_num.gameObject.SetActive(false);
+                }
             }
             else
             {
