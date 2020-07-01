@@ -143,7 +143,8 @@ public class DealBagDrag : UIDragDropItem
                     spSurface.spriteName = icon;
                     spSurface.name = id.ToString();
                     UILabel lbSurface = surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
-                    lbSurface.text = int.Parse(lb.text) + 1 + "";
+                    int sum = int.Parse(lb.text) + 1;
+                    lbSurface.text = sum.ToString();
 
                     this.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = "-1";
                     UISprite sp = this.transform.parent.GetChild(1).GetComponent<UISprite>();
@@ -151,7 +152,8 @@ public class DealBagDrag : UIDragDropItem
                     sp.name = "GoodsSprite1";
                     lb.text = "0";
                     lb.gameObject.SetActive(false);
-                    lbSurface.gameObject.SetActive(true);
+                    lbSurface.gameObject.SetActive(sum > 1);
+                    lbSurface.parent.gameObject.SetActive(sum > 0);
 
                     surface.name = id.ToString();
                     transform.name = "BagGoods_Item(Clone)";
@@ -160,6 +162,17 @@ public class DealBagDrag : UIDragDropItem
                 }
                 else
                 {
+                    UILabel lb = transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
+                    UILabel lb1 = surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
+                    int num = int.Parse(lb.text) + 1;
+                    int num1 = int.Parse(lb1.text);
+                    lb.text = num1.ToString();
+                    lb.gameObject.SetActive(num1 > 1);
+                    lb.parent.gameObject.SetActive(num1 > 0);
+                    lb1.text = num.ToString();
+                    lb1.gameObject.SetActive(num > 1);
+                    lb1.parent.gameObject.SetActive(num > 0);
+
                     Transform Parent = null;
                     //开始交换  
                     Parent = this.transform.parent;         //把撞到的(surface)装备的父物体取出来
@@ -250,7 +263,9 @@ public class DealBagDrag : UIDragDropItem
                 transform.localPosition = Vector3.zero;
                 //物品数量加回去
                 UILabel lb_num = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel");
-                lb_num.text = int.Parse(lb_num.text) + 1 + "";
+                int sum = int.Parse(lb_num.text) + 1;
+                lb_num.text = sum.ToString();
+                lb_num.gameObject.SetActive(sum > 1);
                 Debug.LogError("回到原来的位置");
             }
         }
@@ -299,7 +314,9 @@ public class DealBagDrag : UIDragDropItem
                 transform.localPosition = Vector3.zero;
                 //物品数量加回去
                 UILabel lb_num = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel");
-                lb_num.text = int.Parse(lb_num.text) + 1 + "";
+                int sum = int.Parse(lb_num.text) + 1;
+                lb_num.text = sum.ToString();
+                lb_num.gameObject.SetActive(sum > 1);
             }
         }
         else
@@ -308,7 +325,9 @@ public class DealBagDrag : UIDragDropItem
             transform.localPosition = Vector3.zero;
             //物品数量加回去
             UILabel lb_num = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel");
-            lb_num.text = int.Parse(lb_num.text) + 1 + "";
+            int sum = int.Parse(lb_num.text) + 1;
+            lb_num.text = sum.ToString();
+            lb_num.gameObject.SetActive(sum > 1);
         }
 
 
