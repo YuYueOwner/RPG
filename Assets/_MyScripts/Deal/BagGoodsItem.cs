@@ -26,6 +26,9 @@ public class BagGoodsItem : MonoBehaviour
         //左键从包裹中把该物品全部移动到待售卖区
         if (isDownShift && UICamera.currentTouchID == -1)
         {
+            //点击的时候隐藏详情介绍框
+            UIManager.Instance.SetVisible(UIPanelName.SceneStart_GoodsInfoPanel, false);
+
             if (transform.tag == "Goods")
             {
                 //从包裹中把该物品全部移动到待售卖区
@@ -49,6 +52,9 @@ public class BagGoodsItem : MonoBehaviour
         } //右键选择一个物品
         else if (UICamera.currentTouchID == -2)
         {
+            //点击的时候隐藏详情介绍框
+            UIManager.Instance.SetVisible(UIPanelName.SceneStart_GoodsInfoPanel, false);
+
             if (transform.tag == "Goods")
             {
                 DealPanel._instance.RefreshSellGoods(id, 1, false);
