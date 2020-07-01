@@ -145,7 +145,7 @@ public class DealPanel : UIScene
         int price = PlayerMoney + sum;
         GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SetPlayerMoney(price);
         RefreshPlayerMoney();
-
+        SellTotalNumLabel.text = "0";
         CreatSellGoods();
     }
 
@@ -332,27 +332,39 @@ public class DealPanel : UIScene
     //生成卖物品的格子
     public void CreatSellGoods()
     {
-        for (int i = 0; i < SellGoodsGrid.transform.childCount; i++)
+        if (SellGoodsGrid.transform.childCount == 0)
         {
-            GameObject.Destroy(SellGoodsGrid.transform.GetChild(i).gameObject);
+            for (int i = 0; i < 80; i++)
+            {
+                GameObject go = null;
+                go = Instantiate(Resources.Load("Prefabs/BagGoods_Item"), Vector3.zero, Quaternion.identity) as GameObject;
+                go.tag = "BagCell";
+                go.transform.SetParent(SellGoodsGrid.transform);
+                go.transform.localScale = Vector3.one;
+                go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "-1";
+                go.transform.GetChild(1).GetComponent<UISprite>().spriteName = "-1";
+                UILabel lb = go.transform.GetChild(0).GetChild(0).GetComponent<UILabel>();
+                lb.text = "0";
+                lb.gameObject.SetActive(false);
+                go.transform.GetChild(1).GetComponent<UISprite>().tag = "BagGoods";
+            }
+            SellGoodsGrid.Reposition();
+            SellGoodsGrid.repositionNow = true;
         }
-        for (int i = 0; i < 80; i++)
+        else
         {
-            GameObject go = null;
-            go = Instantiate(Resources.Load("Prefabs/BagGoods_Item"), Vector3.zero, Quaternion.identity) as GameObject;
-            go.tag = "BagCell";
-
-            go.transform.SetParent(SellGoodsGrid.transform);
-            go.transform.localScale = Vector3.one;
-            go.transform.GetChild(0).GetComponent<UISprite>().spriteName = "-1";
-            go.transform.GetChild(1).GetComponent<UISprite>().spriteName = "-1";
-            UILabel lb = go.transform.GetChild(0).GetChild(0).GetComponent<UILabel>();
-            lb.text = "0";
-            lb.gameObject.SetActive(false);
-            go.transform.GetChild(1).GetComponent<UISprite>().tag = "BagGoods";
+            for (int i = 0; i < SellGoodsGrid.transform.childCount; i++)
+            {
+                SellGoodsGrid.transform.GetChild(i).tag = "BagCell";
+                SellGoodsGrid.transform.GetChild(i).transform.GetChild(0).GetComponent<UISprite>().spriteName = "-1";
+                SellGoodsGrid.transform.GetChild(i).transform.GetChild(1).name = "GoodsSprite1";
+                SellGoodsGrid.transform.GetChild(i).transform.GetChild(1).GetComponent<UISprite>().spriteName = "-1";
+                UILabel lb = SellGoodsGrid.transform.GetChild(i).transform.GetChild(0).GetChild(0).GetComponent<UILabel>();
+                lb.text = "0";
+                lb.gameObject.SetActive(false);
+                SellGoodsGrid.transform.GetChild(i).transform.GetChild(1).GetComponent<UISprite>().tag = "BagGoods";
+            }
         }
-        SellGoodsGrid.Reposition();
-        SellGoodsGrid.repositionNow = true;
     }
 
     //判断这个id是否存在。存在并且可合并返回true
