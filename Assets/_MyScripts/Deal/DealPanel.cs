@@ -99,7 +99,7 @@ public class DealPanel : UIScene
                     //给物品名字赋值
                     Helper.GetChild<UILabel>(goMerchant.transform, "BagNameLabel").text = propData.ItemName;
                     //给物品金额赋值
-                    Helper.GetChild<UILabel>(goMerchant.transform, "GoldNumLabel").text = data.BuyPrice.ToString();
+                    Helper.GetChild<UILabel>(goMerchant.transform, "GoldNumLabel").text = data.SellPrice.ToString();
                     //物品数量
                     Helper.GetChild<UILabel>(goMerchant.transform, "GoodsNumLabel").text = data.ItemNum.ToString();
                 }
@@ -175,7 +175,7 @@ public class DealPanel : UIScene
             {
                 var data = merchantGoodsList[i];
                 int PlayerMoney = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().PlayerMoney;
-                int price = PlayerMoney - num * data.BuyPrice;
+                int price = PlayerMoney - num * data.SellPrice;
                 GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SetPlayerMoney(price);
                 //Debug.LogError("要购买物品的数量:" + num + "     price" + price);
                 PlayerInfoManager.Instance.AddPlayerItemData(data.ItemID, num);
