@@ -405,12 +405,10 @@ public class DealPanel : UIScene
                 return;
             }
         }
-
-
     }
 
-    //ctrl + 鼠标左键把物品从包裹中移动到待售物品区  isCtrl true代表是Ctrl + 鼠标左键。不走合并
-    public void RefreshSellGoods(int id, int num, bool isCtrl)
+
+    public void SetSellTotalPrice(int id, int num)
     {
         MerchantGoodsConfig merCfgData = DataTableManager.Instance.GetConfig<MerchantGoodsConfig>("MerchantGoods");
         string npcType = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().NpcType.ToString();
@@ -418,9 +416,13 @@ public class DealPanel : UIScene
         var data = merCfgData.GetListConfigElementByID(npcType, id);
         sumPrice += data.SellPrice * num;
         SellTotalNumLabel.text = sumPrice + "";
-
         //Debug.LogError(id + "      " + num + "    " + sumPrice + "   " + data.SellPrice);
+    }
 
+    //ctrl + 鼠标左键把物品从包裹中移动到待售物品区  isCtrl true代表是Ctrl + 鼠标左键。不走合并
+    public void RefreshSellGoods(int id, int num, bool isCtrl)
+    {
+        SetSellTotalPrice(id, num);
         PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
         bool isMerge = cfgData.ExistIsCanOverlayByID(id);
         for (int i = 0; i < SellGoodsGrid.transform.childCount; i++)

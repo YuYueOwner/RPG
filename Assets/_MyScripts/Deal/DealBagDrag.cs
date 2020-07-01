@@ -190,10 +190,10 @@ public class DealBagDrag : UIDragDropItem
                     // 碰撞到的格子没有物品
                     int num = int.Parse(Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel").text);
 
+                    int id = 0;
+                    id = int.Parse(this.name);
                     if (isMerge)
                     {
-                        int id = 0;
-                        id = int.Parse(this.name);
                         if (num <= 0)
                         {
                             this.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = "-1";
@@ -237,6 +237,7 @@ public class DealBagDrag : UIDragDropItem
 
                     //交换完成 位移归零 （交换时是位移的改变 缩放没有变）
                     surface.transform.localPosition = transform.localPosition = Vector3.zero;
+                    DealPanel._instance.SetSellTotalPrice(id, 1);
                 }
                 else
                 {
