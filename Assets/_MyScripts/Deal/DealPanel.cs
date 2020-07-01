@@ -393,6 +393,7 @@ public class DealPanel : UIScene
                 sp.name = id.ToString();
                 UILabel lb = trans.GetChild(0).GetChild(0).GetComponent<UILabel>();
                 lb.text = num.ToString();
+                lb.transform.parent.gameObject.SetActive(num > 1);
                 lb.gameObject.SetActive(num > 1);
                 return;
             }
