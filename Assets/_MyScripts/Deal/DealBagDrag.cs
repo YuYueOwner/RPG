@@ -107,15 +107,28 @@ public class DealBagDrag : UIDragDropItem
 
         if ((this.tag == "BagCell" || this.tag == "BagGoods") && (surface.tag == "BagCell" || surface.tag == "BagGoods"))
         {
-            this.transform.localPosition = Vector3.zero;
+            transform.localPosition = Vector3.zero;
             return;
         }
+
+        //自己碰撞自己返回
+        if (transform.name == surface.name)
+        {
+            UILabel lb = transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
+            int num = int.Parse(lb.text) + 1;
+            lb.text = num.ToString();
+            lb.gameObject.SetActive(num > 1);
+            transform.parent.GetChild(0).gameObject.SetActive(num > 0);
+            transform.localPosition = Vector3.zero;
+            return;
+        }
+        //Debug.LogError(transform.name + "  ********  " + surface.name);
 
         //判断是否是空格子，是的话return
         int thisName;
         if (int.TryParse(transform.parent.GetChild(1).name, out thisName) == false)
         {
-            this.transform.localPosition = Vector3.zero;
+            transform.localPosition = Vector3.zero;
             return;
         }
 
@@ -123,11 +136,8 @@ public class DealBagDrag : UIDragDropItem
         {
             if (surface.tag == "Cell")
             {
-                //物品交换 （通过改变父物体来转移位置）
-                this.transform.parent = surface.transform;
-                //位置归零
-                this.transform.localPosition = Vector3.zero;
-                this.transform.parent.GetComponent<BoxCollider>().enabled = false;
+                transform.localPosition = Vector3.zero;
+                //Debug.LogError("Cell");
             }
             //如果当下时撞到的是装备
             else if (surface.tag == "Goods")
@@ -137,7 +147,7 @@ public class DealBagDrag : UIDragDropItem
                 {
                     int id = int.Parse(this.name);
                     PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
-                    UILabel lb = this.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
+                    UILabel lb = transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
 
                     string icon = cfgData.GetListConfigElementByID(int.Parse(this.name)).ItemIcon;
                     surface.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = icon;
@@ -161,11 +171,13 @@ public class DealBagDrag : UIDragDropItem
                     transform.name = "BagGoods_Item(Clone)";
 
                     surface.transform.localPosition = transform.localPosition = Vector3.one;
+                    //Debug.LogError("Goods");
                 }
                 else
                 {
                     UILabel lb = transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
                     UILabel lb1 = surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
+
                     int num = int.Parse(lb.text) + 1;
                     int num1 = int.Parse(lb1.text);
                     lb.text = num1.ToString();
@@ -182,6 +194,9 @@ public class DealBagDrag : UIDragDropItem
                     surface.transform.parent = Parent;                      //自己移动到想被交换的位置
                                                                             //交换完成 位移归零 （交换时是位移的改变 缩放没有变）
                     surface.transform.localPosition = transform.localPosition = Vector3.zero;
+                    //Debug.LogError("Goods111");
+                    transform.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = transform.transform.parent.GetChild(1).GetComponent<UISprite>().spriteName;
+                    surface.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = surface.transform.parent.GetChild(1).GetComponent<UISprite>().spriteName;
                 }
             }
             //如果放下时撞到的物品是空格子
@@ -249,11 +264,11 @@ public class DealBagDrag : UIDragDropItem
                         //自己移动到想被交换的位置
                         //Debug.LogError("交换");
                         surface.name = this.name;
+                        DealPanel._instance.SetSellTotalPrice(id, 1);
                     }
 
                     //交换完成 位移归零 （交换时是位移的改变 缩放没有变）
                     surface.transform.localPosition = transform.localPosition = Vector3.zero;
-                    DealPanel._instance.SetSellTotalPrice(id, 1);
                 }
                 else
                 {
