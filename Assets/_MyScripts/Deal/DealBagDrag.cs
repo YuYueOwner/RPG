@@ -75,10 +75,11 @@ public class DealBagDrag : UIDragDropItem
         StopAllCoroutines();
         UIManager.Instance.SetVisible(UIPanelName.SceneStart_GoodsInfoPanel, false);
 
+        this.GetComponent<UISprite>().depth = 100;
+
         if (this.tag == "Goods")
         {
             isMerge = DealPanel._instance.JudgeSellGoodsIdExist(int.Parse(this.name));
-            this.GetComponent<UISprite>().depth = 100;
 
             UILabel lb_num = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel");
             int num = 0;
@@ -282,28 +283,31 @@ public class DealBagDrag : UIDragDropItem
             //如果当下时撞到的是装备
             else if (surface.tag == "Goods")
             {
-                surface.name = this.name;
-                UISprite sp = this.GetComponent<UISprite>();
-                UILabel lb = this.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
-                string icon = sp.spriteName;
-                int num = int.Parse(lb.text);
-                lb.gameObject.SetActive((num - 1) > 1);
-                if ((num - 1) > 0)
+                if (int.Parse(surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>().text) <= 0 || this.name == surface.name)
                 {
+                    surface.name = this.name;
+                    UISprite sp = this.GetComponent<UISprite>();
+                    UILabel lb = this.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
+                    string icon = sp.spriteName;
+                    int num = int.Parse(lb.text);
+                    lb.gameObject.SetActive((num - 1) > 1);
+                    if ((num - 1) > 0)
+                    {
 
+                    }
+                    else
+                    {
+                        this.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = "-1";
+                        sp.spriteName = "-1";
+                        sp.name = "GoodsSprite1";
+                    }
+                    lb.text = (num - 1) + "";
+                    surface.GetComponent<UISprite>().spriteName = icon;
+                    surface.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = icon;
+                    UILabel lb1 = surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
+                    lb1.text = int.Parse(lb1.text) + 1 + "";
+                    lb1.gameObject.SetActive(int.Parse(lb1.text) > 1);
                 }
-                else
-                {
-                    this.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = "-1";
-                    sp.spriteName = "-1";
-                    sp.name = "GoodsSprite1";
-                }
-                lb.text = (num - 1) + "";
-                surface.GetComponent<UISprite>().spriteName = icon;
-                surface.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = icon;
-                UILabel lb1 = surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
-                lb1.text = int.Parse(lb1.text) + 1 + "";
-                lb1.gameObject.SetActive(int.Parse(lb1.text) > 1);
                 transform.localPosition = Vector3.zero;
             }
             else
