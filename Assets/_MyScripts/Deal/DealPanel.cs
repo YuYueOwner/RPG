@@ -492,6 +492,7 @@ public class DealPanel : UIScene
                     int sum = int.Parse(lb_num.text) + num;
                     lb_num.text = (sum).ToString();
                     lb_num.gameObject.SetActive(sum > 1);
+                    lb_num.transform.parent.gameObject.SetActive(sum > 1);
                     return;
                 }
             }
@@ -507,6 +508,7 @@ public class DealPanel : UIScene
                     UILabel lb = trans.GetChild(0).GetChild(0).GetComponent<UILabel>();
                     lb.text = num.ToString();
                     lb.gameObject.SetActive(num > 1);
+                    lb.transform.parent.gameObject.SetActive(num > 1);
                     return;
                 }
             }
@@ -526,6 +528,7 @@ public class DealPanel : UIScene
                 UILabel lb = trans.GetChild(0).GetChild(0).GetComponent<UILabel>();
                 lb.text = num.ToString();
                 lb.gameObject.SetActive(num > 1);
+                lb.transform.parent.gameObject.SetActive(num > 1);
                 return;
             }
         }
