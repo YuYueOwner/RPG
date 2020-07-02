@@ -103,6 +103,8 @@ public class DealBagDrag : UIDragDropItem
     protected override void OnDragDropRelease(GameObject surface)
     {
         base.OnDragDropRelease(surface);
+        this.GetComponent<UISprite>().depth = 4;
+
         if ((this.tag == "BagCell" || this.tag == "BagGoods") && (surface.tag == "BagCell" || surface.tag == "BagGoods"))
         {
             this.transform.localPosition = Vector3.zero;
@@ -117,7 +119,6 @@ public class DealBagDrag : UIDragDropItem
             return;
         }
 
-        this.GetComponent<UISprite>().depth = 4;
         if (this.tag == "Goods")
         {
             if (surface.tag == "Cell")
