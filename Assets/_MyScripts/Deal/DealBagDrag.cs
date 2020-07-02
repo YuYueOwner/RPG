@@ -350,6 +350,7 @@ public class DealBagDrag : UIDragDropItem
                     UILabel lb1 = surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
                     lb1.text = int.Parse(lb1.text) + 1 + "";
                     lb1.gameObject.SetActive(int.Parse(lb1.text) > 1);
+                    lb1.transform.parent.transform.GetChild(0).gameObject.SetActive(int.Parse(lb1.text) > 1);
                 }
                 transform.localPosition = Vector3.zero;
             }
