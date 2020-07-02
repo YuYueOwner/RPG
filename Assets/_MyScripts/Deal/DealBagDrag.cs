@@ -226,6 +226,7 @@ public class DealBagDrag : UIDragDropItem
                         PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
 
                         string icon = cfgData.GetListConfigElementByID(int.Parse(this.name)).ItemIcon;
+                        surface.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = icon;
                         surface.GetComponent<UISprite>().spriteName = icon;
                         UILabel lb = Helper.GetChild<UILabel>(surface.transform.parent, "BagGoodsNumLabel");
                         lb.text = "1";
