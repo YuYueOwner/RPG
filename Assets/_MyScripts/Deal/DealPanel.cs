@@ -99,7 +99,7 @@ public class DealPanel : UIScene
                     //给物品名字赋值
                     Helper.GetChild<UILabel>(goMerchant.transform, "BagNameLabel").text = propData.ItemName;
                     //给物品金额赋值
-                    Helper.GetChild<UILabel>(goMerchant.transform, "GoldNumLabel").text = data.BuyPrice.ToString();
+                    Helper.GetChild<UILabel>(goMerchant.transform, "GoldNumLabel").text = data.SellPrice.ToString();
                     //物品数量
                     Helper.GetChild<UILabel>(goMerchant.transform, "GoodsNumLabel").text = data.ItemNum.ToString();
                     //如果物品数量是1，隐藏
@@ -177,13 +177,24 @@ public class DealPanel : UIScene
             {
                 var data = merchantGoodsList[i];
                 int PlayerMoney = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().PlayerMoney;
-                int price = PlayerMoney - num * data.BuyPrice;
-                GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SetPlayerMoney(price);
-                //Debug.LogError("要购买物品的数量:" + num + "     price" + price);
-                PlayerInfoManager.Instance.AddPlayerItemData(data.ItemID, num);
+
+                int price = PlayerMoney - num * data.SellPrice;
+                //买不起
+                if (price < 0)
+                {
+                    UIManager.Instance.SetVisible(UIPanelName.SceneStart_BuyGoodsFailedPanel, true);
+                    UIManager.Instance.SetVisible(UIPanelName.SceneStart_BuyGoodsOnlyOnePanel, false);
+                    UIManager.Instance.SetVisible(UIPanelName.SceneStart_BuyGoodsPanel, false);
+                }
+                else
+                {
+                    GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SetPlayerMoney(price);
+                    //Debug.LogError("要购买物品的数量:" + num + "     price" + price);
+                    PlayerInfoManager.Instance.AddPlayerItemData(data.ItemID, num);
+                    RefeshMerchantGridRedMask(selectDealItemID, num);
+                }
             }
         }
-        RefeshMerchantGridRedMask(selectDealItemID, num);
     }
 
     //买完物品后刷新，判断当前元宝数是否买得起商人物品，是否显示红色遮罩和红色字体
