@@ -77,7 +77,7 @@ public class DealBagDrag : UIDragDropItem
 
         this.GetComponent<UISprite>().depth = 100;
 
-        if (this.tag == "Goods")
+        if (this.tag == "Goods" || this.tag == "BagGoods")
         {
             isMerge = DealPanel._instance.JudgeSellGoodsIdExist(int.Parse(this.name));
 
@@ -105,7 +105,17 @@ public class DealBagDrag : UIDragDropItem
         base.OnDragDropRelease(surface);
         this.GetComponent<UISprite>().depth = 4;
 
-        if ((this.tag == "BagCell" || this.tag == "BagGoods") && (surface.tag == "BagCell" || surface.tag == "BagGoods"))
+        if ((transform.tag == "BagGoods" && surface.tag == "BagGoods"))
+        {
+            UILabel lb_num = Helper.GetChild<UILabel>(transform.parent, "BagGoodsNumLabel");
+            int sum = int.Parse(lb_num.text) + 1;
+            lb_num.text = sum.ToString();
+            lb_num.gameObject.SetActive(sum > 1);
+            transform.localPosition = Vector3.zero;
+            return;
+        }
+
+        if ((transform.tag == "BagCell" && transform.tag == "BagGoods") || (surface.tag == "BagCell" && surface.tag == "BagGoods"))
         {
             transform.localPosition = Vector3.zero;
             return;
@@ -122,7 +132,6 @@ public class DealBagDrag : UIDragDropItem
             transform.localPosition = Vector3.zero;
             return;
         }
-        //Debug.LogError(transform.name + "  ********  " + surface.name + "=============" + surface.transform.parent.GetChild(0).name);
 
         //判断是否是空格子，是的话return
         int thisName;
@@ -324,8 +333,8 @@ public class DealBagDrag : UIDragDropItem
                     UILabel lb = this.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
                     string icon = sp.spriteName;
                     int num = int.Parse(lb.text);
-                    lb.gameObject.SetActive((num - 1) > 1);
-                    if ((num - 1) > 0)
+                    //lb.gameObject.SetActive((num - 1) > 1);
+                    if (num > 0)
                     {
 
                     }
@@ -335,12 +344,12 @@ public class DealBagDrag : UIDragDropItem
                         sp.spriteName = "-1";
                         sp.name = "GoodsSprite1";
                     }
-                    lb.text = (num - 1) + "";
+                    //lb.text = (num - 1) + "";
                     surface.GetComponent<UISprite>().spriteName = icon;
                     surface.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = icon;
-                    //UILabel lb1 = surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
-                    //lb1.text = int.Parse(lb1.text) + 1 + "";
-                    //lb1.gameObject.SetActive(int.Parse(lb1.text) > 1);
+                    UILabel lb1 = surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
+                    lb1.text = int.Parse(lb1.text) + 1 + "";
+                    lb1.gameObject.SetActive(int.Parse(lb1.text) > 1);
                 }
                 transform.localPosition = Vector3.zero;
             }
@@ -349,10 +358,10 @@ public class DealBagDrag : UIDragDropItem
                 //回到原来的位置
                 transform.localPosition = Vector3.zero;
                 //物品数量加回去
-                //UILabel lb_num = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel");
-                //int sum = int.Parse(lb_num.text) + 1;
-                //lb_num.text = sum.ToString();
-                //lb_num.gameObject.SetActive(sum > 1);
+                UILabel lb_num = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel");
+                int sum = int.Parse(lb_num.text) + 1;
+                lb_num.text = sum.ToString();
+                lb_num.gameObject.SetActive(sum > 1);
             }
         }
         else
@@ -360,13 +369,10 @@ public class DealBagDrag : UIDragDropItem
             //回到原来的位置
             transform.localPosition = Vector3.zero;
             //物品数量加回去
-            if (transform.tag == "Goods")
-            {
-                UILabel lb_num = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel");
-                int sum = int.Parse(lb_num.text) + 1;
-                lb_num.text = sum.ToString();
-                lb_num.gameObject.SetActive(sum > 1);
-            }
+            UILabel lb_num = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel");
+            int sum = int.Parse(lb_num.text) + 1;
+            lb_num.text = sum.ToString();
+            lb_num.gameObject.SetActive(sum > 1);
         }
     }
 }
