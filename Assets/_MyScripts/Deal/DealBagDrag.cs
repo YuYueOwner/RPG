@@ -112,7 +112,7 @@ public class DealBagDrag : UIDragDropItem
         }
 
         //自己碰撞自己返回
-        if (transform.name == surface.name)
+        if (transform.name == surface.name && transform.name == surface.transform.parent.GetChild(0).name)
         {
             UILabel lb = transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
             int num = int.Parse(lb.text) + 1;
@@ -122,7 +122,7 @@ public class DealBagDrag : UIDragDropItem
             transform.localPosition = Vector3.zero;
             return;
         }
-        //Debug.LogError(transform.name + "  ********  " + surface.name);
+        //Debug.LogError(transform.name + "  ********  " + surface.name + "=============" + surface.transform.parent.GetChild(0).name);
 
         //判断是否是空格子，是的话return
         int thisName;
@@ -150,18 +150,22 @@ public class DealBagDrag : UIDragDropItem
                     UILabel lb = transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
 
                     string icon = cfgData.GetListConfigElementByID(int.Parse(this.name)).ItemIcon;
-                    surface.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = icon;
+                    UISprite spSurface1 = surface.transform.parent.GetChild(0).GetComponent<UISprite>();
+                    spSurface1.spriteName = icon;
                     UISprite spSurface = surface.transform.parent.GetChild(1).GetComponent<UISprite>();
                     spSurface.spriteName = icon;
                     spSurface.name = id.ToString();
+                    spSurface1.name = id.ToString();
                     UILabel lbSurface = surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
                     int sum = int.Parse(lb.text) + 1;
                     lbSurface.text = sum.ToString();
 
-                    this.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = "-1";
+                    UISprite sp1 = this.transform.parent.GetChild(0).GetComponent<UISprite>();
+                    sp1.spriteName = "-1";
                     UISprite sp = this.transform.parent.GetChild(1).GetComponent<UISprite>();
                     sp.spriteName = "-1";
                     sp.name = "GoodsSprite1";
+                    sp1.name = "GoodsSprite1";
                     lb.text = "0";
                     lb.gameObject.SetActive(false);
                     lbSurface.gameObject.SetActive(sum > 1);
@@ -195,8 +199,14 @@ public class DealBagDrag : UIDragDropItem
                                                                             //交换完成 位移归零 （交换时是位移的改变 缩放没有变）
                     surface.transform.localPosition = transform.localPosition = Vector3.zero;
                     //Debug.LogError("Goods111");
-                    transform.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = transform.transform.parent.GetChild(1).GetComponent<UISprite>().spriteName;
-                    surface.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = surface.transform.parent.GetChild(1).GetComponent<UISprite>().spriteName;
+                    UISprite sp = transform.transform.parent.GetChild(0).GetComponent<UISprite>();
+                    UISprite sp2 = transform.transform.parent.GetChild(1).GetComponent<UISprite>();
+                    sp.spriteName = sp2.spriteName;
+                    sp.name = sp2.name;
+                    UISprite sp1 = surface.transform.parent.GetChild(0).GetComponent<UISprite>();
+                    UISprite sp4 = surface.transform.parent.GetChild(1).GetComponent<UISprite>();
+                    sp1.spriteName = sp4.spriteName;
+                    sp1.name = sp4.name;
                 }
             }
             //如果放下时撞到的物品是空格子
