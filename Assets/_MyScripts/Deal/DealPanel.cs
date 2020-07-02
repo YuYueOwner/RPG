@@ -420,15 +420,10 @@ public class DealPanel : UIScene
         return false;
     }
 
-    //ctrl + 鼠标左键把物品从包裹中移动到待售物品区  isCtrl true代表是Ctrl + 鼠标左键
+    // 鼠标左键把物品从包裹中移动到待售物品区
     public void RefreshBagGoods(int id, int num)
     {
-        MerchantGoodsConfig merCfgData = DataTableManager.Instance.GetConfig<MerchantGoodsConfig>("MerchantGoods");
-        string npcType = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().NpcType.ToString();
-        int sumPrice = int.Parse(SellTotalNumLabel.text);
-        var data = merCfgData.GetListConfigElementByID(npcType, id);
-        sumPrice -= data.BuyPrice * num;
-        SellTotalNumLabel.text = sumPrice + "";
+        RefreshSellTotalNum(id, num);
 
         //Debug.LogError(id + "      " + num + "    " + sumPrice + "   " + data.BuyPrice);
 
@@ -451,6 +446,17 @@ public class DealPanel : UIScene
                 return;
             }
         }
+    }
+
+    //刷新代售物品区元宝数量
+    public void RefreshSellTotalNum(int id, int num)
+    {
+        MerchantGoodsConfig merCfgData = DataTableManager.Instance.GetConfig<MerchantGoodsConfig>("MerchantGoods");
+        string npcType = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().NpcType.ToString();
+        int sumPrice = int.Parse(SellTotalNumLabel.text);
+        var data = merCfgData.GetListConfigElementByID(npcType, id);
+        sumPrice -= data.BuyPrice * num;
+        SellTotalNumLabel.text = sumPrice + "";
     }
 
 

@@ -285,6 +285,13 @@ public class DealBagDrag : UIDragDropItem
             {
                 if (int.Parse(surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>().text) <= 0 || this.name == surface.name)
                 {
+                    int id = 0;
+                    //判断点击的如果是空格子 return
+                    if (!int.TryParse(this.name, out id)) return;
+                    id = int.Parse(this.name);
+
+                    DealPanel._instance.RefreshSellTotalNum(id, 1);
+
                     surface.name = this.name;
                     UISprite sp = this.GetComponent<UISprite>();
                     UILabel lb = this.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
