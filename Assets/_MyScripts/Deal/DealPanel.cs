@@ -147,6 +147,7 @@ public class DealPanel : UIScene
         RefreshPlayerMoney();
         SellTotalNumLabel.text = "0";
         CreatSellGoods();
+        RefeshMerchantGridRedMask();
     }
 
     private void Back()
@@ -196,6 +197,29 @@ public class DealPanel : UIScene
             }
         }
     }
+
+
+    private void RefeshMerchantGridRedMask()
+    {
+        int PlayerMoney = GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().PlayerMoney;
+        for (int i = 0; i < MerchantGrid.transform.childCount; i++)
+        {
+            //买不起
+            if (int.Parse(Helper.GetChild<UILabel>(MerchantGrid.GetChild(i), "GoldNumLabel").text) > PlayerMoney)
+            {
+                Helper.GetChild(MerchantGrid.GetChild(i), "InsufficientGold_Sprite").SetActive(true);
+                Helper.GetChild<UILabel>(MerchantGrid.GetChild(i), "BagNameLabel").color = Color.red;
+                Helper.GetChild<UILabel>(MerchantGrid.GetChild(i), "GoldNumLabel").color = Color.red;
+            }
+            else//买得起
+            {
+                Helper.GetChild(MerchantGrid.GetChild(i), "InsufficientGold_Sprite").SetActive(false);
+                Helper.GetChild<UILabel>(MerchantGrid.GetChild(i), "BagNameLabel").color = Color.white;
+                Helper.GetChild<UILabel>(MerchantGrid.GetChild(i), "GoldNumLabel").color = Color.white;
+            }
+        }
+    }
+
 
     //买完物品后刷新，判断当前元宝数是否买得起商人物品，是否显示红色遮罩和红色字体
     public void RefeshMerchantGridRedMask(int selectDealItemID, int num)
@@ -268,7 +292,6 @@ public class DealPanel : UIScene
                 return;
             }
         }
-
     }
 
     public void RefreshPlayerMoney()
@@ -362,7 +385,7 @@ public class DealPanel : UIScene
             SellGoodsGrid.Reposition();
             SellGoodsGrid.repositionNow = true;
         }
-        else
+        else//卖完了物品后刷新格子
         {
             for (int i = 0; i < SellGoodsGrid.transform.childCount; i++)
             {
