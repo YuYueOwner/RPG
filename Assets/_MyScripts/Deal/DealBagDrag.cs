@@ -282,12 +282,11 @@ public class DealBagDrag : UIDragDropItem
             //如果当下时撞到的是装备
             else if (surface.tag == "Goods")
             {
+                surface.name = this.name;
                 UISprite sp = this.GetComponent<UISprite>();
                 UILabel lb = this.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
                 string icon = sp.spriteName;
                 int num = int.Parse(lb.text);
-
-
                 lb.gameObject.SetActive((num - 1) > 1);
                 if ((num - 1) > 0)
                 {
@@ -304,8 +303,7 @@ public class DealBagDrag : UIDragDropItem
                 surface.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = icon;
                 UILabel lb1 = surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
                 lb1.text = int.Parse(lb1.text) + 1 + "";
-                lb1.gameObject.SetActive(num > 1);
-                surface.name = this.name;
+                lb1.gameObject.SetActive(int.Parse(lb1.text) > 1);
                 transform.localPosition = Vector3.zero;
             }
             else
