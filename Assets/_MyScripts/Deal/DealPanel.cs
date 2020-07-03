@@ -423,6 +423,27 @@ public class DealPanel : UIScene
         return false;
     }
 
+    public bool JudgeBagGoodsIdExist(int id)
+    {
+        PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
+        bool isMerge = cfgData.ExistIsCanOverlayByID(id);
+        if (isMerge)
+        {
+            for (int i = 0; i < BagGoodsGrid.transform.childCount; i++)
+            {
+                Transform trans = BagGoodsGrid.transform.GetChild(i);
+                if (trans.GetChild(1).name == id.ToString())
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+
+
     // 鼠标左键把物品从包裹中移动到待售物品区
     public void RefreshBagGoods(int id, int num)
     {
