@@ -64,36 +64,44 @@ public class DealBagDrag : UIDragDropItem
     public override void StartDragging()
     {
         base.StartDragging();
-        //判断是否是空格子，是的话return
-        int thisName;
-        if (int.TryParse(transform.parent.GetChild(1).name, out thisName) == false)
+        StopAllCoroutines();
+        UIManager.Instance.SetVisible(UIPanelName.SceneStart_GoodsInfoPanel, false);
+        //获取到格子中的物品数量
+        UILabel BagGoodsNumLabel = Helper.GetChild<UILabel>(transform.parent, "BagGoodsNumLabel");
+        int GoodsNum = int.Parse(BagGoodsNumLabel.text);
+        //判断拖拽的一刻如果是空格子的话return
+        if (GoodsNum <= 0)
         {
             this.transform.localPosition = Vector3.zero;
             return;
         }
-
-        StopAllCoroutines();
-        UIManager.Instance.SetVisible(UIPanelName.SceneStart_GoodsInfoPanel, false);
-
-        this.GetComponent<UISprite>().depth = 100;
-
-        if (this.tag == "Goods" || this.tag == "BagGoods")
+        else //当前拖拽的格子里是有物品的
         {
+            //让被拖拽的UI在最上层
+            this.GetComponent<UISprite>().depth = 100;
+
+            //是否可以合并
             isMerge = DealPanel._instance.JudgeSellGoodsIdExist(int.Parse(this.name));
 
-            UILabel lb_num = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel");
-            int num = 0;
-            //如果当前拖拽的格子里是有物品的
-            if (int.TryParse(lb_num.text, out num) == true)
-            {
-                //lb_num.text = (num - 1 < 0 ? 0 : num - 1).ToString();
-                lb_num.text = (num - 1).ToString();
-                lb_num.gameObject.SetActive((num - 1) > 1);
-                //如果当前物品是一件的话，拖拽的时候隐藏背包中的图标
-                this.transform.parent.GetChild(0).gameObject.SetActive(int.Parse(lb_num.text) > 0);
-            }
+            //拖拽的一刻数量减一
+            JudgeGoodsNumAddOrMinus(BagGoodsNumLabel, false);
         }
     }
+
+    //判断当前物品数量 +1 还是 -1
+    private void JudgeGoodsNumAddOrMinus(UILabel bagGoodsNum, bool isAdd)
+    {
+        //获取到格子中的物品数量
+        UILabel BagGoodsNumLabel = bagGoodsNum;
+        int GoodsNum = int.Parse(BagGoodsNumLabel.text);
+        BagGoodsNumLabel.text = isAdd == true ? (GoodsNum + 1).ToString() : (GoodsNum - 1).ToString();
+        //如果是+，判断是否 > 1, 如果大于1，则显示脚标数量，否则反之
+        BagGoodsNumLabel.gameObject.SetActive(isAdd == true ? (GoodsNum + 1) > 1 : (GoodsNum - 1) > 1);
+        this.transform.parent.GetChild(0).gameObject.SetActive(GoodsNum > 0);
+    }
+
+
+
 
     /// <summary>
     /// 重写父类里的拖拽方法
@@ -103,6 +111,10 @@ public class DealBagDrag : UIDragDropItem
     protected override void OnDragDropRelease(GameObject surface)
     {
         base.OnDragDropRelease(surface);
+
+        Debug.LogError("当前" + this.tag);
+        Debug.LogError("撞到" + surface.tag);
+
         this.GetComponent<UISprite>().depth = 4;
 
         if ((transform.tag == "BagGoods" && surface.tag == "BagGoods"))
@@ -319,8 +331,11 @@ public class DealBagDrag : UIDragDropItem
             //如果当下时撞到的是装备
             else if (surface.tag == "Goods")
             {
+                Debug.LogError(111111);
+                Debug.LogError(this.name);
                 if (int.Parse(surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>().text) <= 0 || this.name == surface.name)
                 {
+                    Debug.LogError(22222);
                     int id = 0;
                     //判断点击的如果是空格子 return
                     if (!int.TryParse(this.name, out id)) return;
