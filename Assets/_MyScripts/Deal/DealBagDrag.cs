@@ -99,11 +99,18 @@ public class DealBagDrag : UIDragDropItem
         BagGoodsNumLabel.text = isAdd == true ? (GoodsNum + 1).ToString() : (GoodsNum - 1).ToString();
         //如果是+，判断是否 > 1, 如果大于1，则显示脚标数量，否则反之
         BagGoodsNumLabel.gameObject.SetActive(isAdd == true ? (GoodsNum + 1) > 1 : (GoodsNum - 1) > 1);
-        this.transform.parent.GetChild(0).gameObject.SetActive(GoodsNum > 0);
+        //拖拽的时候是否显示物品背景icon
+        this.transform.parent.GetChild(0).gameObject.SetActive(isAdd == true ? (GoodsNum + 1) > 0 : (GoodsNum - 1) > 0);
     }
     #endregion
 
-
+    #region 封装获取当前icon名字
+    private string GetIconName()
+    {
+        PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
+        return cfgData.GetListConfigElementByID(int.Parse(this.name)).ItemIcon;
+    }
+    #endregion
 
     //拖拽放下的一刻
     protected override void OnDragDropRelease(GameObject surface)
@@ -138,107 +145,103 @@ public class DealBagDrag : UIDragDropItem
             return;
         }
 
-        //判断是否是空格子，是的话return
-        int thisName;
-        if (int.TryParse(transform.parent.GetChild(1).name, out thisName) == false)
-        {
-            transform.localPosition = Vector3.zero;
-            return;
-        }
-
         if (this.tag == "Goods")
         {
-            if (surface.tag == "Cell")
-            {
-                transform.localPosition = Vector3.zero;
-                //Debug.LogError("Cell");
-            }
             //如果当下时撞到的是装备
-            else if (surface.tag == "Goods")
+            if (surface.tag == "Goods")
             {
-                int name;
-                if (int.TryParse(surface.transform.parent.GetChild(1).name, out name) == false)
-                {
-                    int id = int.Parse(this.name);
-                    PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
-                    UILabel lb = transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
+                //先+1
+                JudgeGoodsNumAddOrMinus(Helper.GetChild<UILabel>(transform.parent, "BagGoodsNumLabel"), true);
+                //对换
+                ChangeGoods(surface);
+                #region 废弃
+                //int name;
+                //true 是和物品交换 false是和空格子交换
+                //if (int.TryParse(surface.transform.parent.GetChild(1).name, out name) == false)
+                //{
+                //    int id = int.Parse(this.name);
+                //    string icon = GetIconName();
 
-                    string icon = cfgData.GetListConfigElementByID(int.Parse(this.name)).ItemIcon;
-                    UISprite spSurface1 = surface.transform.parent.GetChild(0).GetComponent<UISprite>();
-                    spSurface1.spriteName = icon;
-                    UISprite spSurface = surface.transform.parent.GetChild(1).GetComponent<UISprite>();
-                    spSurface.spriteName = icon;
-                    spSurface.name = id.ToString();
-                    spSurface1.name = id.ToString();
-                    UILabel lbSurface = surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
-                    int sum = int.Parse(lb.text) + 1;
-                    lbSurface.text = sum.ToString();
+                //    UILabel lb = transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
+                //    UISprite spSurface1 = surface.transform.parent.GetChild(0).GetComponent<UISprite>();
+                //    spSurface1.spriteName = icon;
+                //    UISprite spSurface = surface.transform.parent.GetChild(1).GetComponent<UISprite>();
+                //    spSurface.spriteName = icon;
+                //    spSurface.name = id.ToString();
+                //    spSurface1.name = id.ToString();
+                //    UILabel lbSurface = surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
+                //    int sum = int.Parse(lb.text) + 1;
+                //    lbSurface.text = sum.ToString();
 
-                    UISprite sp1 = this.transform.parent.GetChild(0).GetComponent<UISprite>();
-                    sp1.spriteName = "-1";
-                    UISprite sp = this.transform.parent.GetChild(1).GetComponent<UISprite>();
-                    sp.spriteName = "-1";
-                    sp.name = "GoodsSprite1";
-                    sp1.name = "GoodsSprite1";
-                    lb.text = "0";
-                    lb.gameObject.SetActive(false);
-                    lbSurface.gameObject.SetActive(sum > 1);
-                    lbSurface.parent.gameObject.SetActive(sum > 0);
+                //    UISprite sp1 = this.transform.parent.GetChild(0).GetComponent<UISprite>();
+                //    sp1.spriteName = "-1";
+                //    UISprite sp = this.transform.parent.GetChild(1).GetComponent<UISprite>();
+                //    sp.spriteName = "-1";
+                //    sp.name = "GoodsSprite1";
+                //    sp1.name = "GoodsSprite1";
+                //    lb.text = "0";
+                //    lb.gameObject.SetActive(false);
+                //    lbSurface.gameObject.SetActive(sum > 1);
+                //    lbSurface.parent.gameObject.SetActive(sum > 0);
 
-                    surface.name = id.ToString();
-                    transform.name = "BagGoods_Item(Clone)";
+                //    surface.name = id.ToString();
+                //    transform.name = "BagGoods_Item(Clone)";
 
-                    surface.transform.localPosition = transform.localPosition = Vector3.one;
-                    //Debug.LogError("Goods");
-                }
-                else
-                {
-                    UILabel lb = transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
-                    UILabel lb1 = surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
+                //    surface.transform.localPosition = transform.localPosition = Vector3.one;
+                //    //Debug.LogError("Goods");
+                //}
+                //else
+                //{
+                //    UILabel lb = transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
+                //    UILabel lb1 = surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
 
-                    int num = int.Parse(lb.text) + 1;
-                    int num1 = int.Parse(lb1.text);
-                    lb.text = num1.ToString();
-                    lb.gameObject.SetActive(num1 > 1);
-                    lb.parent.gameObject.SetActive(num1 > 0);
-                    lb1.text = num.ToString();
-                    lb1.gameObject.SetActive(num > 1);
-                    lb1.parent.gameObject.SetActive(num > 0);
+                //    int num = int.Parse(lb.text) + 1;
+                //    int num1 = int.Parse(lb1.text);
+                //    lb.text = num1.ToString();
+                //    lb.gameObject.SetActive(num1 > 1);
+                //    lb.parent.gameObject.SetActive(num1 > 0);
+                //    lb1.text = num.ToString();
+                //    lb1.gameObject.SetActive(num > 1);
+                //    lb1.parent.gameObject.SetActive(num > 0);
 
-                    Transform Parent = null;
-                    //开始交换  
-                    Parent = this.transform.parent;         //把撞到的(surface)装备的父物体取出来
-                    this.transform.parent = surface.transform.parent;   //把撞到的物体移动过来(把自己的父物体给surface)
-                    surface.transform.parent = Parent;                      //自己移动到想被交换的位置
-                                                                            //交换完成 位移归零 （交换时是位移的改变 缩放没有变）
-                    surface.transform.localPosition = transform.localPosition = Vector3.zero;
-                    //Debug.LogError("Goods111");
-                    UISprite sp = transform.transform.parent.GetChild(0).GetComponent<UISprite>();
-                    UISprite sp2 = transform.transform.parent.GetChild(1).GetComponent<UISprite>();
-                    sp.spriteName = sp2.spriteName;
-                    sp.name = sp2.name;
-                    UISprite sp1 = surface.transform.parent.GetChild(0).GetComponent<UISprite>();
-                    UISprite sp4 = surface.transform.parent.GetChild(1).GetComponent<UISprite>();
-                    sp1.spriteName = sp4.spriteName;
-                    sp1.name = sp4.name;
-                }
+                //    Transform Parent = null;
+                //    //开始交换  
+                //    Parent = this.transform.parent;         //把撞到的(surface)装备的父物体取出来
+                //    this.transform.parent = surface.transform.parent;   //把撞到的物体移动过来(把自己的父物体给surface)
+                //    surface.transform.parent = Parent;                      //自己移动到想被交换的位置
+                //                                                            //交换完成 位移归零 （交换时是位移的改变 缩放没有变）
+                //    surface.transform.localPosition = transform.localPosition = Vector3.zero;
+                //    //Debug.LogError("Goods111");
+                //    UISprite sp = transform.transform.parent.GetChild(0).GetComponent<UISprite>();
+                //    UISprite sp2 = transform.transform.parent.GetChild(1).GetComponent<UISprite>();
+                //    sp.spriteName = sp2.spriteName;
+                //    sp.name = sp2.name;
+                //    UISprite sp1 = surface.transform.parent.GetChild(0).GetComponent<UISprite>();
+                //    UISprite sp4 = surface.transform.parent.GetChild(1).GetComponent<UISprite>();
+                //    sp1.spriteName = sp4.spriteName;
+                //    sp1.name = sp4.name;
+                //}
+                #endregion
             }
+
+            #region 废弃
             //如果放下时撞到的物品是空格子
-            else if (surface.tag == "BagCell")
-            {
-                this.tag = "BagGoods";
-                surface.tag = "Goods";
-                //物品交换 （通过改变父物体来转移位置）
-                this.transform.parent = surface.transform;
-                //位置归零
-                this.transform.localPosition = Vector3.zero;
-                this.transform.parent.GetComponent<BoxCollider>().enabled = false;
-                Debug.LogError("BagCell");
-            }
+            //else if (surface.tag == "BagCell")
+            //{
+            //    this.tag = "BagGoods";
+            //    surface.tag = "Goods";
+            //    //物品交换 （通过改变父物体来转移位置）
+            //    this.transform.parent = surface.transform;
+            //    //位置归零
+            //    this.transform.localPosition = Vector3.zero;
+            //    this.transform.parent.GetComponent<BoxCollider>().enabled = false;
+            //    Debug.LogError("BagCell");
+            //}
+            #endregion
+
             //如果当下时撞到的是装备
             else if (surface.tag == "BagGoods")
             {
-                int surfaceNum;
                 if (int.Parse(surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>().text) <= 0 || this.name == surface.name)
                 {
                     // 碰撞到的格子没有物品
@@ -324,11 +327,8 @@ public class DealBagDrag : UIDragDropItem
             //如果当下时撞到的是装备
             else if (surface.tag == "Goods")
             {
-                Debug.LogError(111111);
-                Debug.LogError(this.name);
                 if (int.Parse(surface.transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>().text) <= 0 || this.name == surface.name)
                 {
-                    Debug.LogError(22222);
                     int id = 0;
                     //判断点击的如果是空格子 return
                     if (!int.TryParse(this.name, out id)) return;
@@ -384,4 +384,47 @@ public class DealBagDrag : UIDragDropItem
             lb_num.gameObject.SetActive(sum > 1);
         }
     }
+
+    #region 封装交换物品
+    private void ChangeGoods(GameObject goSurface)
+    {
+        string changeName = "";
+        string changeIconName = "";
+        string changeGoodsNum = "";
+        string changeBackGroundName = "";
+        string changeBackGroundIconName = "";
+        bool changeBackSpriteStatue = false;
+        bool changeGoodsNumStatue = false;
+        //换当前物品的名字
+        changeName = this.name;
+        this.name = goSurface.name;
+        goSurface.name = changeName;
+        //换当前物品的icon
+        changeIconName = this.GetComponent<UISprite>().spriteName;
+        this.GetComponent<UISprite>().spriteName = goSurface.GetComponent<UISprite>().spriteName;
+        goSurface.GetComponent<UISprite>().spriteName = changeIconName;
+        //换当前物品的数量
+        changeGoodsNum = Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel").text;
+        Helper.GetChild<UILabel>(this.transform.parent, "BagGoodsNumLabel").text = Helper.GetChild<UILabel>(goSurface.transform.parent, "BagGoodsNumLabel").text;
+        Helper.GetChild<UILabel>(goSurface.transform.parent, "BagGoodsNumLabel").text = changeGoodsNum;
+        //换当前物品的Parent的GetChild(0)的名字
+        changeBackGroundName = this.transform.parent.GetChild(0).name;
+        this.transform.parent.GetChild(0).name = goSurface.transform.parent.GetChild(0).name;
+        goSurface.transform.parent.GetChild(0).name = changeBackGroundName;
+        //换当前物品的Parent的GetChild(0)的Icon
+        changeBackGroundIconName = this.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName;
+        this.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = goSurface.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName;
+        goSurface.transform.parent.GetChild(0).GetComponent<UISprite>().spriteName = changeBackGroundIconName;
+        //换当前物品的显隐状态
+        changeBackSpriteStatue = this.transform.parent.GetChild(0).gameObject.activeSelf;
+        this.transform.parent.GetChild(0).gameObject.SetActive(goSurface.transform.parent.GetChild(0).gameObject.activeSelf);
+        goSurface.transform.parent.GetChild(0).gameObject.SetActive(changeBackSpriteStatue);
+        //换当前数量的显隐状态
+        changeGoodsNumStatue = Helper.GetChild(this.transform.parent, "BagGoodsNumLabel").activeSelf;
+        Helper.GetChild(this.transform.parent, "BagGoodsNumLabel").SetActive(Helper.GetChild(goSurface.transform.parent, "BagGoodsNumLabel").activeSelf);
+        Helper.GetChild(goSurface.transform.parent, "BagGoodsNumLabel").SetActive(changeGoodsNumStatue);
+        //位置归零
+        goSurface.transform.localPosition = transform.localPosition = Vector3.zero;
+    }
+    #endregion
 }

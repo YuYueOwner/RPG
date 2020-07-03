@@ -327,10 +327,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2959881159550201765}
   - component: {fileID: 4585853025174022542}
-  - component: {fileID: 4098924670724878267}
   m_Layer: 8
   m_Name: BagGoods_Item
-  m_TagString: Cell
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -406,16 +405,3 @@ MonoBehaviour:
   mAtlas: {fileID: 7572350772975797766, guid: cc568ce9767212241859814b9d08a1e2, type: 3}
   mSpriteName: PackageCellSingle
   mFillCenter: 1
---- !u!65 &4098924670724878267
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5543620720650075273}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 72, y: 72, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
