@@ -263,7 +263,7 @@ public class DealPanel : UIScene
         //CreatBagGoods();
         PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
         bool isMerge = cfgData.ExistIsCanOverlayByID(selectDealItemID);
-        Debug.LogError(isMerge);
+        //Debug.LogError(isMerge);
         //判断是否是装备  true可以合并
         if (isMerge)
         {
@@ -304,13 +304,15 @@ public class DealPanel : UIScene
         {
             for (int j = 0; j < num; j++)
             {
+                //Debug.LogError(j + "   " + num);
                 for (int i = 0; i < BagGoodsGrid.transform.childCount; i++)
                 {
                     Transform trans = BagGoodsGrid.transform.GetChild(i);
-                    Debug.LogError(i);
                     UILabel lb = Helper.GetChild<UILabel>(trans, "BagGoodsNumLabel");
                     if (int.Parse(lb.text) <= 0)
                     {
+                        //Debug.LogError("****");
+
                         lb.text = "1";
                         trans.GetChild(0).GetComponent<UISprite>().spriteName = cfgData.GetListConfigElementByID(selectDealItemID).ItemIcon;
                         UISprite sp = trans.GetChild(1).GetComponent<UISprite>();
@@ -318,7 +320,7 @@ public class DealPanel : UIScene
                         sp.name = selectDealItemID.ToString();
                         trans.GetChild(0).gameObject.SetActive(false);
                         lb.gameObject.SetActive(false);
-                        return;
+                        break;
                     }
                 }
             }

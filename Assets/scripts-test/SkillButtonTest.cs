@@ -75,7 +75,7 @@ public class SkillButtonTest : MonoBehaviour
         //随机玩家人物数据
         string d = "无名张三";
         GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SetPlayerName(d);
-        int e = 50;
+        int e = 500;
         GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SetPlayerMoney(e);
         int f = 1;
         GameObject.Find("PlayerState").GetComponent<PlayerStateManager>().SetPlayerImage(f);
