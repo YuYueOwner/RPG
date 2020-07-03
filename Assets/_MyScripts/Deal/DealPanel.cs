@@ -262,37 +262,65 @@ public class DealPanel : UIScene
 
         //CreatBagGoods();
         PropConfig cfgData = DataTableManager.Instance.GetConfig<PropConfig>("Prop");
-        for (int i = 0; i < BagGoodsGrid.transform.childCount; i++)
+        bool isMerge = cfgData.ExistIsCanOverlayByID(selectDealItemID);
+        Debug.LogError(isMerge);
+        //判断是否是装备  true可以合并
+        if (isMerge)
         {
-            Transform trans = BagGoodsGrid.transform.GetChild(i);
-            UILabel lb = Helper.GetChild<UILabel>(trans, "BagGoodsNumLabel");
-            if (trans.GetChild(1).name == selectDealItemID.ToString())
+            for (int i = 0; i < BagGoodsGrid.transform.childCount; i++)
             {
-                int sum = int.Parse(lb.text) + num;
-                lb.text = sum.ToString();
-                lb.gameObject.SetActive(true);
-                trans.GetChild(0).gameObject.SetActive(true);
-                trans.GetChild(0).GetChild(0).gameObject.SetActive(sum > 1);
-                return;
+                Transform trans = BagGoodsGrid.transform.GetChild(i);
+                UILabel lb = Helper.GetChild<UILabel>(trans, "BagGoodsNumLabel");
+                if (trans.GetChild(1).name == selectDealItemID.ToString())
+                {
+                    int sum = int.Parse(lb.text) + num;
+                    lb.text = sum.ToString();
+                    lb.gameObject.SetActive(true);
+                    trans.GetChild(0).gameObject.SetActive(true);
+                    trans.GetChild(0).GetChild(0).gameObject.SetActive(sum > 1);
+                    return;
+                }
+            }
+
+            for (int i = 0; i < BagGoodsGrid.transform.childCount; i++)
+            {
+                Transform trans = BagGoodsGrid.transform.GetChild(i);
+
+                UILabel lb = Helper.GetChild<UILabel>(trans, "BagGoodsNumLabel");
+                if (int.Parse(lb.text) <= 0)
+                {
+                    lb.text = num.ToString();
+                    trans.GetChild(0).GetComponent<UISprite>().spriteName = cfgData.GetListConfigElementByID(selectDealItemID).ItemIcon;
+                    UISprite sp = trans.GetChild(1).GetComponent<UISprite>();
+                    sp.spriteName = cfgData.GetListConfigElementByID(selectDealItemID).ItemIcon;
+                    sp.name = selectDealItemID.ToString();
+                    trans.GetChild(0).gameObject.SetActive(num > 1);
+                    lb.gameObject.SetActive(num > 1);
+                    return;
+                }
             }
         }
-
-
-        for (int i = 0; i < BagGoodsGrid.transform.childCount; i++)
+        else
         {
-            Transform trans = BagGoodsGrid.transform.GetChild(i);
-
-            UILabel lb = Helper.GetChild<UILabel>(trans, "BagGoodsNumLabel");
-            if (int.Parse(lb.text) <= 0)
+            for (int j = 0; j < num; j++)
             {
-                lb.text = num.ToString();
-                trans.GetChild(0).GetComponent<UISprite>().spriteName = cfgData.GetListConfigElementByID(selectDealItemID).ItemIcon;
-                UISprite sp = trans.GetChild(1).GetComponent<UISprite>();
-                sp.spriteName = cfgData.GetListConfigElementByID(selectDealItemID).ItemIcon;
-                sp.name = selectDealItemID.ToString();
-                trans.GetChild(0).gameObject.SetActive(num > 1);
-                lb.gameObject.SetActive(num > 1);
-                return;
+                for (int i = 0; i < BagGoodsGrid.transform.childCount; i++)
+                {
+                    Transform trans = BagGoodsGrid.transform.GetChild(i);
+                    Debug.LogError(i);
+                    UILabel lb = Helper.GetChild<UILabel>(trans, "BagGoodsNumLabel");
+                    if (int.Parse(lb.text) <= 0)
+                    {
+                        lb.text = "1";
+                        trans.GetChild(0).GetComponent<UISprite>().spriteName = cfgData.GetListConfigElementByID(selectDealItemID).ItemIcon;
+                        UISprite sp = trans.GetChild(1).GetComponent<UISprite>();
+                        sp.spriteName = cfgData.GetListConfigElementByID(selectDealItemID).ItemIcon;
+                        sp.name = selectDealItemID.ToString();
+                        trans.GetChild(0).gameObject.SetActive(false);
+                        lb.gameObject.SetActive(false);
+                        return;
+                    }
+                }
             }
         }
     }
