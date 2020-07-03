@@ -32,7 +32,7 @@ public class BuyGoodsPanel : UIScene
 
     private void Minus()
     {
-        SellGoodsNumLabel.text = recordCurrentGoodsNum - 5 >= 0 ? (recordCurrentGoodsNum - 5).ToString() : "0";
+        SellGoodsNumLabel.text = int.Parse(SellGoodsNumLabel.text) - 5 >= 0 ? (int.Parse(SellGoodsNumLabel.text) - 5).ToString() : "0";
     }
 
     private void Add()
