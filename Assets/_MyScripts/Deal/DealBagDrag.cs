@@ -59,8 +59,9 @@ public class DealBagDrag : UIDragDropItem
             }
         }
     }
-
+    //物品是否可以合并
     private bool isMerge = false;
+    #region 开始拖拽
     public override void StartDragging()
     {
         base.StartDragging();
@@ -87,8 +88,9 @@ public class DealBagDrag : UIDragDropItem
             JudgeGoodsNumAddOrMinus(BagGoodsNumLabel, false);
         }
     }
+    #endregion
 
-    //判断当前物品数量 +1 还是 -1
+    #region 封装判断当前物品数量 +1 还是 -1
     private void JudgeGoodsNumAddOrMinus(UILabel bagGoodsNum, bool isAdd)
     {
         //获取到格子中的物品数量
@@ -99,30 +101,21 @@ public class DealBagDrag : UIDragDropItem
         BagGoodsNumLabel.gameObject.SetActive(isAdd == true ? (GoodsNum + 1) > 1 : (GoodsNum - 1) > 1);
         this.transform.parent.GetChild(0).gameObject.SetActive(GoodsNum > 0);
     }
+    #endregion
 
 
 
-
-    /// <summary>
-    /// 重写父类里的拖拽方法
-    /// </summary>
-    /// <param name="surface"></param>
-    ///  protected   访问仅限于包含类或从包含类派生的类型
+    //拖拽放下的一刻
     protected override void OnDragDropRelease(GameObject surface)
     {
         base.OnDragDropRelease(surface);
 
-        Debug.LogError("当前" + this.tag);
-        Debug.LogError("撞到" + surface.tag);
-
         this.GetComponent<UISprite>().depth = 4;
 
+        //代售物品区内，物品在代售物品区内进行移动，拖拽物体和碰撞物体都是代售区内的物品，拖拽无效，所以数量+1
         if ((transform.tag == "BagGoods" && surface.tag == "BagGoods"))
         {
-            UILabel lb_num = Helper.GetChild<UILabel>(transform.parent, "BagGoodsNumLabel");
-            int sum = int.Parse(lb_num.text) + 1;
-            lb_num.text = sum.ToString();
-            lb_num.gameObject.SetActive(sum > 1);
+            JudgeGoodsNumAddOrMinus(Helper.GetChild<UILabel>(transform.parent, "BagGoodsNumLabel"), true);
             transform.localPosition = Vector3.zero;
             return;
         }
