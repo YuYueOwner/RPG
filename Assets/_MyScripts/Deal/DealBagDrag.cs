@@ -120,6 +120,14 @@ public class DealBagDrag : UIDragDropItem
 
         this.GetComponent<UISprite>().depth = 4;
 
+        //自己碰撞自己返回
+        int judgeName = 0;
+        if (int.TryParse(transform.name, out judgeName) == false && int.TryParse(surface.name, out judgeName) == false)
+        {
+            transform.localPosition = Vector3.zero;
+            return;
+        }
+
         //代售物品区内，物品在代售物品区内进行移动，拖拽物体和碰撞物体都是代售区内的物品，拖拽无效，所以数量+1
         if ((transform.tag == "BagGoods" && surface.tag == "BagGoods"))
         {
@@ -128,17 +136,6 @@ public class DealBagDrag : UIDragDropItem
             return;
         }
 
-        //自己碰撞自己返回
-        if (transform.name == surface.name && transform.name == surface.transform.parent.GetChild(0).name)
-        {
-            UILabel lb = transform.parent.GetChild(0).GetChild(0).GetComponent<UILabel>();
-            int num = int.Parse(lb.text) + 1;
-            lb.text = num.ToString();
-            lb.gameObject.SetActive(num > 1);
-            transform.parent.GetChild(0).gameObject.SetActive(num > 0);
-            transform.localPosition = Vector3.zero;
-            return;
-        }
 
         if (this.tag == "Goods")//对背包中的物品进行操作
         {
