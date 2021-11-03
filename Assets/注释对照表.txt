@@ -26,6 +26,7 @@ StackingLimit|叠加上限
 ItemInfomation|物品说明
 UseLevel|物品装备等级需求
 EquipDex|物品装备身法需求
+
 EquipStrength|物品装备力道需求
 EquipLuk|物品装备根骨需求
 
